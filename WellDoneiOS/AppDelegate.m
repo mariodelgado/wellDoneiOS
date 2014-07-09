@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
+#import "PumpsListViewController.h"
 
 @implementation AppDelegate
 
@@ -17,6 +18,8 @@
                   clientKey:@"jp00u3EcjTA4ZRh5dBNGC8mTgbak2U0anLlPrswW"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpsListViewController alloc] init]];
+    self.window.rootViewController = nvc;
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
