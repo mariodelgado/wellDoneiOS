@@ -1,19 +1,27 @@
 Pods/
 
-# xcode noise
-build/*
-*.pbxuser
-*.mode2v3
+# OS X Finder
+.DS_Store
+
+# Xcode per-user config
+*.mode1
 *.mode1v3
+*.mode2v3
 *.perspective
 *.perspectivev3
+*.pbxuser
+*.xcworkspace
+xcuserdata
 
-# old skool
-.svn
+# Build products
+build/
+*.o
+*.LinkFileList
+*.hmap
 
-# osx noise
-.DS_Store
-profile
-
+# Automatic backup files
+*~.nib/
 *.swp
-*~.nib
+*~
+*.dat
+*.dep
