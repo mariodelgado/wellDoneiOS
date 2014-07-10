@@ -23,6 +23,7 @@
 		13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */; };
 		13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF9196F303400E8A5C7 /* ReportViewController.m */; };
 		13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13D28CFA196F303400E8A5C7 /* ReportViewController.xib */; };
+		13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28D01196F339A00E8A5C7 /* UILabel+BorderedLabel.m */; };
 		20D59F76762B4D009110A722 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 208851D49B43414A91E3329F /* libPods.a */; };
 		B95170EF196DB46900DAACA3 /* PumpsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170ED196DB46900DAACA3 /* PumpsListViewController.m */; };
 		B95170F0196DB46900DAACA3 /* PumpsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95170EE196DB46900DAACA3 /* PumpsListViewController.xib */; };
@@ -68,6 +69,8 @@
 		13D28CF8196F303400E8A5C7 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
 		13D28CF9196F303400E8A5C7 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
 		13D28CFA196F303400E8A5C7 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
+		13D28D00196F339A00E8A5C7 /* UILabel+BorderedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+BorderedLabel.h"; sourceTree = "<group>"; };
+		13D28D01196F339A00E8A5C7 /* UILabel+BorderedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BorderedLabel.m"; sourceTree = "<group>"; };
 		208851D49B43414A91E3329F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37A92B7BE69E4D2EB78076B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B95170EC196DB46900DAACA3 /* PumpsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpsListViewController.h; sourceTree = "<group>"; };
@@ -146,6 +149,7 @@
 		1337FAB9196DAEB300BC9B65 /* WellDoneiOS */ = {
 			isa = PBXGroup;
 			children = (
+				13D28CFF196F336C00E8A5C7 /* Category */,
 				13D28CF5196F303400E8A5C7 /* CreateReportViewController.h */,
 				13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */,
 				13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */,
@@ -217,6 +221,15 @@
 			children = (
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		13D28CFF196F336C00E8A5C7 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				13D28D00196F339A00E8A5C7 /* UILabel+BorderedLabel.h */,
+				13D28D01196F339A00E8A5C7 /* UILabel+BorderedLabel.m */,
+			);
+			name = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,6 +376,7 @@
 				13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */,
 				B95170FC196DB47800DAACA3 /* PumpTableViewCell.m in Sources */,
 				13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */,
+				13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */,
 				B9517101196DB47800DAACA3 /* Pump.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
