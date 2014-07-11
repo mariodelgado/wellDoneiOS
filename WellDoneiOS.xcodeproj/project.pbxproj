@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		132F5CBF196F60830063A428 /* SensorData.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F5CBE196F60830063A428 /* SensorData.m */; };
+		132F5CC4196F66C90063A428 /* ListReportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F5CC2196F66C90063A428 /* ListReportsViewController.m */; };
+		132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 132F5CC3196F66C90063A428 /* ListReportsViewController.xib */; };
 		1337FAB4196DAEB300BC9B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1337FAB3196DAEB300BC9B65 /* Foundation.framework */; };
 		1337FAB6196DAEB300BC9B65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1337FAB5196DAEB300BC9B65 /* CoreGraphics.framework */; };
 		1337FAB8196DAEB300BC9B65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1337FAB7196DAEB300BC9B65 /* UIKit.framework */; };
@@ -51,6 +53,9 @@
 /* Begin PBXFileReference section */
 		132F5CBD196F60830063A428 /* SensorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorData.h; sourceTree = "<group>"; };
 		132F5CBE196F60830063A428 /* SensorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorData.m; sourceTree = "<group>"; };
+		132F5CC1196F66C90063A428 /* ListReportsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListReportsViewController.h; sourceTree = "<group>"; };
+		132F5CC2196F66C90063A428 /* ListReportsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListReportsViewController.m; sourceTree = "<group>"; };
+		132F5CC3196F66C90063A428 /* ListReportsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ListReportsViewController.xib; sourceTree = "<group>"; };
 		1337FAB0196DAEB300BC9B65 /* WellDoneiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellDoneiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1337FAB3196DAEB300BC9B65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1337FAB5196DAEB300BC9B65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -121,6 +126,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		132F5CC0196F663E0063A428 /* ReportViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				13D28CF5196F303400E8A5C7 /* CreateReportViewController.h */,
+				13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */,
+				13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */,
+				13D28CF8196F303400E8A5C7 /* ReportViewController.h */,
+				13D28CF9196F303400E8A5C7 /* ReportViewController.m */,
+				13D28CFA196F303400E8A5C7 /* ReportViewController.xib */,
+				132F5CC1196F66C90063A428 /* ListReportsViewController.h */,
+				132F5CC2196F66C90063A428 /* ListReportsViewController.m */,
+				132F5CC3196F66C90063A428 /* ListReportsViewController.xib */,
+			);
+			name = ReportViewControllers;
+			sourceTree = "<group>";
+		};
 		1337FAA7196DAEB300BC9B65 = {
 			isa = PBXGroup;
 			children = (
@@ -157,13 +178,8 @@
 		1337FAB9196DAEB300BC9B65 /* WellDoneiOS */ = {
 			isa = PBXGroup;
 			children = (
+				132F5CC0196F663E0063A428 /* ReportViewControllers */,
 				13D28CFF196F336C00E8A5C7 /* Category */,
-				13D28CF5196F303400E8A5C7 /* CreateReportViewController.h */,
-				13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */,
-				13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */,
-				13D28CF8196F303400E8A5C7 /* ReportViewController.h */,
-				13D28CF9196F303400E8A5C7 /* ReportViewController.m */,
-				13D28CFA196F303400E8A5C7 /* ReportViewController.xib */,
 				1337FAE3196DAED400BC9B65 /* View */,
 				1337FAE2196DAEC200BC9B65 /* Model */,
 				1337FAC2196DAEB300BC9B65 /* AppDelegate.h */,
@@ -326,6 +342,7 @@
 				1337FABE196DAEB300BC9B65 /* InfoPlist.strings in Resources */,
 				1337FAC6196DAEB300BC9B65 /* Images.xcassets in Resources */,
 				13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */,
+				132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */,
 				13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */,
 				B95170FD196DB47800DAACA3 /* pump.jpeg in Resources */,
 				B95170FE196DB47800DAACA3 /* PumpTableViewCell.xib in Resources */,
@@ -383,6 +400,7 @@
 				1337FAC4196DAEB300BC9B65 /* AppDelegate.m in Sources */,
 				B95170FF196DB47800DAACA3 /* PumpsMapViewController.m in Sources */,
 				B95170EF196DB46900DAACA3 /* PumpsListViewController.m in Sources */,
+				132F5CC4196F66C90063A428 /* ListReportsViewController.m in Sources */,
 				1337FAC0196DAEB300BC9B65 /* main.m in Sources */,
 				B9517102196DB47800DAACA3 /* PumpLocation.m in Sources */,
 				13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */,

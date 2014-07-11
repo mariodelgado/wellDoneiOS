@@ -12,6 +12,7 @@
 #import "ReportViewController.h"
 #import "Report.h"
 #import "Pump.h"
+#import "ListReportsViewController.h"
 
 @implementation AppDelegate
 
@@ -25,7 +26,10 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpsListViewController alloc] init]];
     
-     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ReportViewController alloc] init]];
+//     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ReportViewController alloc] init]];
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ListReportsViewController alloc] init]];
+    
     self.window.rootViewController = nvc;
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
