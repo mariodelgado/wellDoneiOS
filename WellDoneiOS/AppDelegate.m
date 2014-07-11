@@ -10,11 +10,15 @@
 #import <Parse/Parse.h>
 #import "PumpsListViewController.h"
 #import "ReportViewController.h"
+#import "Report.h"
+#import "Pump.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Pump registerSubclass];
+    [Report registerSubclass];
     [Parse setApplicationId:@"XR5W6MLXuh81taNlbhRQ82mLlzOxmfLnv0isdvvi"
                   clientKey:@"jp00u3EcjTA4ZRh5dBNGC8mTgbak2U0anLlPrswW"];
     

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		132F5CBF196F60830063A428 /* SensorData.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F5CBE196F60830063A428 /* SensorData.m */; };
 		1337FAB4196DAEB300BC9B65 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1337FAB3196DAEB300BC9B65 /* Foundation.framework */; };
 		1337FAB6196DAEB300BC9B65 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1337FAB5196DAEB300BC9B65 /* CoreGraphics.framework */; };
 		1337FAB8196DAEB300BC9B65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1337FAB7196DAEB300BC9B65 /* UIKit.framework */; };
@@ -24,6 +25,7 @@
 		13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF9196F303400E8A5C7 /* ReportViewController.m */; };
 		13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13D28CFA196F303400E8A5C7 /* ReportViewController.xib */; };
 		13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28D01196F339A00E8A5C7 /* UILabel+BorderedLabel.m */; };
+		13D28D05196F480A00E8A5C7 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28D04196F480A00E8A5C7 /* Report.m */; };
 		20D59F76762B4D009110A722 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 208851D49B43414A91E3329F /* libPods.a */; };
 		B95170EF196DB46900DAACA3 /* PumpsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170ED196DB46900DAACA3 /* PumpsListViewController.m */; };
 		B95170F0196DB46900DAACA3 /* PumpsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95170EE196DB46900DAACA3 /* PumpsListViewController.xib */; };
@@ -47,6 +49,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		132F5CBD196F60830063A428 /* SensorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorData.h; sourceTree = "<group>"; };
+		132F5CBE196F60830063A428 /* SensorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorData.m; sourceTree = "<group>"; };
 		1337FAB0196DAEB300BC9B65 /* WellDoneiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WellDoneiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1337FAB3196DAEB300BC9B65 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1337FAB5196DAEB300BC9B65 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -71,6 +75,9 @@
 		13D28CFA196F303400E8A5C7 /* ReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportViewController.xib; sourceTree = "<group>"; };
 		13D28D00196F339A00E8A5C7 /* UILabel+BorderedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+BorderedLabel.h"; sourceTree = "<group>"; };
 		13D28D01196F339A00E8A5C7 /* UILabel+BorderedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+BorderedLabel.m"; sourceTree = "<group>"; };
+		13D28D03196F480A00E8A5C7 /* Report.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Report.h; sourceTree = "<group>"; };
+		13D28D04196F480A00E8A5C7 /* Report.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Report.m; sourceTree = "<group>"; };
+		13D28D06196F495D00E8A5C7 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Pods/Parse/Parse.framework; sourceTree = "<group>"; };
 		208851D49B43414A91E3329F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37A92B7BE69E4D2EB78076B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		B95170EC196DB46900DAACA3 /* PumpsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpsListViewController.h; sourceTree = "<group>"; };
@@ -137,6 +144,7 @@
 		1337FAB2196DAEB300BC9B65 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				13D28D06196F495D00E8A5C7 /* Parse.framework */,
 				1337FAB3196DAEB300BC9B65 /* Foundation.framework */,
 				1337FAB5196DAEB300BC9B65 /* CoreGraphics.framework */,
 				1337FAB7196DAEB300BC9B65 /* UIKit.framework */,
@@ -212,6 +220,10 @@
 				B95170F9196DB47800DAACA3 /* Pump.m */,
 				B95170FA196DB47800DAACA3 /* PumpLocation.h */,
 				B95170FB196DB47800DAACA3 /* PumpLocation.m */,
+				13D28D03196F480A00E8A5C7 /* Report.h */,
+				13D28D04196F480A00E8A5C7 /* Report.m */,
+				132F5CBD196F60830063A428 /* SensorData.h */,
+				132F5CBE196F60830063A428 /* SensorData.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -376,8 +388,10 @@
 				13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */,
 				B95170FC196DB47800DAACA3 /* PumpTableViewCell.m in Sources */,
 				13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */,
+				13D28D05196F480A00E8A5C7 /* Report.m in Sources */,
 				13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */,
 				B9517101196DB47800DAACA3 /* Pump.m in Sources */,
+				132F5CBF196F60830063A428 /* SensorData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,6 +509,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Parse",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WellDoneiOS/WellDoneiOS-Prefix.pch";
 				INFOPLIST_FILE = "WellDoneiOS/WellDoneiOS-Info.plist";
@@ -509,6 +527,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/Parse",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WellDoneiOS/WellDoneiOS-Prefix.pch";
 				INFOPLIST_FILE = "WellDoneiOS/WellDoneiOS-Info.plist";

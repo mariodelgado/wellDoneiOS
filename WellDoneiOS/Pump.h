@@ -7,7 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
+#import <parse/Parse.h>
 
-@interface Pump : NSObject
+typedef const NSString PumpStatusType;
+
+PumpStatusType *PumpStatusGood;
+PumpStatusType *PumpStatusBrokenTemp;
+
+@interface Pump : PFObject<PFSubclassing, MKAnnotation>
+
+@property (retain) NSString *name;
+@property (retain) PFGeoPoint *location;
+@property (retain) NSString *status;
+@property (retain) NSString *notes;
+@property (retain) NSString *address;
+@property (retain) NSNumber *barcode; 
+
+
++ (NSString *)parseClassName;
++ (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status;
 
 @end

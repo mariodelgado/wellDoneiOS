@@ -8,6 +8,7 @@
 
 #import "CreateReportViewController.h"
 #import <Parse/Parse.h>
+#import "Report.h"
 
 @interface CreateReportViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *txtReportNotes;
@@ -45,11 +46,18 @@
 
 - (void) onSave {
     
-    PFObject *newReport = [PFObject objectWithClassName:@"Report"];
-    newReport[@"reportName"] = self.reportName.text;
-    newReport[@"reportNote"] = self.txtReportNotes.text;
+//    PFObject *newReport = [PFObject objectWithClassName:@"Report"];
+//    newReport[@"reportName"] = self.reportName.text;
+//    newReport[@"reportNote"] = self.txtReportNotes.text;
+    
+//    [newReport saveInBackground];
+    
+    Report *newReport = [Report object];
+    newReport.reportName = self.reportName.text;
+    newReport.reportNote = self.txtReportNotes.text;
     
     [newReport saveInBackground];
+
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
