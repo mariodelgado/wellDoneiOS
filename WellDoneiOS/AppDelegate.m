@@ -28,7 +28,7 @@
     
 //     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ReportViewController alloc] init]];
     
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ListReportsViewController alloc] init]];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ListReportsViewController alloc] init]]; 
     
     self.window.rootViewController = nvc;
     // Override point for customization after application launch.
