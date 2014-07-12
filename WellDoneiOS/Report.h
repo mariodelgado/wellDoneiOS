@@ -16,5 +16,6 @@
 @property (retain) Pump *pump; 
 
 + (NSString *)parseClassName;
++ (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump;
 
 @end

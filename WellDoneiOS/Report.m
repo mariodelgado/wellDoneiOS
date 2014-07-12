@@ -22,6 +22,15 @@ NSString *const REPORT = @"Report";
     return REPORT; 
 }
 
++ (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump {
+    Report *report = [[Report alloc]init];
+    report.reportName = reportName;
+    report.reportNote = note;
+    report.pump = pump;
+    return report; 
+    
+}
+
 
 
 @end

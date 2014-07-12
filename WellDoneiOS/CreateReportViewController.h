@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CreateReportViewController : UIViewController
+@interface CreateReportViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 
 @end

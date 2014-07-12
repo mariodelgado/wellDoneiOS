@@ -13,6 +13,9 @@
 @interface CreateReportViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *txtReportNotes;
 @property (weak, nonatomic) IBOutlet UITextField *reportName;
+@property (strong, nonatomic)Pump *pump;
+- (IBAction)onCamera:(id)sender;
+
 
 @end
 
@@ -33,6 +36,7 @@
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(onSave)];
     self.navigationItem.rightBarButtonItem= save;
     
+    
   
     
     
@@ -52,14 +56,49 @@
     
 //    [newReport saveInBackground];
     
-    Report *newReport = [Report object];
-    newReport.reportName = self.reportName.text;
-    newReport.reportNote = self.txtReportNotes.text;
+//    Report *newReport = [Report object];
+//    newReport.reportName = self.reportName.text;
+//    newReport.reportNote = self.txtReportNotes.text;
     
-    [newReport saveInBackground];
+
+//    NSArray *pumps = [Pump getListOfPumps];
+//    Pump *pump = [pumps firstObject];
+//    Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:pump];
+//    
+//    [newReport saveInBackground];
+    
+    [Pump getListOfPumpsWithBlock:^(NSArray *objects, NSError *error) {
+        self.pump = (Pump *)objects[0];
+        Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump];
+        
+        [newReport saveInBackground];
+    }];
+    
+//    PFQuery *firstPumpQuery = [Pump query];
+//    [firstPumpQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        self.pump = (Pump *)objects[0];
+//        Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump];
+//        
+//        [newReport saveInBackground];
+//    }];
+//    
+    
+   
 
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+- (IBAction)onCamera:(id)sender {
+    
+    if([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera] ){
+        UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        imagePicker.delegate = self;
+        [self presentViewController:imagePicker animated:YES completion:nil];
+        
+    } else {
+        NSLog(@"Photos not availabe");
+    }
+}
 @end

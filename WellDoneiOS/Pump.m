@@ -53,4 +53,14 @@ NSString *const PUMP = @"Pump";
     return self.name;
 }
 
+#pragma mark - PF Query Method
++ (void )getListOfPumpsWithBlock:(PFArrayResultBlock)block {
+    PFQuery *pumpQuery = [Pump query];
+    [pumpQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        block(objects, error);
+    
+    }];
+   
+}
+
 @end

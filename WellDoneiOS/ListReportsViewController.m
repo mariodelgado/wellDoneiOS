@@ -13,6 +13,7 @@
 @interface ListReportsViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic)NSArray *reports;
+@property(nonatomic,strong)UIRefreshControl *refreshControl;
 
 @end
 
@@ -32,6 +33,16 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    
+    [self configRefreshControl];
+//    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
+//        Pump *pump = [Pump pumpWithName:@"First Pump" location:geoPoint status:PumpStatusGood];
+//        [pump saveInBackground];
+//    }];
+//    
+    
+   
+    
     
     
 }
@@ -76,11 +87,26 @@
         if (!error) {
             self.reports = objects;
             [self.tableView reloadData];
+            [self endRefresh];
         } else {
             
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
 }
+
+#pragma mark - Refresh Control
+- (void)configRefreshControl
+{
+    self.refreshControl = [[UIRefreshControl alloc]init];
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(loadReports) forControlEvents:UIControlEventValueChanged];
+}
+
+-(void) endRefresh {
+    [self.refreshControl endRefreshing];
+    
+}
+
 
 @end

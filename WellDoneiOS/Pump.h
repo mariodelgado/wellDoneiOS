@@ -10,6 +10,8 @@
 #import <MapKit/MapKit.h>
 #import <parse/Parse.h>
 
+
+
 typedef const NSString PumpStatusType;
 
 PumpStatusType *PumpStatusGood;
@@ -27,5 +29,6 @@ PumpStatusType *PumpStatusBrokenTemp;
 
 + (NSString *)parseClassName;
 + (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status;
++ (void )getListOfPumpsWithBlock:(PFArrayResultBlock)block;
 
 @end
