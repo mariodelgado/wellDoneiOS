@@ -32,7 +32,11 @@ NSString *const REPORT = @"Report";
 }
 
 + (void )getReportsForPump:(Pump*)pump withBlock:(PFArrayResultBlock)block {
-    PFQuery *reportsPerPump = [Report query]; 
+    PFQuery *reportsPerPump = [Report query];
+    [reportsPerPump whereKey:@"pump" equalTo:pump];
+    [reportsPerPump findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        block(objects,error);
+    }];
 }
 
 
