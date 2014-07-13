@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Pump.h"
 
 @interface PumpTableViewCell : UITableViewCell
-
+@property (nonatomic, strong) Pump *pump;
 @end

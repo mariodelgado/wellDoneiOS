@@ -38,6 +38,11 @@
 		B9517100196DB47800DAACA3 /* PumpsMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95170F7196DB47800DAACA3 /* PumpsMapViewController.xib */; };
 		B9517101196DB47800DAACA3 /* Pump.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170F9196DB47800DAACA3 /* Pump.m */; };
 		B9517102196DB47800DAACA3 /* PumpLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170FB196DB47800DAACA3 /* PumpLocation.m */; };
+		B9C81FAA19720F60002C19E5 /* PumpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C81FA819720F60002C19E5 /* PumpDetailViewController.m */; };
+		B9C81FAB19720F60002C19E5 /* PumpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C81FA919720F60002C19E5 /* PumpDetailViewController.xib */; };
+		B9C81FAF19720F85002C19E5 /* PumpMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */; };
+		B9C81FB019720F85002C19E5 /* PumpMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C81FAE19720F85002C19E5 /* PumpMapViewController.xib */; };
+		B9C81FB21972523A002C19E5 /* 07-map-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C81FB11972523A002C19E5 /* 07-map-marker.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +104,13 @@
 		B95170F9196DB47800DAACA3 /* Pump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pump.m; sourceTree = "<group>"; };
 		B95170FA196DB47800DAACA3 /* PumpLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpLocation.h; sourceTree = "<group>"; };
 		B95170FB196DB47800DAACA3 /* PumpLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PumpLocation.m; sourceTree = "<group>"; };
+		B9C81FA719720F60002C19E5 /* PumpDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpDetailViewController.h; sourceTree = "<group>"; };
+		B9C81FA819720F60002C19E5 /* PumpDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PumpDetailViewController.m; sourceTree = "<group>"; };
+		B9C81FA919720F60002C19E5 /* PumpDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PumpDetailViewController.xib; sourceTree = "<group>"; };
+		B9C81FAC19720F85002C19E5 /* PumpMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpMapViewController.h; sourceTree = "<group>"; };
+		B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PumpMapViewController.m; sourceTree = "<group>"; };
+		B9C81FAE19720F85002C19E5 /* PumpMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PumpMapViewController.xib; sourceTree = "<group>"; };
+		B9C81FB11972523A002C19E5 /* 07-map-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "07-map-marker.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,24 +190,22 @@
 		1337FAB9196DAEB300BC9B65 /* WellDoneiOS */ = {
 			isa = PBXGroup;
 			children = (
+				B9517109196FA13200DAACA3 /* Pumps View Controllers */,
 				132F5CC0196F663E0063A428 /* ReportViewControllers */,
 				13D28CFF196F336C00E8A5C7 /* Category */,
 				1337FAE3196DAED400BC9B65 /* View */,
 				1337FAE2196DAEC200BC9B65 /* Model */,
 				1337FAC2196DAEB300BC9B65 /* AppDelegate.h */,
 				1337FAC3196DAEB300BC9B65 /* AppDelegate.m */,
-				B95170EC196DB46900DAACA3 /* PumpsListViewController.h */,
-				B95170ED196DB46900DAACA3 /* PumpsListViewController.m */,
-				B95170EE196DB46900DAACA3 /* PumpsListViewController.xib */,
-				B95170F1196DB47800DAACA3 /* PumpTableViewCell.h */,
-				B95170F2196DB47800DAACA3 /* PumpTableViewCell.m */,
-				B95170F3196DB47800DAACA3 /* pump.jpeg */,
-				B95170F4196DB47800DAACA3 /* PumpTableViewCell.xib */,
-				B95170F5196DB47800DAACA3 /* PumpsMapViewController.h */,
-				B95170F6196DB47800DAACA3 /* PumpsMapViewController.m */,
-				B95170F7196DB47800DAACA3 /* PumpsMapViewController.xib */,
 				1337FAC5196DAEB300BC9B65 /* Images.xcassets */,
 				1337FABA196DAEB300BC9B65 /* Supporting Files */,
+				B9C81FA719720F60002C19E5 /* PumpDetailViewController.h */,
+				B9C81FA819720F60002C19E5 /* PumpDetailViewController.m */,
+				B9C81FA919720F60002C19E5 /* PumpDetailViewController.xib */,
+				B9C81FAC19720F85002C19E5 /* PumpMapViewController.h */,
+				B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */,
+				B9C81FAE19720F85002C19E5 /* PumpMapViewController.xib */,
+				B9C81FB11972523A002C19E5 /* 07-map-marker.png */,
 			);
 			path = WellDoneiOS;
 			sourceTree = "<group>";
@@ -258,6 +268,23 @@
 				13D28D01196F339A00E8A5C7 /* UILabel+BorderedLabel.m */,
 			);
 			name = Category;
+			sourceTree = "<group>";
+		};
+		B9517109196FA13200DAACA3 /* Pumps View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B95170EC196DB46900DAACA3 /* PumpsListViewController.h */,
+				B95170ED196DB46900DAACA3 /* PumpsListViewController.m */,
+				B95170EE196DB46900DAACA3 /* PumpsListViewController.xib */,
+				B95170F1196DB47800DAACA3 /* PumpTableViewCell.h */,
+				B95170F2196DB47800DAACA3 /* PumpTableViewCell.m */,
+				B95170F3196DB47800DAACA3 /* pump.jpeg */,
+				B95170F4196DB47800DAACA3 /* PumpTableViewCell.xib */,
+				B95170F5196DB47800DAACA3 /* PumpsMapViewController.h */,
+				B95170F6196DB47800DAACA3 /* PumpsMapViewController.m */,
+				B95170F7196DB47800DAACA3 /* PumpsMapViewController.xib */,
+			);
+			name = "Pumps View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -337,9 +364,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C81FB019720F85002C19E5 /* PumpMapViewController.xib in Resources */,
 				B95170F0196DB46900DAACA3 /* PumpsListViewController.xib in Resources */,
 				B9517100196DB47800DAACA3 /* PumpsMapViewController.xib in Resources */,
 				1337FABE196DAEB300BC9B65 /* InfoPlist.strings in Resources */,
+				B9C81FAB19720F60002C19E5 /* PumpDetailViewController.xib in Resources */,
+				B9C81FB21972523A002C19E5 /* 07-map-marker.png in Resources */,
 				1337FAC6196DAEB300BC9B65 /* Images.xcassets in Resources */,
 				13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */,
 				132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */,
@@ -397,11 +427,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B9C81FAF19720F85002C19E5 /* PumpMapViewController.m in Sources */,
 				1337FAC4196DAEB300BC9B65 /* AppDelegate.m in Sources */,
 				B95170FF196DB47800DAACA3 /* PumpsMapViewController.m in Sources */,
 				B95170EF196DB46900DAACA3 /* PumpsListViewController.m in Sources */,
 				132F5CC4196F66C90063A428 /* ListReportsViewController.m in Sources */,
 				1337FAC0196DAEB300BC9B65 /* main.m in Sources */,
+				B9C81FAA19720F60002C19E5 /* PumpDetailViewController.m in Sources */,
 				B9517102196DB47800DAACA3 /* PumpLocation.m in Sources */,
 				13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */,
 				B95170FC196DB47800DAACA3 /* PumpTableViewCell.m in Sources */,
