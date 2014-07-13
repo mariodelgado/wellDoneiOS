@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Pump.h"
 
 @interface PumpDetailViewController : UIViewController
-
+@property (nonatomic, strong) Pump *pump;
 @end

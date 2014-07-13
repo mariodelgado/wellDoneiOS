@@ -33,6 +33,7 @@
         PumpDetailViewController *firstPumpViewController = [[PumpDetailViewController alloc] init];
         //        firstPumpViewController.pump = //;
         firstPumpViewController.view.backgroundColor = [UIColor redColor];
+        firstPumpViewController.pump = self.pumps[0];
         
         PumpDetailViewController *secondPumpViewController = [[PumpDetailViewController alloc] init];
         secondPumpViewController.view.backgroundColor = [UIColor blueColor];
@@ -170,7 +171,10 @@
     for (Pump *p in self.pumps) {
         [self plotPump:p];
     }
+    PumpDetailViewController *fvc = self.pumpViewControllers[0];
+    fvc.pump = self.pump;
 }
+
 //TODO: remove this call from here
 - (void) loadPumps {
     PFQuery *queryForReports = [Pump query];

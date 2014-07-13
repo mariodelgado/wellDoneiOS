@@ -9,6 +9,7 @@
 #import "PumpDetailViewController.h"
 
 @interface PumpDetailViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *lblName;
 
 @end
 
@@ -27,6 +28,9 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+}
+- (void)setPump:(Pump *)pump{
+    self.lblName.text = pump.name;
 }
 
 - (void)didReceiveMemoryWarning
