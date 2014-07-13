@@ -171,6 +171,7 @@
         [self plotPump:p];
     }
 }
+//TODO: remove this call from here
 - (void) loadPumps {
     PFQuery *queryForReports = [Pump query];
     [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
