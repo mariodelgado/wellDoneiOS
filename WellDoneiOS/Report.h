@@ -17,5 +17,6 @@
 
 + (NSString *)parseClassName;
 + (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump;
++ (void )getReportsForPump:(Pump*)pump withBlock:(PFArrayResultBlock)block;
 
 @end

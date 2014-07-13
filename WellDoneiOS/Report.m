@@ -31,6 +31,10 @@ NSString *const REPORT = @"Report";
     
 }
 
++ (void )getReportsForPump:(Pump*)pump withBlock:(PFArrayResultBlock)block {
+    PFQuery *reportsPerPump = [Report query]; 
+}
+
 
 
 @end
