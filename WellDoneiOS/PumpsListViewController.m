@@ -9,9 +9,11 @@
 #import "PumpsListViewController.h"
 #import "PumpTableViewCell.h"
 #import "PumpsMapViewController.h"
+#import "PumpMapViewController.h"
 
 @interface PumpsListViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic)NSArray *pumps;
 @end
 
 @implementation PumpsListViewController{
@@ -34,7 +36,7 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
+    [self loadPumps];
     UINib *cellNib = [UINib nibWithNibName:@"PumpTableViewCell" bundle:nil];
     [self.tableView registerNib:cellNib forCellReuseIdentifier:@"PumpTableViewCell"];
     _stubCell = [cellNib instantiateWithOwner:nil options:nil][0];
@@ -44,6 +46,18 @@
     self.navigationItem.rightBarButtonItem = mapsButton;
 
 
+}
+- (void) loadPumps {
+    PFQuery *queryForReports = [Pump query];
+    [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        if (!error) {
+            self.pumps = objects;
+            [self.tableView reloadData];
+        } else {
+            
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    }];
 }
 - (void) onMapsButtonClick {
     PumpsMapViewController *vc = [[PumpsMapViewController alloc] init];
@@ -59,12 +73,24 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    return [self.pumps count];
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PumpTableViewCell *pumpCell = [tableView dequeueReusableCellWithIdentifier:@"PumpTableViewCell" forIndexPath:indexPath];
+    Pump *pump = self.pumps[indexPath.row];
+    pumpCell.pump = pump;
+//    pumpCell.textLabel.text = pump.name;
     return pumpCell;
 }
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    PumpMapViewController *vc = [[PumpMapViewController alloc] init];
+    vc.pump = self.pumps[indexPath.row];
+    vc.pumps = self.pumps;
+    [self.navigationController pushViewController:vc animated:YES];
+
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CGSize size = [_stubCell.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     return size.height+1;

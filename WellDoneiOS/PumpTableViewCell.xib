@@ -64,6 +64,13 @@
                     <constraint firstItem="qH4-Yr-puN" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="sDf-MB-cRC"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="imgPump" destination="s7R-7i-leE" id="KX3-AZ-onB"/>
+                <outlet property="lblCurrStatus" destination="qH4-Yr-puN" id="Rz5-pd-cxX"/>
+                <outlet property="lblLastUpdate" destination="GLo-FD-jt3" id="Wb8-cd-1iv"/>
+                <outlet property="lblLocation" destination="pKH-MI-8ep" id="YJA-VB-2f4"/>
+                <outlet property="lblName" destination="NnI-1F-CvJ" id="6B6-UL-z3e"/>
+            </connections>
         </tableViewCell>
     </objects>
     <resources>
