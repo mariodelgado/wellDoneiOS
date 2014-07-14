@@ -25,11 +25,11 @@
                   clientKey:@"jp00u3EcjTA4ZRh5dBNGC8mTgbak2U0anLlPrswW"];
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpMapViewController alloc] init]];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpMapViewController alloc] init]];
     
 //     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ReportViewController alloc] init]];
     
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ListReportsViewController alloc] init]]; 
+//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ListReportsViewController alloc] init]]; 
     
     self.window.rootViewController = nvc;
     // Override point for customization after application launch.

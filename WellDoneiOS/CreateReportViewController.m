@@ -53,6 +53,9 @@
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(onSave)];
     self.navigationItem.rightBarButtonItem= save;
     
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancel)];
+    self.navigationItem.leftBarButtonItem= cancel;
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,6 +66,19 @@
 
 - (void) onSave {
     
+    //Compress the images from the collection view. except the first one.
+    NSRange theRange;
+    
+    theRange.location = 1;
+    theRange.length = self.dataArray.count-1;
+    NSArray *imagesToCompress = [self.dataArray subarrayWithRange:theRange];
+    for (UIImage *image in imagesToCompress) {
+        NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
+//        [self uploadImage:imageData];
+    }
+    
+
+    
     
     [Pump getListOfPumpsWithBlock:^(NSArray *objects, NSError *error) {
         self.pump = (Pump *)objects[0];
@@ -71,6 +87,11 @@
         [newReport saveInBackground];
     }];
     
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
+-(void) onCancel {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
