@@ -9,7 +9,7 @@
 #import "CreateReportViewController.h"
 #import <Parse/Parse.h>
 #import "Report.h"
-#import "imageCollectionViewCell.h"
+#import "ImageCollectionViewCell.h"
 
 @interface CreateReportViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *txtReportNotes;
