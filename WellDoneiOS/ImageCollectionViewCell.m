@@ -7,7 +7,7 @@
 //
 
 
-#import "imageCollectionViewCell.h"
+#import "ImageCollectionViewCell.h"
 
 @interface ImageCollectionViewCell()
 
