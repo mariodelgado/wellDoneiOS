@@ -39,7 +39,8 @@
     UIImage *img = [UIImage imageNamed:@"NewYork.jpg"];
     self.pumpImage.image = img;
     self.pumpImage.clipsToBounds = YES;
-    
+    self.navigationController.navigationBarHidden = NO;
+
     [self loadDataFromModel];
     
     

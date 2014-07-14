@@ -61,13 +61,14 @@
     self.pageViewController.dataSource = self;
     
     self.pageViewController.view.frame = self.viewContainer.bounds;
-    [self.viewContainer addSubview:self.pageViewController.view];
-    
-   
+    [self.viewContainer addSubview:self.pageViewController.view];    
     
     [self.pageViewController didMoveToParentViewController:self];
 }
+- (void)viewWillAppear:(BOOL)animated{
+    self.navigationController.navigationBarHidden = YES;
 
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -105,6 +106,7 @@
     CGPoint translation = [panGestureRecognizer translationInView:self.view];
     NSLog(@"self view y %f",self.view.frame.origin.y);
     CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+//    CGFloat initialY = self.viewContainer.frame.origin.y;
     
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint touch = [panGestureRecognizer locationInView:self.viewContainer];
@@ -128,20 +130,13 @@
             [self enablePageViewController];
         }
         
-        
-        
-        if (velocity.y > 0) {
-            self.viewContainer.alpha = 0.5;
-            
-        }
-        
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         // Enable Page View Controller
         [UIView animateWithDuration:1 animations:^{
             if (velocity.y < 0) {
                 self.viewContainer.center = self.view.center;
-            } else if (velocity.y > 0) { //going down
-                self.viewContainer.frame = CGRectMake(0, 500, self.view.frame.size.width, self.view.frame.size.height);
+            } else { //going down
+                self.viewContainer.frame = CGRectMake(0, self.bottomContainerCenter.y, self.view.frame.size.width, self.view.frame.size.height);
                 self.viewContainer.alpha = 1;
             }
         }];
@@ -174,7 +169,6 @@
     
     for (Pump *p in self.pumps) {
         [self plotPump:p];
-        
         PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
         // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
         [self.pumpViewControllers addObject:currPumpController];

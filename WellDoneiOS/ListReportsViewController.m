@@ -33,7 +33,6 @@
     [super viewDidLoad];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    
     [self configRefreshControl];
 //    [PFGeoPoint geoPointForCurrentLocationInBackground:^(PFGeoPoint *geoPoint, NSError *error) {
 //        Pump *pump = [Pump pumpWithName:@"First Pump" location:geoPoint status:PumpStatusGood];
