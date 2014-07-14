@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Pump.h"
+#import "JBLineChartView.h"
 
-@interface PumpDetailViewController : UIViewController
+@interface PumpDetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, JBLineChartViewDataSource, JBLineChartViewDelegate>
 @property (nonatomic, strong) Pump *pump;
 @end

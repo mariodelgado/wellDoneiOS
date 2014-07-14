@@ -24,7 +24,8 @@ PumpStatusType *PumpStatusBrokenTemp;
 @property (retain) NSString *status;
 @property (retain) NSString *notes;
 @property (retain) NSString *address;
-@property (retain) NSNumber *barcode; 
+@property (retain) NSNumber *barcode;
+//@property (retain) NSString *strLastUpdated;
 
 
 + (NSString *)parseClassName;

@@ -14,7 +14,7 @@
 @interface PumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
-@property (strong, nonatomic) NSArray *pumpViewControllers;
+@property (strong, nonatomic) NSMutableArray *pumpViewControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *bottomPanGestureRecognizer;
 @property (nonatomic, assign) CGPoint bottomContainerCenter;
@@ -30,26 +30,27 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-        PumpDetailViewController *firstPumpViewController = [[PumpDetailViewController alloc] init];
+//        PumpDetailViewController *firstPumpViewController = [[PumpDetailViewController alloc] init];
         //        firstPumpViewController.pump = //;
-        firstPumpViewController.view.backgroundColor = [UIColor redColor];
-        firstPumpViewController.pump = self.pumps[0];
+//        firstPumpViewController.view.backgroundColor = [UIColor redColor];
+//        firstPumpViewController.pump = self.pumps[0];
         
-        PumpDetailViewController *secondPumpViewController = [[PumpDetailViewController alloc] init];
-        secondPumpViewController.view.backgroundColor = [UIColor blueColor];
+//        PumpDetailViewController *secondPumpViewController = [[PumpDetailViewController alloc] init];
+//        secondPumpViewController.view.backgroundColor = [UIColor blueColor];
         
         // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
-        self.pumpViewControllers = @[firstPumpViewController, secondPumpViewController];
+//        self.pumpViewControllers = @[firstPumpViewController, secondPumpViewController];
+
     }
     return self;
 }
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self loadPumps];
     //    [self prepareMapLoad];
     self.mapView.delegate = self;
-    
+    [self loadPumps];
+
     self.bottomPanGestureRecognizer.delegate = self;
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -57,13 +58,12 @@
     
 
     self.pageViewController.delegate = self;
-    //TODO: fix this warning
     self.pageViewController.dataSource = self;
     
     self.pageViewController.view.frame = self.viewContainer.bounds;
     [self.viewContainer addSubview:self.pageViewController.view];
     
-    [self.pageViewController setViewControllers:@[self.pumpViewControllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+   
     
     [self.pageViewController didMoveToParentViewController:self];
 }
@@ -168,11 +168,27 @@
     //TODO: remove this line
     self.pump = self.pumps[0];
     [self prepareMapLoad];
+    self.pumpViewControllers = [NSMutableArray array];
+    
+    
+    
     for (Pump *p in self.pumps) {
         [self plotPump:p];
+        
+        PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
+        // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
+        [self.pumpViewControllers addObject:currPumpController];
+        
     }
-    PumpDetailViewController *fvc = self.pumpViewControllers[0];
-    fvc.pump = self.pump;
+    [self.pageViewController setViewControllers:@[self.pumpViewControllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    int index = 0;
+    for (Pump *p in self.pumps) {
+        PumpDetailViewController *currPumpController = self.pumpViewControllers[index];
+        currPumpController.pump = p;
+        index++;
+   
+    }
+    
 }
 
 //TODO: remove this call from here
@@ -202,7 +218,6 @@
 }
 
 - (void)plotPump:(Pump *)pump {
-    //NSLog(@"%f %f", pump.coordinate.latitude, pump.coordinate.longitude);
     [self.mapView addAnnotation:pump];
 }
 
