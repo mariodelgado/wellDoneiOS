@@ -60,6 +60,16 @@
     [lblStatusNew constructBorderedLabelWithText:@"Fixed" color:[UIColor redColor] angle:30];
     [self.view addSubview:lblStatusNew];
     
+    //show images
+     [self.report.reportImage getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
+        UIImage *image = [UIImage imageWithData:data];
+        self.pumpImage.image = image;
+        self.pumpImage.clipsToBounds = YES;
+    }];
+    
+    
+    
+    
     
     
 }

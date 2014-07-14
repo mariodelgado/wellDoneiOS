@@ -13,7 +13,8 @@
 
 @property (retain) NSString *reportName;
 @property (retain) NSString *reportNote;
-@property (retain) Pump *pump; 
+@property (retain) Pump *pump;
+@property (retain) PFFile *reportImage; 
 
 + (NSString *)parseClassName;
 + (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump;

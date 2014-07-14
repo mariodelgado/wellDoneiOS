@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1302777219732A9C00BF6A19 /* NewYork.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1302777119732A9C00BF6A19 /* NewYork.jpg */; };
 		132F5CBF196F60830063A428 /* SensorData.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F5CBE196F60830063A428 /* SensorData.m */; };
 		132F5CC4196F66C90063A428 /* ListReportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F5CC2196F66C90063A428 /* ListReportsViewController.m */; };
 		132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 132F5CC3196F66C90063A428 /* ListReportsViewController.xib */; };
@@ -22,6 +23,8 @@
 		1337FACF196DAEB300BC9B65 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1337FAB7196DAEB300BC9B65 /* UIKit.framework */; };
 		1337FAD7196DAEB300BC9B65 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1337FAD5196DAEB300BC9B65 /* InfoPlist.strings */; };
 		1337FAD9196DAEB300BC9B65 /* WellDoneiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1337FAD8196DAEB300BC9B65 /* WellDoneiOSTests.m */; };
+		133B1EC91973610700D43A30 /* cvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 133B1EC61973610700D43A30 /* cvCell.xib */; };
+		133B1ECA1973610700D43A30 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 133B1EC81973610700D43A30 /* ImageCollectionViewCell.m */; };
 		13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */; };
 		13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */; };
 		13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF9196F303400E8A5C7 /* ReportViewController.m */; };
@@ -56,6 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1302777119732A9C00BF6A19 /* NewYork.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NewYork.jpg; sourceTree = "<group>"; };
 		132F5CBD196F60830063A428 /* SensorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorData.h; sourceTree = "<group>"; };
 		132F5CBE196F60830063A428 /* SensorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorData.m; sourceTree = "<group>"; };
 		132F5CC1196F66C90063A428 /* ListReportsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListReportsViewController.h; sourceTree = "<group>"; };
@@ -77,6 +81,9 @@
 		1337FAD4196DAEB300BC9B65 /* WellDoneiOSTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WellDoneiOSTests-Info.plist"; sourceTree = "<group>"; };
 		1337FAD6196DAEB300BC9B65 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1337FAD8196DAEB300BC9B65 /* WellDoneiOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WellDoneiOSTests.m; sourceTree = "<group>"; };
+		133B1EC61973610700D43A30 /* cvCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cvCell.xib; sourceTree = "<group>"; };
+		133B1EC71973610700D43A30 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		133B1EC81973610700D43A30 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 		13D28CF5196F303400E8A5C7 /* CreateReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateReportViewController.h; sourceTree = "<group>"; };
 		13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateReportViewController.m; sourceTree = "<group>"; };
 		13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateReportViewController.xib; sourceTree = "<group>"; };
@@ -138,6 +145,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1302777019732A6600BF6A19 /* Image */ = {
+			isa = PBXGroup;
+			children = (
+				1302777119732A9C00BF6A19 /* NewYork.jpg */,
+			);
+			name = Image;
+			sourceTree = "<group>";
+		};
 		132F5CC0196F663E0063A428 /* ReportViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +205,7 @@
 		1337FAB9196DAEB300BC9B65 /* WellDoneiOS */ = {
 			isa = PBXGroup;
 			children = (
+				1302777019732A6600BF6A19 /* Image */,
 				B9517109196FA13200DAACA3 /* Pumps View Controllers */,
 				132F5CC0196F663E0063A428 /* ReportViewControllers */,
 				13D28CFF196F336C00E8A5C7 /* Category */,
@@ -257,6 +273,9 @@
 		1337FAE3196DAED400BC9B65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				133B1EC61973610700D43A30 /* cvCell.xib */,
+				133B1EC71973610700D43A30 /* ImageCollectionViewCell.h */,
+				133B1EC81973610700D43A30 /* ImageCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -366,11 +385,13 @@
 			files = (
 				B9C81FB019720F85002C19E5 /* PumpMapViewController.xib in Resources */,
 				B95170F0196DB46900DAACA3 /* PumpsListViewController.xib in Resources */,
+				133B1EC91973610700D43A30 /* cvCell.xib in Resources */,
 				B9517100196DB47800DAACA3 /* PumpsMapViewController.xib in Resources */,
 				1337FABE196DAEB300BC9B65 /* InfoPlist.strings in Resources */,
 				B9C81FAB19720F60002C19E5 /* PumpDetailViewController.xib in Resources */,
 				B9C81FB21972523A002C19E5 /* 07-map-marker.png in Resources */,
 				1337FAC6196DAEB300BC9B65 /* Images.xcassets in Resources */,
+				1302777219732A9C00BF6A19 /* NewYork.jpg in Resources */,
 				13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */,
 				132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */,
 				13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */,
@@ -441,6 +462,7 @@
 				13D28D05196F480A00E8A5C7 /* Report.m in Sources */,
 				13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */,
 				B9517101196DB47800DAACA3 /* Pump.m in Sources */,
+				133B1ECA1973610700D43A30 /* ImageCollectionViewCell.m in Sources */,
 				132F5CBF196F60830063A428 /* SensorData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

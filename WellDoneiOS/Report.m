@@ -16,6 +16,7 @@ NSString *const REPORT = @"Report";
 @dynamic reportName;
 @dynamic reportNote;
 @dynamic pump;
+@dynamic reportImage;
 
 #pragma mark - Subclassing methods
 + (NSString *)parseClassName {
