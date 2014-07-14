@@ -14,7 +14,7 @@
 @property (retain) Pump *pump;
 @property (retain) NSDate *timeStamp;
 @property          float volume;
-@property          float temprature;
+@property          float temperature;
 @property          float pressure;
 
 + (NSString *)parseClassName;

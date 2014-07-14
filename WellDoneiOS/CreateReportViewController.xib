@@ -6,6 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateReportViewController">
             <connections>
+                <outlet property="imageCollectionView" destination="mIk-1H-5xV" id="bRt-FO-UMu"/>
                 <outlet property="reportName" destination="mmK-y5-82a" id="ee1-gF-r8h"/>
                 <outlet property="txtReportNotes" destination="fHs-E7-1O5" id="ygh-Xu-fvH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -53,7 +54,7 @@
                     </connections>
                 </button>
                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="mIk-1H-5xV">
-                    <rect key="frame" x="0.0" y="58" width="320" height="123"/>
+                    <rect key="frame" x="0.0" y="60" width="320" height="142"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ojQ-M8-dep">
                         <size key="itemSize" width="50" height="50"/>

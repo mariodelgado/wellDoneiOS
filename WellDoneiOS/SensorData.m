@@ -16,7 +16,7 @@ NSString *const SENSOR_DATA = @"SensorData";
 @dynamic pump;
 @dynamic timeStamp;
 @dynamic volume;
-@dynamic temprature;
+@dynamic temperature;
 @dynamic pressure;
 
 + (NSString *)parseClassName {
