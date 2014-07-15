@@ -43,6 +43,8 @@
 		B9C81FAF19720F85002C19E5 /* PumpMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */; };
 		B9C81FB019720F85002C19E5 /* PumpMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C81FAE19720F85002C19E5 /* PumpMapViewController.xib */; };
 		B9C81FB21972523A002C19E5 /* 07-map-marker.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C81FB11972523A002C19E5 /* 07-map-marker.png */; };
+		B9F94C5919737EE70016C123 /* cvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9F94C5619737EE70016C123 /* cvCell.xib */; };
+		B9F94C5A19737EE70016C123 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B9F94C5819737EE70016C123 /* ImageCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,9 @@
 		B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PumpMapViewController.m; sourceTree = "<group>"; };
 		B9C81FAE19720F85002C19E5 /* PumpMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PumpMapViewController.xib; sourceTree = "<group>"; };
 		B9C81FB11972523A002C19E5 /* 07-map-marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "07-map-marker.png"; sourceTree = "<group>"; };
+		B9F94C5619737EE70016C123 /* cvCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cvCell.xib; sourceTree = "<group>"; };
+		B9F94C5719737EE70016C123 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		B9F94C5819737EE70016C123 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +262,9 @@
 		1337FAE3196DAED400BC9B65 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B9F94C5619737EE70016C123 /* cvCell.xib */,
+				B9F94C5719737EE70016C123 /* ImageCollectionViewCell.h */,
+				B9F94C5819737EE70016C123 /* ImageCollectionViewCell.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -373,6 +381,7 @@
 				1337FAC6196DAEB300BC9B65 /* Images.xcassets in Resources */,
 				13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */,
 				132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */,
+				B9F94C5919737EE70016C123 /* cvCell.xib in Resources */,
 				13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */,
 				B95170FD196DB47800DAACA3 /* pump.jpeg in Resources */,
 				B95170FE196DB47800DAACA3 /* PumpTableViewCell.xib in Resources */,
@@ -441,6 +450,7 @@
 				13D28D05196F480A00E8A5C7 /* Report.m in Sources */,
 				13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */,
 				B9517101196DB47800DAACA3 /* Pump.m in Sources */,
+				B9F94C5A19737EE70016C123 /* ImageCollectionViewCell.m in Sources */,
 				132F5CBF196F60830063A428 /* SensorData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

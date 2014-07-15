@@ -48,6 +48,12 @@
     JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
     lineChartView.delegate = self;
     lineChartView.dataSource = self;
+
+//    CGRect myFrame = [self.chartView bounds];
+//    NSLog(@"height = %f", myFrame.size.height);
+//    NSLog(@"width = %f", myFrame.size.width);
+//    NSLog(@"x = %f", myFrame.origin.x);
+//    NSLog(@"y = %f", myFrame.origin.y);
     lineChartView.frame = self.chartView.bounds;
     [lineChartView reloadData];
     [self.chartView addSubview:lineChartView];
@@ -61,7 +67,7 @@
     [Report getReportsForPump:pump
                     withBlock:^(NSArray *objects, NSError *error) {
                         report = [objects firstObject];
-                        NSLog(@"report obj %@", report);
+//                        NSLog(@"report obj %@", report);
                         
                         NSDateFormatter *_formatter;
                         

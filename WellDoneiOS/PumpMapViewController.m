@@ -18,6 +18,8 @@
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *bottomPanGestureRecognizer;
 @property (nonatomic, assign) CGPoint bottomContainerCenter;
+@property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
+@property (nonatomic, assign) CGFloat initialY;
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index;
 - (IBAction)onBottomPan:(UIPanGestureRecognizer *)sender;
@@ -40,6 +42,7 @@
         
         // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
 //        self.pumpViewControllers = @[firstPumpViewController, secondPumpViewController];
+        
 
     }
     return self;
@@ -64,6 +67,7 @@
     [self.viewContainer addSubview:self.pageViewController.view];    
     
     [self.pageViewController didMoveToParentViewController:self];
+    self.initialY = self.viewContainer.frame.origin.y;
 }
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
@@ -101,13 +105,23 @@
 - (UIViewController *)pumpViewControllerAtIndex:(int)index {
     return self.pumpViewControllers[index];
 }
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers NS_AVAILABLE_IOS(6_0){
+    self.panGestureRecognizer.enabled = YES;
+}
 
 - (IBAction)onBottomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
+    self.panGestureRecognizer = panGestureRecognizer;
     CGPoint translation = [panGestureRecognizer translationInView:self.view];
-    NSLog(@"self view y %f",self.view.frame.origin.y);
     CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-//    CGFloat initialY = self.viewContainer.frame.origin.y;
-    
+   
+    if (fabs(velocity.y) > fabs(velocity.x)) {
+        [self disablePageViewController];
+        panGestureRecognizer.enabled = YES;
+    }else {
+        [self enablePageViewController];
+        panGestureRecognizer.enabled = NO;
+    }
+
     if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint touch = [panGestureRecognizer locationInView:self.viewContainer];
         if (touch.y > 50) {
@@ -118,30 +132,27 @@
         
         if (fabs(velocity.y) > fabs(velocity.x)) {
             [self disablePageViewController];
+            panGestureRecognizer.enabled = YES;
+        }else {
+            [self enablePageViewController];
+            panGestureRecognizer.enabled = NO;
         }
-        
+
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         self.viewContainer.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         
-        if (fabs(velocity.y) > fabs(velocity.x)) {
-            [self disablePageViewController];
-        } else {
-            [self enablePageViewController];
-        }
-        
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         // Enable Page View Controller
-        [UIView animateWithDuration:1 animations:^{
+        [UIView animateWithDuration:0.5 animations:^{
             if (velocity.y < 0) {
                 self.viewContainer.center = self.view.center;
             } else { //going down
-                self.viewContainer.frame = CGRectMake(0, self.bottomContainerCenter.y, self.view.frame.size.width, self.view.frame.size.height);
+                self.viewContainer.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
                 self.viewContainer.alpha = 1;
             }
+ 
         }];
-        
-        [self enablePageViewController];
     }
 }
 - (void) disablePageViewController{
