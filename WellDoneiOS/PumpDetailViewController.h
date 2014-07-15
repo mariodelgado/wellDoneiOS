@@ -10,6 +10,6 @@
 #import "Pump.h"
 #import "JBLineChartView.h"
 
-@interface PumpDetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, JBLineChartViewDataSource, JBLineChartViewDelegate>
+@interface PumpDetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, JBLineChartViewDataSource, JBLineChartViewDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 @property (nonatomic, strong) Pump *pump;
 @end

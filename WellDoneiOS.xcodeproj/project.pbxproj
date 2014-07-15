@@ -25,6 +25,8 @@
 		1337FAD9196DAEB300BC9B65 /* WellDoneiOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1337FAD8196DAEB300BC9B65 /* WellDoneiOSTests.m */; };
 		133B1EC91973610700D43A30 /* cvCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 133B1EC61973610700D43A30 /* cvCell.xib */; };
 		133B1ECA1973610700D43A30 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 133B1EC81973610700D43A30 /* ImageCollectionViewCell.m */; };
+		135AB2101975BAF9001EBED1 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135AB20E1975BAF9001EBED1 /* StatsViewController.m */; };
+		135AB2111975BAF9001EBED1 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 135AB20F1975BAF9001EBED1 /* StatsViewController.xib */; };
 		13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */; };
 		13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */; };
 		13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF9196F303400E8A5C7 /* ReportViewController.m */; };
@@ -84,6 +86,9 @@
 		133B1EC61973610700D43A30 /* cvCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = cvCell.xib; sourceTree = "<group>"; };
 		133B1EC71973610700D43A30 /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		133B1EC81973610700D43A30 /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		135AB20D1975BAF9001EBED1 /* StatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsViewController.h; sourceTree = "<group>"; };
+		135AB20E1975BAF9001EBED1 /* StatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsViewController.m; sourceTree = "<group>"; };
+		135AB20F1975BAF9001EBED1 /* StatsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
 		13D28CF5196F303400E8A5C7 /* CreateReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateReportViewController.h; sourceTree = "<group>"; };
 		13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateReportViewController.m; sourceTree = "<group>"; };
 		13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateReportViewController.xib; sourceTree = "<group>"; };
@@ -222,6 +227,9 @@
 				B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */,
 				B9C81FAE19720F85002C19E5 /* PumpMapViewController.xib */,
 				B9C81FB11972523A002C19E5 /* 07-map-marker.png */,
+				135AB20D1975BAF9001EBED1 /* StatsViewController.h */,
+				135AB20E1975BAF9001EBED1 /* StatsViewController.m */,
+				135AB20F1975BAF9001EBED1 /* StatsViewController.xib */,
 			);
 			path = WellDoneiOS;
 			sourceTree = "<group>";
@@ -390,6 +398,7 @@
 				1337FABE196DAEB300BC9B65 /* InfoPlist.strings in Resources */,
 				B9C81FAB19720F60002C19E5 /* PumpDetailViewController.xib in Resources */,
 				B9C81FB21972523A002C19E5 /* 07-map-marker.png in Resources */,
+				135AB2111975BAF9001EBED1 /* StatsViewController.xib in Resources */,
 				1337FAC6196DAEB300BC9B65 /* Images.xcassets in Resources */,
 				1302777219732A9C00BF6A19 /* NewYork.jpg in Resources */,
 				13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */,
@@ -452,6 +461,7 @@
 				1337FAC4196DAEB300BC9B65 /* AppDelegate.m in Sources */,
 				B95170FF196DB47800DAACA3 /* PumpsMapViewController.m in Sources */,
 				B95170EF196DB46900DAACA3 /* PumpsListViewController.m in Sources */,
+				135AB2101975BAF9001EBED1 /* StatsViewController.m in Sources */,
 				132F5CC4196F66C90063A428 /* ListReportsViewController.m in Sources */,
 				1337FAC0196DAEB300BC9B65 /* main.m in Sources */,
 				B9C81FAA19720F60002C19E5 /* PumpDetailViewController.m in Sources */,

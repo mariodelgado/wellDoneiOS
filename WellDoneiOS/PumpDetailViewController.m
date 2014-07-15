@@ -10,6 +10,7 @@
 #import "Report.h"
 #import "MHPrettyDate.h"
 #import "ReportViewController.h"
+#import "StatsViewController.h"
 
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
@@ -21,6 +22,8 @@
 @property(nonatomic,strong)UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIView *chartView;
 @property (strong, nonatomic) Report *report;
+
+@property (nonatomic, assign) BOOL isPresenting; 
 @end
 
 @implementation PumpDetailViewController
@@ -43,6 +46,7 @@
     [self loadReports];
     [self loadChart];
     [self reloadViewWithData:self.pump];
+    [self configureTapGestureOnChartView];
 
 
 
@@ -161,6 +165,69 @@
 - (JBLineChartViewLineStyle)lineChartView:(JBLineChartView *)lineChartView lineStyleForLineAtLineIndex:(NSUInteger)lineIndex
 {
     return JBLineChartViewLineStyleDashed; // style of line in chart
+}
+
+#pragma mark - Custom Model Transaction
+-(void) configureTapGestureOnChartView {
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onChartViewTap:)];
+    tapGesture.numberOfTapsRequired=1;
+    [self.chartView addGestureRecognizer:tapGesture];
+    
+}
+
+-(void) onChartViewTap:(UITapGestureRecognizer*) tapGesture {
+    NSLog(@"I am tapped");
+    //On tap open a modal
+    StatsViewController *statsVC = [StatsViewController new];
+    statsVC.modalPresentationStyle = UIModalPresentationCustom;
+    statsVC.transitioningDelegate = self;
+    [self presentViewController:statsVC animated:YES completion:nil];
+
+    
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    self.isPresenting = YES;
+    return self;
+    
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    self.isPresenting = NO;
+    return self;
+}
+
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
+    return 2.0;
+}
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    UIView *containerView = [transitionContext containerView];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    if(self.isPresenting){
+        toViewController.view.frame = containerView.frame;
+        [containerView addSubview:toViewController.view];
+        
+        toViewController.view.alpha = 0;
+        toViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
+        [UIView animateWithDuration:1 animations:^{
+            toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+            toViewController.view.alpha = 1;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    } else {
+        
+        [UIView animateWithDuration:1 animations:^{
+            fromViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
+            fromViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    }
+    
 }
 
 @end
