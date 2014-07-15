@@ -176,23 +176,15 @@
     [self prepareMapLoad];
     self.pumpViewControllers = [NSMutableArray array];
     
-    
-    
     for (Pump *p in self.pumps) {
         [self plotPump:p];
         PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
         // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
+        currPumpController.pump = p;
         [self.pumpViewControllers addObject:currPumpController];
         
     }
     [self.pageViewController setViewControllers:@[self.pumpViewControllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    int index = 0;
-    for (Pump *p in self.pumps) {
-        PumpDetailViewController *currPumpController = self.pumpViewControllers[index];
-        currPumpController.pump = p;
-        index++;
-   
-    }
     
 }
 

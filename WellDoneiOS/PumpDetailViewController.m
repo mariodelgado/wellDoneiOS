@@ -20,6 +20,7 @@
 @property (strong, nonatomic)NSArray *reports;
 @property(nonatomic,strong)UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIView *chartView;
+@property (strong, nonatomic) Report *report;
 @end
 
 @implementation PumpDetailViewController
@@ -41,6 +42,9 @@
     self.tableView.dataSource = self;
     [self loadReports];
     [self loadChart];
+    [self reloadViewWithData:self.pump];
+
+
 
     
 }
@@ -48,35 +52,33 @@
     JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
     lineChartView.delegate = self;
     lineChartView.dataSource = self;
-
-//    CGRect myFrame = [self.chartView bounds];
-//    NSLog(@"height = %f", myFrame.size.height);
-//    NSLog(@"width = %f", myFrame.size.width);
-//    NSLog(@"x = %f", myFrame.origin.x);
-//    NSLog(@"y = %f", myFrame.origin.y);
+    
     lineChartView.frame = self.chartView.bounds;
     [lineChartView reloadData];
     [self.chartView addSubview:lineChartView];
+    self.report = [[Report alloc] init];
 }
-- (void)setPump:(Pump *)pump{
+- (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.description;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
-    __block Report *report;
+    self.lblLastUpdated.text = [NSString stringWithFormat:@"%@", self.report.updatedAt];
+
+}
+- (void)setPump:(Pump *)pump{
+    _pump = pump;
+
+//    __block Report *report;
     __weak PumpDetailViewController *weakSelf = self;
-    [Report getReportsForPump:pump
-                    withBlock:^(NSArray *objects, NSError *error) {
-                        report = [objects firstObject];
-//                        NSLog(@"report obj %@", report);
-                        
+    [Report getReportsForPump:pump withBlock:^(NSArray *objects, NSError *error) {
+                        weakSelf.report = [objects firstObject];
                         NSDateFormatter *_formatter;
-                        
                         _formatter = [[NSDateFormatter alloc] init];
                         [_formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
-                        
-                        weakSelf.lblLastUpdated.text = [NSString stringWithFormat:@"%@", report.updatedAt];
-                    }];
-    
+        [self reloadViewWithData:pump];
+
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning
