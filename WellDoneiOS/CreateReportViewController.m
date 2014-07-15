@@ -18,6 +18,7 @@
 - (IBAction)onCamera:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 @property (strong, nonatomic)NSMutableArray *dataArray;
+@property (strong, nonatomic)NSMutableArray *imageDataToSave;
 
 
 @end
@@ -29,6 +30,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.dataArray = [NSMutableArray array];
+        self.imageDataToSave = [NSMutableArray array];
     }
     return self;
 }
@@ -66,26 +68,41 @@
 
 - (void) onSave {
     
-    //Compress the images from the collection view. except the first one.
-    NSRange theRange;
+//    //Compress the images from the collection view. except the first one.
+//    NSRange theRange;
+//    
+//    theRange.location = 1;
+//    theRange.length = self.dataArray.count-1;
+//    NSArray *imagesToCompress = [self.dataArray subarrayWithRange:theRange];
+//    for (UIImage *image in imagesToCompress) {
+//        NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
+////        [self uploadImage:imageData];
+//    }
     
-    theRange.location = 1;
-    theRange.length = self.dataArray.count-1;
-    NSArray *imagesToCompress = [self.dataArray subarrayWithRange:theRange];
-    for (UIImage *image in imagesToCompress) {
-        NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
-//        [self uploadImage:imageData];
-    }
+ //upload a file.
+    PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
     
-
-    
-    
-    [Pump getListOfPumpsWithBlock:^(NSArray *objects, NSError *error) {
-        self.pump = (Pump *)objects[0];
-        Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump];
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
-        [newReport saveInBackground];
+        if (succeeded) {
+            
+            //After image is saved , saved the report.
+            [Pump getListOfPumpsWithBlock:^(NSArray *objects, NSError *error) {
+                self.pump = (Pump *)objects[0];
+                Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump];
+                newReport.reportImage = imageFile;
+                
+                [newReport saveInBackground];
+            }];
+
+        }
+        
+        
     }];
+    
+    
+    
+    
     
     [self dismissViewControllerAnimated:YES completion:nil];
     [self.navigationController popToRootViewControllerAnimated:YES];
@@ -135,6 +152,10 @@
     [self.imageCollectionView reloadData];
     // Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
+    
+     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
+    [self.imageDataToSave addObject:imageData];
+    
    
     
 //    // Resize image
@@ -190,18 +211,13 @@
 }
 
 -(void)loadInitialViews {
-    //    NSMutableArray *firstSection = [[NSMutableArray alloc] init]; NSMutableArray *secondSection = [[NSMutableArray alloc] init];
-    //    for (int i=0; i<8; i++) {
-    //        [firstSection addObject:[NSString stringWithFormat:@"Cell %d", i]];
-    //        [secondSection addObject:[NSString stringWithFormat:@"item %d", i]];
-    //    }
-    //    // self.dataArray = [[NSArray alloc] initWithObjects:firstSection, nil];
-    //    self.dataArray = firstSection;
     UIImage *image = [UIImage imageNamed:@"camera"];
     [self.dataArray addObject:image];
     
     
 }
+
+
 
 
 @end
