@@ -43,6 +43,7 @@
 		B9517100196DB47800DAACA3 /* PumpsMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95170F7196DB47800DAACA3 /* PumpsMapViewController.xib */; };
 		B9517101196DB47800DAACA3 /* Pump.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170F9196DB47800DAACA3 /* Pump.m */; };
 		B9517102196DB47800DAACA3 /* PumpLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170FB196DB47800DAACA3 /* PumpLocation.m */; };
+		B9C534671976FD9C008596A1 /* 177-building.png in Resources */ = {isa = PBXBuildFile; fileRef = B9C534661976FD9C008596A1 /* 177-building.png */; };
 		B9C81FAA19720F60002C19E5 /* PumpDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C81FA819720F60002C19E5 /* PumpDetailViewController.m */; };
 		B9C81FAB19720F60002C19E5 /* PumpDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B9C81FA919720F60002C19E5 /* PumpDetailViewController.xib */; };
 		B9C81FAF19720F85002C19E5 /* PumpMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */; };
@@ -116,6 +117,7 @@
 		B95170F9196DB47800DAACA3 /* Pump.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pump.m; sourceTree = "<group>"; };
 		B95170FA196DB47800DAACA3 /* PumpLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpLocation.h; sourceTree = "<group>"; };
 		B95170FB196DB47800DAACA3 /* PumpLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PumpLocation.m; sourceTree = "<group>"; };
+		B9C534661976FD9C008596A1 /* 177-building.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "177-building.png"; sourceTree = "<group>"; };
 		B9C81FA719720F60002C19E5 /* PumpDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpDetailViewController.h; sourceTree = "<group>"; };
 		B9C81FA819720F60002C19E5 /* PumpDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PumpDetailViewController.m; sourceTree = "<group>"; };
 		B9C81FA919720F60002C19E5 /* PumpDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PumpDetailViewController.xib; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				B9C81FAD19720F85002C19E5 /* PumpMapViewController.m */,
 				B9C81FAE19720F85002C19E5 /* PumpMapViewController.xib */,
 				B9C81FB11972523A002C19E5 /* 07-map-marker.png */,
+				B9C534661976FD9C008596A1 /* 177-building.png */,
 				135AB20D1975BAF9001EBED1 /* StatsViewController.h */,
 				135AB20E1975BAF9001EBED1 /* StatsViewController.m */,
 				135AB20F1975BAF9001EBED1 /* StatsViewController.xib */,
@@ -404,6 +407,7 @@
 				13D28CFE196F303400E8A5C7 /* ReportViewController.xib in Resources */,
 				132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */,
 				13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */,
+				B9C534671976FD9C008596A1 /* 177-building.png in Resources */,
 				B95170FD196DB47800DAACA3 /* pump.jpeg in Resources */,
 				B95170FE196DB47800DAACA3 /* PumpTableViewCell.xib in Resources */,
 			);
