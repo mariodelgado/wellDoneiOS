@@ -11,6 +11,7 @@
 #import "MHPrettyDate.h"
 #import "ReportViewController.h"
 #import "StatsViewController.h"
+#import "PNChart.h"
 
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
@@ -53,13 +54,19 @@
     
 }
 - (void)loadChart {
-    JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
-    lineChartView.delegate = self;
-    lineChartView.dataSource = self;
+//    JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
+//    lineChartView.delegate = self;
+//    lineChartView.dataSource = self;
+////    lineChartView.frame = self.chartView.bounds;
+////    [lineChartView reloadData];
+//    [self.chartView addSubview:lineChartView];
     
-    lineChartView.frame = self.chartView.bounds;
-    [lineChartView reloadData];
-    [self.chartView addSubview:lineChartView];
+    PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:self.chartView.bounds];
+    [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
+    [barChart setYValues:@[@200,  @300, @250, @275, @200,@300,@400]];
+    [barChart strokeChart];
+    [self.chartView addSubview:barChart];
+    
     self.report = [[Report alloc] init];
 }
 - (void)reloadViewWithData: (Pump *)pump {
