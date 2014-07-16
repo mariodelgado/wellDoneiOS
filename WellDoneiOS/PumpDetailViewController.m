@@ -11,6 +11,7 @@
 #import "MHPrettyDate.h"
 #import "ReportViewController.h"
 #import "StatsViewController.h"
+#import "MHPrettyDate.h"
 
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
@@ -66,8 +67,22 @@
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
-    self.lblLastUpdated.text = [NSString stringWithFormat:@"%@", self.report.updatedAt];
+    self.lblLastUpdated.text = [self giveMePrettyDate];
 
+}
+- (NSString *)giveMePrettyDate {
+    
+    NSDateFormatter *_formatter;
+    
+    _formatter = [[NSDateFormatter alloc] init];
+    [_formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
+    if (self.report.updatedAt) {
+        NSString *dateStr = [NSString stringWithFormat:@"%@", self.report.updatedAt];
+        NSLog(@"dateStr %@", dateStr);
+        return [MHPrettyDate prettyDateFromDate:[_formatter dateFromString:dateStr] withFormat:MHPrettyDateShortRelativeTime];
+    }else {
+        return @"NA";
+    }
 }
 - (void)setPump:(Pump *)pump{
     _pump = pump;
@@ -75,6 +90,7 @@
     __weak PumpDetailViewController *weakSelf = self;
     [Report getReportsForPump:pump withBlock:^(NSArray *objects, NSError *error) {
                         weakSelf.report = [objects firstObject];
+        NSLog(@"report for pump %@ is %@", pump.name, weakSelf.report);
                         NSDateFormatter *_formatter;
                         _formatter = [[NSDateFormatter alloc] init];
                         [_formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];

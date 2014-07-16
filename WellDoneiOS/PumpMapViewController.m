@@ -76,7 +76,7 @@
 #pragma mark PageviewController delegate methods
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
-    int index = [self.pumpViewControllers indexOfObject:viewController];
+    int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     
     if (index > 0) {
         self.pump = self.pumps[index-1];
@@ -86,8 +86,7 @@
     }
 }
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
-    int index = [self.pumpViewControllers indexOfObject:viewController];
-    
+    int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     if (index < self.pumpViewControllers.count - 1) {
         self.pump = self.pumps[index+1];
         return [self pumpViewControllerAtIndex:index + 1];
@@ -168,7 +167,6 @@
 
 #pragma mark- Setting up pageviews and adding annotations
 - (void) setUpView {
-   //    [self loadMapAtRegion];
 //    [self plotPump:self.pump];
     self.pumpViewControllers = [NSMutableArray array];
     
@@ -234,7 +232,6 @@
                        initWithAnnotation:annotation reuseIdentifier:defaultPinID];
 
         pinView.canShowCallout = YES;
-        pinView.selected = YES;
         if (pump == self.pump) {
             pinView.image = [UIImage imageNamed:@"177-building"];
         }else {
