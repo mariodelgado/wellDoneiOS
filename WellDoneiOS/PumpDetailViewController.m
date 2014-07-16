@@ -71,7 +71,6 @@
 }
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
-
     self.lblDecsription.text = pump.descriptionText;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
     self.lblLastUpdated.text = [NSString stringWithFormat:@"%@", self.report.updatedAt];
@@ -79,7 +78,6 @@
 }
 - (void)setPump:(Pump *)pump{
     _pump = pump;
-
 //    __block Report *report;
     __weak PumpDetailViewController *weakSelf = self;
     [Report getReportsForPump:pump withBlock:^(NSArray *objects, NSError *error) {

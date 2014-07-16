@@ -20,6 +20,7 @@
 @property (nonatomic, assign) CGPoint bottomContainerCenter;
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, assign) CGFloat initialY;
+@property (nonatomic, assign) BOOL firstLoad;
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index;
 - (IBAction)onBottomPan:(UIPanGestureRecognizer *)sender;
@@ -32,25 +33,14 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
-//        PumpDetailViewController *firstPumpViewController = [[PumpDetailViewController alloc] init];
-        //        firstPumpViewController.pump = //;
-//        firstPumpViewController.view.backgroundColor = [UIColor redColor];
-//        firstPumpViewController.pump = self.pumps[0];
-        
-//        PumpDetailViewController *secondPumpViewController = [[PumpDetailViewController alloc] init];
-//        secondPumpViewController.view.backgroundColor = [UIColor blueColor];
-        
-        // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
-//        self.pumpViewControllers = @[firstPumpViewController, secondPumpViewController];
-        
-
+        self.firstLoad = YES;
     }
     return self;
 }
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //    [self prepareMapLoad];
     self.mapView.delegate = self;
     [self loadPumps];
 
@@ -83,10 +73,13 @@
     return YES;
 }
 
+#pragma mark PageviewController delegate methods
+
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
     int index = [self.pumpViewControllers indexOfObject:viewController];
     
     if (index > 0) {
+        self.pump = self.pumps[index-1];
         return [self pumpViewControllerAtIndex:index - 1];
     } else {
         return nil;
@@ -96,18 +89,22 @@
     int index = [self.pumpViewControllers indexOfObject:viewController];
     
     if (index < self.pumpViewControllers.count - 1) {
+        self.pump = self.pumps[index+1];
         return [self pumpViewControllerAtIndex:index + 1];
     } else {
         return nil;
     }
 }
 
-- (UIViewController *)pumpViewControllerAtIndex:(int)index {
-    return self.pumpViewControllers[index];
-}
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers NS_AVAILABLE_IOS(6_0){
     self.panGestureRecognizer.enabled = YES;
 }
+
+- (UIViewController *)pumpViewControllerAtIndex:(int)index {
+    return self.pumpViewControllers[index];
+}
+
+#pragma mark Pan handler
 
 - (IBAction)onBottomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
     self.panGestureRecognizer = panGestureRecognizer;
@@ -138,7 +135,6 @@
             panGestureRecognizer.enabled = NO;
         }
 
-        
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         self.viewContainer.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         
@@ -170,20 +166,22 @@
     }
 }
 
+#pragma mark- Setting up pageviews and adding annotations
 - (void) setUpView {
-    //TODO: remove this line
-    self.pump = self.pumps[0];
-    [self prepareMapLoad];
+   //    [self loadMapAtRegion];
+//    [self plotPump:self.pump];
     self.pumpViewControllers = [NSMutableArray array];
     
     for (Pump *p in self.pumps) {
-        [self plotPump:p];
-        PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
-        // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
-        currPumpController.pump = p;
-        [self.pumpViewControllers addObject:currPumpController];
-        
+//        [self plotPump:p];
+        if(self.firstLoad){
+            PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
+            // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
+            currPumpController.pump = p;
+            [self.pumpViewControllers addObject:currPumpController];
+        }
     }
+    self.firstLoad = NO;
     [self.pageViewController setViewControllers:@[self.pumpViewControllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
 }
@@ -194,6 +192,8 @@
     [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.pumps = objects;
+            //TODO: remove this line and tie it to a pump being clicked on the list view?
+            self.pump = self.pumps[0];
             [self setUpView];
         } else {
             
@@ -201,26 +201,29 @@
         }
     }];
 }
-
-- (void)prepareMapLoad {
+- (void)setPump:(Pump *)pump {
+    _pump = pump;
+    [self loadMapAtRegion];
+    [self plotPump:pump];
+}
+- (void)loadMapAtRegion {
     CLLocationCoordinate2D coordinate;
-    
     coordinate.latitude = self.pump.location.latitude;
     coordinate.longitude = self.pump.location.longitude;
-    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 0.25*METERS_PER_MILE, 0.25*METERS_PER_MILE)];
-}
--(void)onListButtonClick{
-    [self dismissViewControllerAnimated:YES completion:nil];
-    
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE)];
 }
 
+
 - (void)plotPump:(Pump *)pump {
+    [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView addAnnotation:pump];
 }
 
 #pragma mark MapView delegate methods
 -(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
 {
+
+    Pump *pump = (Pump *)annotation;
     MKAnnotationView *pinView = nil;
     if(annotation != self.mapView.userLocation)
     {
@@ -231,7 +234,13 @@
                        initWithAnnotation:annotation reuseIdentifier:defaultPinID];
 
         pinView.canShowCallout = YES;
-        pinView.image = [UIImage imageNamed:@"07-map-marker"];
+        pinView.selected = YES;
+        if (pump == self.pump) {
+            pinView.image = [UIImage imageNamed:@"177-building"];
+        }else {
+            pinView.image = [UIImage imageNamed:@"07-map-marker"];
+        }
+
     }
     else {
         [self.mapView.userLocation setTitle:@"I am here"];
@@ -244,9 +253,13 @@
     {
         CGRect endFrame = annView.frame;
         annView.frame = CGRectOffset(endFrame, 0, -500);
-        [UIView animateWithDuration:0.9
-                         animations:^{ annView.frame = endFrame; }];
+//        [UIView animateWithDuration:0.9
+//                         animations:^{ annView.frame = endFrame; }];
     }
 }
 
+-(void)onListButtonClick{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
 @end
