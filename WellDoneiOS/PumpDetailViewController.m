@@ -62,31 +62,23 @@
     [blurView setFrame:CGRectMake(0.0f,0.0f,320.0f,568.0f)];
     [self.view addSubview:blurView];
     [[self view] sendSubviewToBack:blurView];
-
     [self.view setBackgroundColor:[UIColor clearColor]];
-
     [blurView setOpaque:NO];
-
-    [self setRoundedView:_imgPump toDiameter:73.0];
-    
+    [self setRoundedView:self.imgPump toDiameter:73.0];
 }
 
 
-
-
--(void)setRoundedView:(UIImageView *)roundedView toDiameter:(float)newSize;
+- (void)setRoundedView:(UIImageView *)roundedView toDiameter:(float)newSize;
 {
-    CGPoint saveCenter = _circleView.center;
-    CGRect newFrame = CGRectMake(_circleView.frame.origin.x, _circleView.frame.origin.y, newSize, newSize);
-    _circleView.frame = newFrame;
-    _circleView.layer.cornerRadius = newSize / 2.0;
-    _circleView.center = saveCenter;
-    _circleView.layer.borderWidth = 4.0f;
-    _circleView.layer.borderColor = [UIColor colorWithRed:0.931 green:0.931 blue:0.931 alpha:0.8].CGColor;
+    CGPoint saveCenter = self.circleView.center;
+    CGRect newFrame = CGRectMake(self.circleView.frame.origin.x, self.circleView.frame.origin.y, newSize, newSize);
+    self.circleView.frame = newFrame;
+    self.circleView.layer.cornerRadius = newSize / 2.0;
+    self.circleView.center = saveCenter;
+    self.circleView.layer.borderWidth = 4.0f;
+    self.circleView.layer.borderColor = [UIColor colorWithRed:0.931 green:0.931 blue:0.931 alpha:0.8].CGColor;
 
 }
-
-
 
 - (void)loadChart {
     JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
