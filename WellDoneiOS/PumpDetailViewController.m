@@ -13,6 +13,10 @@
 #import "StatsViewController.h"
 #import "JCRBlurView.h"
 
+
+
+
+
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UILabel *lblLastUpdated;
@@ -25,8 +29,12 @@
 @property (strong, nonatomic) Report *report;
 @property (weak, nonatomic) IBOutlet UIView *circleView;
 
-@property (nonatomic, assign) BOOL isPresenting; 
+@property (nonatomic, assign) BOOL isPresenting;
+
+
 @end
+
+
 
 @implementation PumpDetailViewController
 
@@ -54,13 +62,16 @@
     [blurView setFrame:CGRectMake(0.0f,0.0f,320.0f,568.0f)];
     [self.view addSubview:blurView];
     [[self view] sendSubviewToBack:blurView];
-    
+
     [self.view setBackgroundColor:[UIColor clearColor]];
+
     [blurView setOpaque:NO];
 
     [self setRoundedView:_imgPump toDiameter:73.0];
     
 }
+
+
 
 
 -(void)setRoundedView:(UIImageView *)roundedView toDiameter:(float)newSize;
@@ -128,7 +139,7 @@
     cell.textLabel.text = report.reportName;
     cell.textLabel.textColor = [UIColor darkGrayColor];
     cell.backgroundColor = [UIColor clearColor];
-    cell.textLabel.font=[UIFont fontWithName:@"Helvetica Neue Light" size:16];
+    cell.textLabel.font=[UIFont fontWithName:@"Helvetica Neue Thin" size:16];
     return cell;
 }
 

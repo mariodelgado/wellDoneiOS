@@ -12,4 +12,6 @@
 
 @interface PumpDetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource, JBLineChartViewDataSource, JBLineChartViewDelegate, UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 @property (nonatomic, strong) Pump *pump;
+@property (nonatomic, assign) CGFloat extraColorLayerOpacity UI_APPEARANCE_SELECTOR;
+
 @end

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6185.7" systemVersion="14A283o" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6181.2"/>
     </dependencies>
     <objects>
@@ -23,7 +22,7 @@
                 </mapView>
                 <view opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PNh-hH-HZw">
                     <rect key="frame" x="0.0" y="400" width="320" height="568"/>
-                    <color key="backgroundColor" red="0.33329343795776367" green="0.33335626125335693" blue="0.33328947424888611" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <connections>
