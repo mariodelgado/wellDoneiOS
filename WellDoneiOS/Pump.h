@@ -25,11 +25,11 @@ PumpStatusType *PumpStatusBrokenTemp;
 @property (retain) NSString *notes;
 @property (retain) NSString *address;
 @property (retain) NSNumber *barcode;
-//@property (retain) NSString *strLastUpdated;
+@property (retain) NSString *descriptionText;
 
 
 + (NSString *)parseClassName;
-+ (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status;
++ (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status descriptionText:(NSString *)descriptionText;
 + (void )getListOfPumpsWithBlock:(PFArrayResultBlock)block;
 
 @end

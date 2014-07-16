@@ -26,6 +26,7 @@ NSString *const PUMP = @"Pump";
 @dynamic notes;
 @dynamic address;
 @dynamic barcode;
+@dynamic descriptionText;
 
 + (NSString *)parseClassName {
     return PUMP;
@@ -36,11 +37,12 @@ NSString *const PUMP = @"Pump";
     [self setObject:location forKey:@"location"];
 }
 
-+ (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status {
++ (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status descriptionText:(NSString *)descriptionText {
     Pump *p = [[Pump alloc] init];
     p.name = name;
     p.location = location;
     p.status = (NSString *) status;
+    p.descriptionText = descriptionText;
     return p;
 }
 
