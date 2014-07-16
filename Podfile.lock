@@ -1,7 +1,8 @@
 PODS:
   - Bolts (1.1.0)
-  - Facebook-iOS-SDK (3.15.1):
+  - Facebook-iOS-SDK (3.16):
     - Bolts
+  - iOS-blur (0.0.5)
   - JBChartView (2.5.5)
   - MHPrettyDate (1.1.1)
   - Parse (1.2.19):
@@ -10,6 +11,7 @@ PODS:
   - UIImageEffects (0.0.1)
 
 DEPENDENCIES:
+  - iOS-blur
   - JBChartView
   - MHPrettyDate (~> 1.1.1)
   - Parse
@@ -18,7 +20,8 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
-  Facebook-iOS-SDK: 56214af8e0ef16e751eb2804250326b709e571b8
+  Facebook-iOS-SDK: 82ad03cb9ce568855057e20a099054cf1e34ef12
+  iOS-blur: 5ec57b4a72e57a4f8f5f47ff3f59e56c0690b761
   JBChartView: 666486d81dd16fa0cfac7bc32b4b70d6c52e7162
   MHPrettyDate: d9f42f2ec3dfece6352f18ac77aa33312174e09e
   Parse: ffebaecaddd32cb52671010f81567c298ff93d04

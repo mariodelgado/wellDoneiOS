@@ -11,6 +11,7 @@
 #import "MHPrettyDate.h"
 #import "ReportViewController.h"
 #import "StatsViewController.h"
+#import "JCRBlurView.h"
 
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
@@ -22,6 +23,7 @@
 @property(nonatomic,strong)UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIView *chartView;
 @property (strong, nonatomic) Report *report;
+@property (weak, nonatomic) IBOutlet UIView *circleView;
 
 @property (nonatomic, assign) BOOL isPresenting; 
 @end
@@ -48,10 +50,33 @@
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
 
+    JCRBlurView *blurView = [JCRBlurView new];
+    [blurView setFrame:CGRectMake(0.0f,0.0f,320.0f,568.0f)];
+    [self.view addSubview:blurView];
+    [[self view] sendSubviewToBack:blurView];
+    
+    [self.view setBackgroundColor:[UIColor clearColor]];
+    [blurView setOpaque:NO];
 
-
+    [self setRoundedView:_imgPump toDiameter:73.0];
     
 }
+
+
+-(void)setRoundedView:(UIImageView *)roundedView toDiameter:(float)newSize;
+{
+    CGPoint saveCenter = _circleView.center;
+    CGRect newFrame = CGRectMake(_circleView.frame.origin.x, _circleView.frame.origin.y, newSize, newSize);
+    _circleView.frame = newFrame;
+    _circleView.layer.cornerRadius = newSize / 2.0;
+    _circleView.center = saveCenter;
+    _circleView.layer.borderWidth = 4.0f;
+    _circleView.layer.borderColor = [UIColor colorWithRed:0.931 green:0.931 blue:0.931 alpha:0.8].CGColor;
+
+}
+
+
+
 - (void)loadChart {
     JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
     lineChartView.delegate = self;
@@ -101,6 +126,9 @@
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Report"];
     Report *report = self.reports[indexPath.row];
     cell.textLabel.text = report.reportName;
+    cell.textLabel.textColor = [UIColor darkGrayColor];
+    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.font=[UIFont fontWithName:@"Helvetica Neue Light" size:16];
     return cell;
 }
 
