@@ -64,7 +64,7 @@
 }
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
-    self.lblDecsription.text = pump.description;
+    self.lblDecsription.text = pump.notes;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
     self.lblLastUpdated.text = [NSString stringWithFormat:@"%@", self.report.updatedAt];
 
