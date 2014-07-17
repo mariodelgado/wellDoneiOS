@@ -79,7 +79,7 @@
     int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     
     if (index > 0) {
-        self.pump = self.pumps[index-1];
+//        self.pump = self.pumps[index-1];
         return [self pumpViewControllerAtIndex:index - 1];
     } else {
         return nil;
@@ -88,7 +88,7 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
     int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     if (index < self.pumpViewControllers.count - 1) {
-        self.pump = self.pumps[index+1];
+//        self.pump = self.pumps[index+1];
         return [self pumpViewControllerAtIndex:index + 1];
     } else {
         return nil;
@@ -96,7 +96,11 @@
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers NS_AVAILABLE_IOS(6_0){
-    self.panGestureRecognizer.enabled = YES;
+        self.panGestureRecognizer.enabled = YES;
+}
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed{
+    int index = (int)[self.pumpViewControllers indexOfObject:pageViewController.viewControllers[0]];
+    self.pump = self.pumps[index];
 }
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index {
@@ -211,13 +215,18 @@
     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE)];
 }
 
-
 - (void)plotPump:(Pump *)pump {
     [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView addAnnotation:pump];
 }
 
 #pragma mark MapView delegate methods
+
+- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
+    //add a delay here and test
+    [self.mapView selectAnnotation:self.pump animated:YES];
+}
+
 -(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
 {
 

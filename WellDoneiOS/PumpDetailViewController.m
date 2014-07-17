@@ -56,9 +56,6 @@
     [self loadChart];
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
-
-
-
     
 }
 - (void)loadChart {
