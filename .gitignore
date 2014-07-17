@@ -25,3 +25,5 @@ build/
 *~
 *.dat
 *.dep
+
+.DS_Store

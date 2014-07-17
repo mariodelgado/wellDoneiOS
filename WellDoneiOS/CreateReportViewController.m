@@ -14,7 +14,6 @@
 @interface CreateReportViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *txtReportNotes;
 @property (weak, nonatomic) IBOutlet UITextField *reportName;
-@property (strong, nonatomic)Pump *pump;
 - (IBAction)onCamera:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 @property (strong, nonatomic)NSMutableArray *dataArray;
@@ -87,13 +86,11 @@
         if (succeeded) {
             
             //After image is saved , saved the report.
-            [Pump getListOfPumpsWithBlock:^(NSArray *objects, NSError *error) {
-                self.pump = (Pump *)objects[0];
                 Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump];
                 newReport.reportImage = imageFile;
                 
                 [newReport saveInBackground];
-            }];
+           
 
         }
         

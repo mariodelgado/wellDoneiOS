@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Pump.h"
 
 @interface CreateReportViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@property (strong, nonatomic) Pump *pump; 
 
 @end
