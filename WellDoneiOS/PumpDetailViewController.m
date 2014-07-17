@@ -12,6 +12,8 @@
 #import "ReportViewController.h"
 #import "StatsViewController.h"
 #import "PNChart.h"
+#import "ReportHeaderView.h"
+#import "CreateReportViewController.h"
 
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
@@ -23,6 +25,7 @@
 @property(nonatomic,strong)UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIView *chartView;
 @property (strong, nonatomic) Report *report;
+@property (strong, nonatomic) ReportHeaderView *reportHeaderView;
 
 @property (nonatomic, assign) BOOL isPresenting; 
 @end
@@ -34,6 +37,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        self.reportHeaderView = [ReportHeaderView new];
+        self.reportHeaderView.delegate = self; 
     }
     return self;
 }
@@ -117,9 +122,18 @@
     [self.navigationController pushViewController:rvc animated:YES];
 }
 
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return self.reportHeaderView;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 40.0f;
+}
+
 - (void) loadReports {
-    PFQuery *queryForReports = [Report query];
-    [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    
+    //Get reports for that a perticular pump.
+    
+    [Report getReportsForPump:self.pump withBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             self.reports = objects;
             [self.tableView reloadData];
@@ -129,6 +143,18 @@
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
+    
+//    PFQuery *queryForReports = [Report query];
+//    [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+//        if (!error) {
+//            self.reports = objects;
+//            [self.tableView reloadData];
+//            [self endRefresh];
+//        } else {
+//            
+//            NSLog(@"Error: %@ %@", error, [error userInfo]);
+//        }
+//    }];
 }
 
 #pragma mark - Refresh Control
@@ -144,34 +170,6 @@
     
 }
 
-#pragma mark linechart delegates
-- (NSUInteger)numberOfLinesInLineChartView:(JBLineChartView *)lineChartView
-{
-    return 2; // number of lines in chart
-}
-
-- (NSUInteger)lineChartView:(JBLineChartView *)lineChartView numberOfVerticalValuesAtLineIndex:(NSUInteger)lineIndex
-{
-    return 5; // number of values for a line
-}
-- (CGFloat)lineChartView:(JBLineChartView *)lineChartView verticalValueForHorizontalIndex:(NSUInteger)horizontalIndex atLineIndex:(NSUInteger)lineIndex
-{
-    return (lineIndex+1)*(horizontalIndex + 1); // y-position (y-axis) of point at horizontalIndex (x-axis)
-}
-- (UIColor *)lineChartView:(JBLineChartView *)lineChartView colorForLineAtLineIndex:(NSUInteger)lineIndex
-{
-    return [UIColor redColor]; // color of line in chart
-}
-
-- (CGFloat)lineChartView:(JBLineChartView *)lineChartView widthForLineAtLineIndex:(NSUInteger)lineIndex
-{
-    return 1; // width of line in chart
-}
-
-- (JBLineChartViewLineStyle)lineChartView:(JBLineChartView *)lineChartView lineStyleForLineAtLineIndex:(NSUInteger)lineIndex
-{
-    return JBLineChartViewLineStyleDashed; // style of line in chart
-}
 
 #pragma mark - Custom Model Transaction
 -(void) configureTapGestureOnChartView {
@@ -213,12 +211,15 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     if(self.isPresenting){
-        toViewController.view.frame = containerView.frame;
+      toViewController.view.frame = containerView.frame;
+
         [containerView addSubview:toViewController.view];
         
         toViewController.view.alpha = 0;
+    
         toViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
         [UIView animateWithDuration:1 animations:^{
+//            toViewController.view.frame = CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.width);
             toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             toViewController.view.alpha = 1;
         } completion:^(BOOL finished) {
@@ -236,4 +237,15 @@
     
 }
 
+
+#pragma mark - ReportView Delegate
+-(void)addReport {
+    CreateReportViewController *cvc = [[CreateReportViewController alloc] init];
+    cvc.pump = self.pump;
+    UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:cvc];
+    [self presentViewController:nvc animated:YES completion:nil];
+}
+- (IBAction)onAddReport:(id)sender {
+    [self addReport];
+}
 @end

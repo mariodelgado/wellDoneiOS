@@ -27,6 +27,8 @@
 		133B1ECA1973610700D43A30 /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 133B1EC81973610700D43A30 /* ImageCollectionViewCell.m */; };
 		135AB2101975BAF9001EBED1 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 135AB20E1975BAF9001EBED1 /* StatsViewController.m */; };
 		135AB2111975BAF9001EBED1 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 135AB20F1975BAF9001EBED1 /* StatsViewController.xib */; };
+		13C9712A197852DB0099CE32 /* ReportHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C97129197852DB0099CE32 /* ReportHeaderView.m */; };
+		13C9712C197852FF0099CE32 /* ReportHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13C9712B197852FF0099CE32 /* ReportHeaderView.xib */; };
 		13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */; };
 		13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */; };
 		13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF9196F303400E8A5C7 /* ReportViewController.m */; };
@@ -90,6 +92,10 @@
 		135AB20D1975BAF9001EBED1 /* StatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsViewController.h; sourceTree = "<group>"; };
 		135AB20E1975BAF9001EBED1 /* StatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsViewController.m; sourceTree = "<group>"; };
 		135AB20F1975BAF9001EBED1 /* StatsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StatsViewController.xib; sourceTree = "<group>"; };
+		13C97128197852DB0099CE32 /* ReportHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportHeaderView.h; sourceTree = "<group>"; };
+		13C97129197852DB0099CE32 /* ReportHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportHeaderView.m; sourceTree = "<group>"; };
+		13C9712B197852FF0099CE32 /* ReportHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportHeaderView.xib; sourceTree = "<group>"; };
+		13C9712D197869350099CE32 /* ReportDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportDelegate.h; sourceTree = "<group>"; };
 		13D28CF5196F303400E8A5C7 /* CreateReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateReportViewController.h; sourceTree = "<group>"; };
 		13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateReportViewController.m; sourceTree = "<group>"; };
 		13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateReportViewController.xib; sourceTree = "<group>"; };
@@ -233,6 +239,10 @@
 				135AB20D1975BAF9001EBED1 /* StatsViewController.h */,
 				135AB20E1975BAF9001EBED1 /* StatsViewController.m */,
 				135AB20F1975BAF9001EBED1 /* StatsViewController.xib */,
+				13C97128197852DB0099CE32 /* ReportHeaderView.h */,
+				13C97129197852DB0099CE32 /* ReportHeaderView.m */,
+				13C9712B197852FF0099CE32 /* ReportHeaderView.xib */,
+				13C9712D197869350099CE32 /* ReportDelegate.h */,
 			);
 			path = WellDoneiOS;
 			sourceTree = "<group>";
@@ -410,6 +420,7 @@
 				B9C534671976FD9C008596A1 /* 177-building.png in Resources */,
 				B95170FD196DB47800DAACA3 /* pump.jpeg in Resources */,
 				B95170FE196DB47800DAACA3 /* PumpTableViewCell.xib in Resources */,
+				13C9712C197852FF0099CE32 /* ReportHeaderView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -478,6 +489,7 @@
 				B9517101196DB47800DAACA3 /* Pump.m in Sources */,
 				133B1ECA1973610700D43A30 /* ImageCollectionViewCell.m in Sources */,
 				132F5CBF196F60830063A428 /* SensorData.m in Sources */,
+				13C9712A197852DB0099CE32 /* ReportHeaderView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

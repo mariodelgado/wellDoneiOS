@@ -38,6 +38,7 @@
     [self lineChart2];
 }
 
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
