@@ -7,9 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ReportDelegate.h"
+//#import "ReportDelegate.h"
+
+@protocol ReportDelegate <NSObject>
+
+@optional
+-(void)addReport;
+@end
 
 @interface ReportHeaderView : UIView
-@property (nonatomic, weak) id <ReportDelegate> delegate;
+@property (nonatomic, assign) id <ReportDelegate> delegate;
 
 @end

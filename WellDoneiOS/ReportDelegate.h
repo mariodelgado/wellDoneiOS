@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol ReportDelegate <NSObject>
--(void)addReport; 
+-(void)addReport;
 
 @end
