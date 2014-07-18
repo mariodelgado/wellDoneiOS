@@ -16,6 +16,7 @@
 #import "PNChart.h"
 #import "ReportHeaderView.h"
 #import "CreateReportViewController.h"
+#import "UILabel+BorderedLabel.h"
 
 
 @interface PumpDetailViewController ()
@@ -29,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIView *chartView;
 @property (strong, nonatomic) Report *report;
 @property (strong, nonatomic) ReportHeaderView *reportHeaderView;
+@property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
 @property (nonatomic, assign) BOOL isPresenting; 
 @end
@@ -41,7 +43,7 @@
     if (self) {
         // Custom initialization
         self.reportHeaderView = [ReportHeaderView new];
-        self.reportHeaderView.delegate = self; 
+        
     }
     return self;
 }
@@ -52,10 +54,12 @@
     // Do any additional setupx after loading the view from its nib.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self configRefreshControl];
     [self loadReports];
     [self loadChart];
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
+    self.reportHeaderView.delegate = self; 
     
 }
 - (void)loadChart {
@@ -79,6 +83,7 @@
     self.lblDecsription.text = pump.descriptionText;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
     self.lblLastUpdated.text = [self giveMePrettyDate];
+//    [self addStatusLabel:pump.status]; Was acting weired.
 
 }
 - (NSString *)giveMePrettyDate {
@@ -252,6 +257,13 @@
     
 }
 
+-(void) addStatusLabel:(NSString*)status {
+    
+     UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
+    [lblStatusNew constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
+//    [self.lblStatus constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
+    [self.view addSubview:lblStatusNew];
+}
 
 #pragma mark - ReportView Delegate
 -(void)addReport {

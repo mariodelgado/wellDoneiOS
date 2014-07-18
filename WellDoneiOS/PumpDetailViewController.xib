@@ -11,6 +11,7 @@
                 <outlet property="lblDecsription" destination="duL-d9-FsM" id="JYf-O7-eOV"/>
                 <outlet property="lblLastUpdated" destination="EnZ-gI-Ovr" id="vTo-RM-v5F"/>
                 <outlet property="lblName" destination="5K6-yh-qHO" id="Gnl-0d-DNJ"/>
+                <outlet property="lblStatus" destination="ged-j2-7VT" id="HHo-1Y-xnw"/>
                 <outlet property="tableView" destination="L4N-4J-eSJ" id="SyU-0d-ToP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -72,6 +73,13 @@
                         <action selector="onAddReport:" destination="-1" eventType="touchUpInside" id="hJ7-DT-NjR"/>
                     </connections>
                 </button>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ged-j2-7VT">
+                    <rect key="frame" x="230" y="28" width="50" height="21"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
