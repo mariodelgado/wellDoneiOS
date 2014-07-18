@@ -246,10 +246,12 @@
             [transitionContext completeTransition:YES];
         }];
     } else {
-        
-        [UIView animateWithDuration:1 animations:^{
-            fromViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
-            fromViewController.view.alpha = 0;
+
+        [UIView animateWithDuration:0.5 animations:^{
+//            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
+            fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
+           // fromViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
+            //fromViewController.view.alpha = 0;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
         }];

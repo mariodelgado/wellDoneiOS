@@ -31,5 +31,7 @@ PumpStatusType *PumpStatusBrokenTemp;
 + (NSString *)parseClassName;
 + (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status descriptionText:(NSString *)descriptionText;
 + (void )getListOfPumpsWithBlock:(PFArrayResultBlock)block;
++ (void) getPumpsCloseToLocation:(PFGeoPoint *)location block:(PFArrayResultBlock)block;
++ (void) getPumpsCloseToLocation:(PFGeoPoint *)location withStatus:(PumpStatusType*)status block:(PFArrayResultBlock)block;
 
 @end
