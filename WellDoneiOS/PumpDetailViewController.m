@@ -82,8 +82,8 @@
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
-    self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
-    self.lblLastUpdated.text = [self giveMePrettyDate];
+    self.imgPump.image = [UIImage imageNamed:@"pumpPlaceholder.png"];
+    self.lblLastUpdated.text = [NSString stringWithFormat:@"Last Updated %@ ago", [self giveMePrettyDate]] ;
     [self.lblStatus wiggle];
 //    [self addStatusLabel:pump.status]; Was acting weired.
 

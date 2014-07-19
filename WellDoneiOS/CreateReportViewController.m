@@ -208,7 +208,7 @@
 }
 
 -(void)loadInitialViews {
-    UIImage *image = [UIImage imageNamed:@"camera"];
+    UIImage *image = [UIImage imageNamed:@"addPhoto"];
     [self.dataArray addObject:image];
     
     
