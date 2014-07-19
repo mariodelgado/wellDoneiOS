@@ -13,7 +13,7 @@
 
 - (IBAction)onCanel:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *lblGraphTitle;
-@property (weak, nonatomic) IBOutlet UIView *viewGraph1;
+@property (strong, nonatomic) IBOutlet UIView *viewGraph1;
 @property (weak, nonatomic) IBOutlet UIView *viewGraph2;
 
 @end
@@ -34,8 +34,8 @@
 {
     [super viewDidLoad];
     [self styleView];
-    [self lineChartDrawing];
-    [self lineChart2];
+//    [self lineChart1];
+//    [self lineChart2];
 }
 
 
@@ -59,7 +59,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void) lineChartDrawing {
+-(void) lineChart1 {
     //For LineChart
     PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 200.0)];
     [lineChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
@@ -74,12 +74,28 @@
         return [PNLineChartDataItem dataItemWithY:yValue];
     };
     
-    lineChart.chartData = @[data01];
+    // Line Chart No.2
+    NSArray * data02Array = @[@20.1, @180.1, @26.4, @202.2, @126.2,@250,@180];
+    PNLineChartData *data02 = [PNLineChartData new];
+    data02.color = PNTwitterColor;
+    data02.itemCount = lineChart.xLabels.count;
+    data02.getData = ^(NSUInteger index) {
+        CGFloat yValue = [data02Array[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
+    
+    lineChart.chartData = @[data01, data02];
     [lineChart strokeChart];
     
+    UILabel *lblGraphTitle = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 300, 20)];
+    lblGraphTitle.text = @"Water Usage With Other Pump";
     
+    self.viewGraph1.backgroundColor = [UIColor greenColor];
     [self.viewGraph1 addSubview:lineChart];
-    self.lblGraphTitle.text = @"Water Usage";
+    [self.viewGraph1 addSubview:lblGraphTitle];
+    
+    
+    
    
     
     
@@ -87,7 +103,7 @@
 }
 
 -(void) lineChart2 {
-    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 200.0)];
+    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100.0)];
     [lineChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
     
     // Line Chart No.1
@@ -117,5 +133,19 @@
 
     
 
+}
+
+-(void)createLineChart1 {
+    self.viewGraph1 = [[UIView alloc]initWithFrame:CGRectMake(0, -500, SCREEN_WIDTH, 200)];
+    [self.view addSubview:self.viewGraph1];
+    [self.view sendSubviewToBack:self.viewGraph1];
+    NSLog(@"Frame:%f, %f",self.viewGraph1.frame.origin.x, self.viewGraph1.frame.origin.y );
+    NSLog(@"Frame Chart View:%f,%f",self.viewGraph1.frame.origin.x, self.viewGraph1.frame.origin.y);
+    [self lineChart1];
+
+}
+
+-(void)moveLineChart1Down {
+    self.viewGraph1.frame = CGRectMake(0, 240, SCREEN_WIDTH, 200);
 }
 @end
