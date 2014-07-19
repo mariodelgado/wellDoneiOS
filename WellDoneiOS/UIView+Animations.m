@@ -31,5 +31,14 @@
     
 }
 
+-(void) animateExitDownWithDuration:(NSTimeInterval)duration frame:(CGRect)newFrame {
+    [UIView animateWithDuration:duration delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:20 options:0 animations:^{
+        self.frame = newFrame;
+    } completion:^(BOOL finished) {
+        nil;
+    }];
+    
+}
+
 
 @end

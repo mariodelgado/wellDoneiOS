@@ -12,5 +12,6 @@
 
 -(void) wiggle;
 -(void) wiggleWithDuration:(NSTimeInterval)duration angle:(double)degrees repeatCount:(float)count;
+-(void) animateExitDownWithDuration:(NSTimeInterval)duration frame:(CGRect)newFrame; 
 
 @end
