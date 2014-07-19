@@ -10,5 +10,7 @@
 
 @interface StatsViewController : UIViewController
 @property (strong, nonatomic) UIView *animateView;
+-(void)createLineChart1;
+-(void)moveLineChart1Down;
 
 @end

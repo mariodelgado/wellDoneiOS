@@ -17,6 +17,7 @@
 #import "ReportHeaderView.h"
 #import "CreateReportViewController.h"
 #import "UILabel+BorderedLabel.h"
+#import "UIView+Animations.h"
 
 
 @interface PumpDetailViewController ()
@@ -83,6 +84,7 @@
     self.lblDecsription.text = pump.descriptionText;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
     self.lblLastUpdated.text = [self giveMePrettyDate];
+    [self.lblStatus wiggle];
 //    [self addStatusLabel:pump.status]; Was acting weired.
 
 }
@@ -245,6 +247,7 @@
         toViewController.view.alpha = 1;
         StatsViewController *statsView = (StatsViewController*)toViewController;
         statsView.animateView = [[UIView alloc] initWithFrame:statsView.view.bounds];
+        statsView.animateView.backgroundColor = [UIColor blackColor];
         [statsView.view addSubview:statsView.animateView];
 //        statsView.animateView.frame = self.chartView.frame;
         NSLog(@"Frame:%f, %f",statsView.animateView.frame.origin.x, statsView.animateView.frame.origin.y );
@@ -260,14 +263,20 @@
           toViewController.view.frame = containerView.frame;
             statsView.animateView.frame = self.chartView.frame;
             
-//            toViewController.view.frame = CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.width);
             toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             toViewController.view.alpha = 1;
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:1 delay:0.5 usingSpringWithDamping:2 initialSpringVelocity:15 options:0 animations:^{
-                statsView.animateView.frame = CGRectMake(statsView.animateView.frame.origin.x, 40, statsView.animateView.frame.size.width, statsView.animateView.frame.size.height);
+                statsView.animateView.frame = CGRectMake(statsView.animateView.frame.origin.x, 80, statsView.animateView.frame.size.width, statsView.animateView.frame.size.height);
+                [statsView createLineChart1];
             } completion:^(BOOL finished) {
-                [transitionContext completeTransition:YES];
+                [UIView animateWithDuration:1 delay:0 usingSpringWithDamping:0.9 initialSpringVelocity:10 options:0 animations:^{
+                    [statsView moveLineChart1Down];
+                } completion:^(BOOL finished) {
+                    [transitionContext completeTransition:YES];
+                }];
+                
+                
             }];
             
         }];
@@ -276,8 +285,6 @@
         [UIView animateWithDuration:0.5 animations:^{
 //            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
             fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
-           // fromViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
-            //fromViewController.view.alpha = 0;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
         }];
