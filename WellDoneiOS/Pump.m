@@ -65,6 +65,30 @@ NSString *const PUMP = @"Pump";
    
 }
 
++ (void) getPumpsCloseToLocation:(PFGeoPoint *)location block:(PFArrayResultBlock)block {
+    PFQuery *pumpQuery = [Pump query];
+    [pumpQuery whereKey:@"location" nearGeoPoint:location];
+    // Limit what could be a lot of points.
+    pumpQuery.limit = 10;
+    [pumpQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        block(objects, error);
+        
+    }];
+}
+
+
++ (void) getPumpsCloseToLocation:(PFGeoPoint *)location withStatus:(PumpStatusType*)status block:(PFArrayResultBlock)block {
+    PFQuery *pumpQuery = [Pump query];
+    [pumpQuery whereKey:@"location" nearGeoPoint:location];
+    [pumpQuery whereKey:@"status" equalTo:status];
+    // Limit what could be a lot of points.
+    pumpQuery.limit = 10;
+    [pumpQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        block(objects, error);
+        
+    }];
+}
+
 
 
 @end

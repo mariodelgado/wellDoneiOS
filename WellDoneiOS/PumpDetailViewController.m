@@ -16,6 +16,7 @@
 #import "PNChart.h"
 #import "ReportHeaderView.h"
 #import "CreateReportViewController.h"
+#import "UILabel+BorderedLabel.h"
 
 
 @interface PumpDetailViewController ()
@@ -29,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIView *chartView;
 @property (strong, nonatomic) Report *report;
 @property (strong, nonatomic) ReportHeaderView *reportHeaderView;
+@property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
 @property (nonatomic, assign) BOOL isPresenting; 
 @end
@@ -41,7 +43,7 @@
     if (self) {
         // Custom initialization
         self.reportHeaderView = [ReportHeaderView new];
-        self.reportHeaderView.delegate = self; 
+        
     }
     return self;
 }
@@ -52,10 +54,12 @@
     // Do any additional setupx after loading the view from its nib.
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    [self configRefreshControl];
     [self loadReports];
     [self loadChart];
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
+    self.reportHeaderView.delegate = self; 
     
 }
 - (void)loadChart {
@@ -79,6 +83,7 @@
     self.lblDecsription.text = pump.descriptionText;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
     self.lblLastUpdated.text = [self giveMePrettyDate];
+//    [self addStatusLabel:pump.status]; Was acting weired.
 
 }
 - (NSString *)giveMePrettyDate {
@@ -214,25 +219,53 @@
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
     
     if(self.isPresenting){
-      toViewController.view.frame = containerView.frame;
+        
+        PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:self.chartView.bounds];
+        [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
+        [barChart setYValues:@[@200,  @300, @250, @275, @200,@300,@400]];
+        [barChart strokeChart];
+                
+//        toViewController.view.frame = containerView.frame;
+        toViewController.view.frame = self.chartView.frame;
 
         [containerView addSubview:toViewController.view];
         
-        toViewController.view.alpha = 0;
-    
-        toViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
+        toViewController.view.alpha = 1;
+        StatsViewController *statsView = (StatsViewController*)toViewController;
+        statsView.animateView = [[UIView alloc] initWithFrame:statsView.view.bounds];
+        [statsView.view addSubview:statsView.animateView];
+//        statsView.animateView.frame = self.chartView.frame;
+        NSLog(@"Frame:%f, %f",statsView.animateView.frame.origin.x, statsView.animateView.frame.origin.y );
+        NSLog(@"Frame Chart View:%f,%f",self.chartView.frame.origin.x, self.chartView.frame.origin.y);
+
+       
+        [statsView.animateView addSubview:barChart];
+        //        [toViewController.view addSubview:barChart];
+//        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+        
         [UIView animateWithDuration:1 animations:^{
+            
+          toViewController.view.frame = containerView.frame;
+            statsView.animateView.frame = self.chartView.frame;
+            
 //            toViewController.view.frame = CGRectMake(0, 0, toViewController.view.frame.size.width, toViewController.view.frame.size.width);
             toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             toViewController.view.alpha = 1;
         } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
+            [UIView animateWithDuration:1 delay:0.5 usingSpringWithDamping:2 initialSpringVelocity:15 options:0 animations:^{
+                statsView.animateView.frame = CGRectMake(statsView.animateView.frame.origin.x, 40, statsView.animateView.frame.size.width, statsView.animateView.frame.size.height);
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+            
         }];
     } else {
-        
-        [UIView animateWithDuration:1 animations:^{
-            fromViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
-            fromViewController.view.alpha = 0;
+
+        [UIView animateWithDuration:0.5 animations:^{
+//            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
+            fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
+           // fromViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
+            //fromViewController.view.alpha = 0;
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
         }];
@@ -240,6 +273,13 @@
     
 }
 
+-(void) addStatusLabel:(NSString*)status {
+    
+     UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
+    [lblStatusNew constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
+//    [self.lblStatus constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
+    [self.view addSubview:lblStatusNew];
+}
 
 #pragma mark - ReportView Delegate
 -(void)addReport {

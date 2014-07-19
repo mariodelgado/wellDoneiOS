@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface StatsViewController : UIViewController
+@property (strong, nonatomic) UIView *animateView;
 
 @end

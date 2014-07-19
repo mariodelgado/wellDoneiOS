@@ -111,7 +111,8 @@
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     result[@"From"] =@"+14087136419";
     result[@"To"] =@"+16186969454";
-    result[@"Body"] = @"First Text From Phone";
+    result[@"Body"] = [NSString stringWithFormat:@"Pump With Name:%@ is broken.", @"Pump 16"];
+   
     return result;
 
 }
