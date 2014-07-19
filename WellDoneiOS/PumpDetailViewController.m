@@ -35,7 +35,7 @@
 @property (strong, nonatomic) ReportHeaderView *reportHeaderView;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
-@property (nonatomic, assign) BOOL isPresenting; 
+@property (nonatomic, assign) BOOL isPresenting;
 @end
 
 @implementation PumpDetailViewController
@@ -68,8 +68,8 @@
     self.imgPump.layer.cornerRadius = width/2;
     self.imgPump.layer.borderColor = [UIColor lightGrayColor].CGColor; //change this to status color of pump
     self.imgPump.layer.borderWidth = 4;
-  
-
+    
+    
 }
 
 
@@ -77,9 +77,9 @@
 - (void)loadChart {
     PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, -25, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
     [lineChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
-
+    
     lineChart.backgroundColor = [UIColor clearColor];
-
+    
     // Line Chart No.1
     NSArray * data01Array = @[@60.1, @160.1, @126.4, @262.2, @186.2];
     PNLineChartData *data01 = [PNLineChartData new];
@@ -113,7 +113,7 @@
     self.lblLastUpdated.text = [self giveMePrettyDate];
     self.lblStatus.text = pump.status;
     //[self addStatusLabel:pump.status]; //Was acting weired.
-
+    
 }
 
 - (NSString *)giveMePrettyDate {
@@ -128,9 +128,9 @@
     _pump = pump;
     __weak PumpDetailViewController *weakSelf = self;
     [Report getReportsForPump:pump withBlock:^(NSArray *objects, NSError *error) {
-                        weakSelf.report = [objects firstObject];                      
+        weakSelf.report = [objects firstObject];
         [self reloadViewWithData:pump];
-
+        
     }];
 }
 
@@ -154,9 +154,9 @@
     cell.textLabel.text = report.reportName;
     cell.textLabel.textColor = [UIColor whiteColor];
     
-  
+    
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
-
+    
     cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15];
     return cell;
 }
@@ -190,17 +190,17 @@
         }
     }];
     
-//    PFQuery *queryForReports = [Report query];
-//    [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            self.reports = objects;
-//            [self.tableView reloadData];
-//            [self endRefresh];
-//        } else {
-//            
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        }
-//    }];
+    //    PFQuery *queryForReports = [Report query];
+    //    [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    //        if (!error) {
+    //            self.reports = objects;
+    //            [self.tableView reloadData];
+    //            [self endRefresh];
+    //        } else {
+    //
+    //            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    //        }
+    //    }];
 }
 
 #pragma mark - Refresh Control
@@ -232,7 +232,7 @@
     statsVC.modalPresentationStyle = UIModalPresentationCustom;
     statsVC.transitioningDelegate = self;
     [self presentViewController:statsVC animated:YES completion:nil];
-
+    
     
 }
 
@@ -262,10 +262,10 @@
         [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
         [barChart setYValues:@[@200,  @300, @250, @275, @200,@300,@400]];
         [barChart strokeChart];
-                
-//        toViewController.view.frame = containerView.frame;
+        
+        //        toViewController.view.frame = containerView.frame;
         toViewController.view.frame = self.chartView.frame;
-
+        
         [containerView addSubview:toViewController.view];
         
         toViewController.view.alpha = 1;
@@ -273,18 +273,18 @@
         statsView.animateView = [[UIView alloc] initWithFrame:statsView.view.bounds];
         statsView.animateView.backgroundColor = [UIColor blackColor];
         [statsView.view addSubview:statsView.animateView];
-//        statsView.animateView.frame = self.chartView.frame;
+        //        statsView.animateView.frame = self.chartView.frame;
         NSLog(@"Frame:%f, %f",statsView.animateView.frame.origin.x, statsView.animateView.frame.origin.y );
         NSLog(@"Frame Chart View:%f,%f",self.chartView.frame.origin.x, self.chartView.frame.origin.y);
-
-       
+        
+        
         [statsView.animateView addSubview:barChart];
         //        [toViewController.view addSubview:barChart];
-//        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+        //        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
         
         [UIView animateWithDuration:1 animations:^{
             
-          toViewController.view.frame = containerView.frame;
+            toViewController.view.frame = containerView.frame;
             statsView.animateView.frame = self.chartView.frame;
             
             toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
@@ -305,9 +305,9 @@
             
         }];
     } else {
-
+        
         [UIView animateWithDuration:0.5 animations:^{
-//            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
+            //            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
             fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
@@ -318,9 +318,9 @@
 
 -(void) addStatusLabel:(NSString*)status {
     
-     UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
+    UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
     [lblStatusNew constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
-//    [self.lblStatus constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
+    //    [self.lblStatus constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
     [self.view addSubview:lblStatusNew];
 }
 
