@@ -24,6 +24,7 @@ PODS:
   - Facebook-iOS-SDK (3.16):
     - Bolts
   - JBChartView (2.5.5)
+  - LiveFrost (1.1.2)
   - MHPrettyDate (1.1.1)
   - Parse (1.2.19):
     - Facebook-iOS-SDK (~> 3.11)
@@ -36,6 +37,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking
   - JBChartView
+  - LiveFrost
   - MHPrettyDate (~> 1.1.1)
   - Parse
   - PNChart (~> 0.3.3)
@@ -47,6 +49,7 @@ SPEC CHECKSUMS:
   Bolts: 91c2af8eae1d44e1dd75946a5b0ae04a43ea43e4
   Facebook-iOS-SDK: 82ad03cb9ce568855057e20a099054cf1e34ef12
   JBChartView: 666486d81dd16fa0cfac7bc32b4b70d6c52e7162
+  LiveFrost: 8c7e447e6833902ddc2a639faa27e71e091b5062
   MHPrettyDate: d9f42f2ec3dfece6352f18ac77aa33312174e09e
   Parse: ffebaecaddd32cb52671010f81567c298ff93d04
   PNChart: c77c6880b03851f01d7b5523648e0b93cfe51978
