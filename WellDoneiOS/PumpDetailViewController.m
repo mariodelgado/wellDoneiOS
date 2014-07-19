@@ -64,7 +64,7 @@
     
     float width = self.imgPump.bounds.size.width;
     self.imgPump.layer.cornerRadius = width/2;
-    self.imgPump.layer.borderColor = [UIColor colorWithRed:0.992 green:0.431 blue:0.431 alpha:.7].CGColor; //change this to status color of pump
+    self.imgPump.layer.borderColor = [UIColor lightGrayColor].CGColor; //change this to status color of pump
     self.imgPump.layer.borderWidth = 4;
   
 
@@ -86,7 +86,7 @@
     //[barChart strokeChart];
     
     
-    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 20, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
+    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, -25, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
     [lineChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
 
     lineChart.backgroundColor = [UIColor clearColor];
