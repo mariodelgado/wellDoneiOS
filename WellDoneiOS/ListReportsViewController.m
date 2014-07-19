@@ -41,7 +41,8 @@
 //    
     
    
-    
+    [self.tableView setBackgroundView:nil];
+    [self.tableView setBackgroundColor:[UIColor clearColor]];
     
     
 }
@@ -65,7 +66,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Report"];
     Report *report = self.reports[indexPath.row];
-    
+    cell.backgroundColor = [UIColor clearColor];
     cell.textLabel.text = report.reportName;
     
     return cell;

@@ -8,12 +8,15 @@
 
 #import "PumpMapViewController.h"
 #import "PumpDetailViewController.h"
+#import <LiveFrost.h>
+
 
 #define METERS_PER_MILE 1609.344
 
 @interface PumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *viewContainer;
+@property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (strong, nonatomic) NSMutableArray *pumpViewControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (strong, nonatomic) IBOutlet UIPanGestureRecognizer *bottomPanGestureRecognizer;
@@ -21,6 +24,7 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, assign) CGFloat initialY;
 @property (nonatomic, assign) BOOL firstLoad;
+
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index;
 - (IBAction)onBottomPan:(UIPanGestureRecognizer *)sender;
@@ -58,6 +62,12 @@
     
     [self.pageViewController didMoveToParentViewController:self];
     self.initialY = self.viewContainer.frame.origin.y;
+    
+
+    
+    
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -131,6 +141,7 @@
             // Cancel current gesture
         }
         self.bottomContainerCenter = self.viewContainer.center;
+        self.bottomContainerCenter = self.blurView.center;
         // Disable Page View Controller
         
         if (fabs(velocity.y) > fabs(velocity.x)) {
@@ -143,15 +154,18 @@
 
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         self.viewContainer.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
+        self.blurView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         // Enable Page View Controller
         [UIView animateWithDuration:0.5 animations:^{
             if (velocity.y < 0) {
                 self.viewContainer.center = self.view.center;
+                self.blurView.center = self.view.center;
             } else { //going down
                 self.viewContainer.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
                 self.viewContainer.alpha = 1;
+                self.blurView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
             }
  
         }];

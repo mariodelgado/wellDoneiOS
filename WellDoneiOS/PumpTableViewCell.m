@@ -9,6 +9,7 @@
 #import "PumpTableViewCell.h"
 #import "Pump.h"
 #import "MHPrettyDate.h"
+
 @interface PumpTableViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *imgPump;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
@@ -25,6 +26,7 @@
 - (void)awakeFromNib
 {
     // Initialization code
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
@@ -38,11 +40,16 @@
     self.lblCurrStatus.text = pump.status;
     NSDateFormatter *_formatter;
     
+    
+
     _formatter = [[NSDateFormatter alloc] init];
     [_formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
 //    NSString *dateStr = [NSString stringWithFormat:@"%@", pump.updatedAt];
 //    self.lblLastUpdate.text = [MHPrettyDate prettyDateFromDate:[_formatter dateFromString:dateStr] withFormat:MHPrettyDateShortRelativeTime];
 //    self.lblLastUpdate.text = pump.updatedAt;
     
+    
+    
+
 }
 @end
