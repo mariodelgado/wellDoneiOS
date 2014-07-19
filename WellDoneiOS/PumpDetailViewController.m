@@ -17,7 +17,9 @@
 #import "ReportHeaderView.h"
 #import "CreateReportViewController.h"
 #import "UILabel+BorderedLabel.h"
+#import <QuartzCore/QuartzCore.h>
 #import "UIView+Animations.h"
+
 
 
 @interface PumpDetailViewController ()
@@ -33,7 +35,7 @@
 @property (strong, nonatomic) ReportHeaderView *reportHeaderView;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
-@property (nonatomic, assign) BOOL isPresenting; 
+@property (nonatomic, assign) BOOL isPresenting;
 @end
 
 @implementation PumpDetailViewController
@@ -60,34 +62,60 @@
     [self loadChart];
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
-    self.reportHeaderView.delegate = self; 
+    self.reportHeaderView.delegate = self;
+    
+    float width = self.imgPump.bounds.size.width;
+    self.imgPump.layer.cornerRadius = width/2;
+    self.imgPump.layer.borderColor = [UIColor lightGrayColor].CGColor; //change this to status color of pump
+    self.imgPump.layer.borderWidth = 4;
+    
     
 }
+
+
+
 - (void)loadChart {
-//    JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
-//    lineChartView.delegate = self;
-//    lineChartView.dataSource = self;
-////    lineChartView.frame = self.chartView.bounds;
-////    [lineChartView reloadData];
-//    [self.chartView addSubview:lineChartView];
+    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, -25, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
+    [lineChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
     
-    PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:self.chartView.bounds];
-    [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
-    [barChart setYValues:@[@200,  @300, @250, @275, @200,@300,@400]];
-    [barChart strokeChart];
-    [self.chartView addSubview:barChart];
+    lineChart.backgroundColor = [UIColor clearColor];
+    
+    // Line Chart No.1
+    NSArray * data01Array = @[@60.1, @160.1, @126.4, @262.2, @186.2];
+    PNLineChartData *data01 = [PNLineChartData new];
+    data01.color = PNFreshGreen;
+    data01.itemCount = lineChart.xLabels.count;
+    data01.getData = ^(NSUInteger index) {
+        CGFloat yValue = [data01Array[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
+    // Line Chart No.2
+    NSArray * data02Array = @[@20.1, @180.1, @26.4, @202.2, @126.2];
+    PNLineChartData *data02 = [PNLineChartData new];
+    data02.color = PNTwitterColor;
+    data02.itemCount = lineChart.xLabels.count;
+    data02.getData = ^(NSUInteger index) {
+        CGFloat yValue = [data02Array[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
+    
+    lineChart.chartData = @[data01, data02];
+    [lineChart strokeChart];
+    [self.chartView addSubview:lineChart];
     
     self.report = [[Report alloc] init];
 }
+
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
-    self.imgPump.image = [UIImage imageNamed:@"pumpPlaceholder.png"];
-    self.lblLastUpdated.text = [NSString stringWithFormat:@"Last Updated %@ ago", [self giveMePrettyDate]] ;
-    [self.lblStatus wiggle];
-//    [self addStatusLabel:pump.status]; Was acting weired.
-
+    self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
+    self.lblLastUpdated.text = [self giveMePrettyDate];
+    self.lblStatus.text = pump.status;
+    //[self addStatusLabel:pump.status]; //Was acting weired.
+    
 }
+
 - (NSString *)giveMePrettyDate {
     if (self.report.updatedAt) {
         return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateShortRelativeTime];
@@ -95,15 +123,15 @@
         return @"NA";
     }
 }
+
 - (void)setPump:(Pump *)pump{
     _pump = pump;
     __weak PumpDetailViewController *weakSelf = self;
     [Report getReportsForPump:pump withBlock:^(NSArray *objects, NSError *error) {
-                        weakSelf.report = [objects firstObject];                      
+        weakSelf.report = [objects firstObject];
         [self reloadViewWithData:pump];
-
+        
     }];
-
 }
 
 - (void)didReceiveMemoryWarning
@@ -111,6 +139,8 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 #pragma mark - table delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -122,6 +152,12 @@
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Report"];
     Report *report = self.reports[indexPath.row];
     cell.textLabel.text = report.reportName;
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+    
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    
+    cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15];
     return cell;
 }
 
@@ -154,17 +190,17 @@
         }
     }];
     
-//    PFQuery *queryForReports = [Report query];
-//    [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
-//        if (!error) {
-//            self.reports = objects;
-//            [self.tableView reloadData];
-//            [self endRefresh];
-//        } else {
-//            
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
-//        }
-//    }];
+    //    PFQuery *queryForReports = [Report query];
+    //    [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+    //        if (!error) {
+    //            self.reports = objects;
+    //            [self.tableView reloadData];
+    //            [self endRefresh];
+    //        } else {
+    //
+    //            NSLog(@"Error: %@ %@", error, [error userInfo]);
+    //        }
+    //    }];
 }
 
 #pragma mark - Refresh Control
@@ -196,7 +232,7 @@
     statsVC.modalPresentationStyle = UIModalPresentationCustom;
     statsVC.transitioningDelegate = self;
     [self presentViewController:statsVC animated:YES completion:nil];
-
+    
     
 }
 
@@ -226,10 +262,10 @@
         [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
         [barChart setYValues:@[@200,  @300, @250, @275, @200,@300,@400]];
         [barChart strokeChart];
-                
-//        toViewController.view.frame = containerView.frame;
+        
+        //        toViewController.view.frame = containerView.frame;
         toViewController.view.frame = self.chartView.frame;
-
+        
         [containerView addSubview:toViewController.view];
         
         toViewController.view.alpha = 1;
@@ -237,18 +273,18 @@
         statsView.animateView = [[UIView alloc] initWithFrame:statsView.view.bounds];
         statsView.animateView.backgroundColor = [UIColor blackColor];
         [statsView.view addSubview:statsView.animateView];
-//        statsView.animateView.frame = self.chartView.frame;
+        //        statsView.animateView.frame = self.chartView.frame;
         NSLog(@"Frame:%f, %f",statsView.animateView.frame.origin.x, statsView.animateView.frame.origin.y );
         NSLog(@"Frame Chart View:%f,%f",self.chartView.frame.origin.x, self.chartView.frame.origin.y);
-
-       
+        
+        
         [statsView.animateView addSubview:barChart];
         //        [toViewController.view addSubview:barChart];
-//        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+        //        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
         
         [UIView animateWithDuration:1 animations:^{
             
-          toViewController.view.frame = containerView.frame;
+            toViewController.view.frame = containerView.frame;
             statsView.animateView.frame = self.chartView.frame;
             
             toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
@@ -269,9 +305,9 @@
             
         }];
     } else {
-
+        
         [UIView animateWithDuration:0.5 animations:^{
-//            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
+            //            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
             fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
@@ -282,9 +318,9 @@
 
 -(void) addStatusLabel:(NSString*)status {
     
-     UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
+    UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
     [lblStatusNew constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
-//    [self.lblStatus constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
+    //    [self.lblStatus constructBorderedLabelWithText:status color:[UIColor redColor] angle:30];
     [self.view addSubview:lblStatusNew];
 }
 
