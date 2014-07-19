@@ -11,6 +11,8 @@
 #import <QuartzCore/QuartzCore.h>
 #import "CreateReportViewController.h"
 #import "AFNetworking.h"
+#import "TextMessageViewController.h"
+#import "UIView+Animations.h"
 
 @interface ReportViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *pumpImage;
@@ -18,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblDateCreated;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 @property (weak, nonatomic) IBOutlet UILabel *lblNotes;
+
+@property (assign,nonatomic)BOOL isPresenting;
 
 - (IBAction)onCreateReport:(id)sender;
 - (IBAction)onSendSMS:(id)sender;
@@ -88,34 +92,66 @@
 
 - (IBAction)onSendSMS:(id)sender {
     
+    //Show modal
+    TextMessageViewController *textVC = [TextMessageViewController new];
+    textVC.modalPresentationStyle = UIModalPresentationCustom;
+    textVC.transitioningDelegate = self;
+    [self presentViewController:textVC animated:YES completion:nil];
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    //manager.requestSerializer = [AFJSONRequestSerializer serializer];
-    [manager.requestSerializer
-     setAuthorizationHeaderFieldWithUsername:@"AC371a1c80e474891a978040c2ffbe09f4"
-     password:@"b6bf6dfe8a8ca922aba35a531076b2b3"];
     
+}
 
-    [manager POST:@"https://api.twilio.com/2010-04-01/Accounts/AC371a1c80e474891a978040c2ffbe09f4/Messages.json" parameters:[self jsonDict] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSLog(@"Response Object:%@",responseObject);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error:%@",error);
- 
+#pragma mark - modal transition
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    self.isPresenting = YES;
+    return self;
+    
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+    self.isPresenting = NO;
+    return self;
+}
+
+- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
+    return 2.0;
+}
+
+- (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
+    UIView *containerView = [transitionContext containerView];
+    UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
+    UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
+    
+    if(self.isPresenting){
+        TextMessageViewController *smsView = (TextMessageViewController*)toViewController;
+        CGRect originalSMSFrame = smsView.view.frame;
         
-    }];
+        smsView.view.frame = CGRectMake(10, 150, originalSMSFrame.size.width, originalSMSFrame.size.height);
+        [containerView addSubview:toViewController.view];
+        
+        toViewController.view.alpha = 0;
+        [UIView animateWithDuration:1 animations:^{
+            
+            toViewController.view.alpha = 1;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    } else {
+        
+        [UIView animateWithDuration:1 animations:^{
+            TextMessageViewController *smsView = (TextMessageViewController*)fromViewController;
+            CGRect originalSMSFrame = smsView.view.frame;
+            [fromViewController.view animateExitDownWithDuration:1 frame:CGRectMake(originalSMSFrame.origin.x, originalSMSFrame.origin.y+500, originalSMSFrame.size.width, originalSMSFrame.size.height)];
+//            fromViewController.view.transform = CGAffineTransformMakeScale(0.3, 0.3);
+            fromViewController.view.alpha = 0;
+        } completion:^(BOOL finished) {
+            [transitionContext completeTransition:YES];
+        }];
+    }
     
 }
 
-- (NSMutableDictionary*) jsonDict
-{
-    NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
-    result[@"From"] =@"+14087136419";
-    result[@"To"] =@"+16186969454";
-    result[@"Body"] = [NSString stringWithFormat:@"Pump With Name:%@ is broken.", @"Pump 16"];
-   
-    return result;
 
-}
 
 @end
 

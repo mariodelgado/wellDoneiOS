@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "Pump.h"
 
-@interface PumpMapViewController : UIViewController<MKMapViewDelegate, UIPageViewControllerDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIGestureRecognizerDelegate>
+@interface PumpMapViewController : UIViewController<MKMapViewDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIGestureRecognizerDelegate>
 @property  (nonatomic, strong) Pump *pump;
 @property  (nonatomic, strong) NSArray *pumps;
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation;

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Report.h"
 
-@interface ReportViewController : UIViewController
+@interface ReportViewController : UIViewController <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
 @property (strong, nonatomic) Report *report; 
 

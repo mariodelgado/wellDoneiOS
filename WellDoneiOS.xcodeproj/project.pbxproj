@@ -29,6 +29,9 @@
 		135AB2111975BAF9001EBED1 /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 135AB20F1975BAF9001EBED1 /* StatsViewController.xib */; };
 		13C9712A197852DB0099CE32 /* ReportHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C97129197852DB0099CE32 /* ReportHeaderView.m */; };
 		13C9712C197852FF0099CE32 /* ReportHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13C9712B197852FF0099CE32 /* ReportHeaderView.xib */; };
+		13C97133197AD45F0099CE32 /* UIView+Animations.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C97132197AD45F0099CE32 /* UIView+Animations.m */; };
+		13C97137197AE28F0099CE32 /* TextMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13C97135197AE28F0099CE32 /* TextMessageViewController.m */; };
+		13C97138197AE28F0099CE32 /* TextMessageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13C97136197AE28F0099CE32 /* TextMessageViewController.xib */; };
 		13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */; };
 		13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */; };
 		13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28CF9196F303400E8A5C7 /* ReportViewController.m */; };
@@ -96,6 +99,11 @@
 		13C97129197852DB0099CE32 /* ReportHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportHeaderView.m; sourceTree = "<group>"; };
 		13C9712B197852FF0099CE32 /* ReportHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ReportHeaderView.xib; sourceTree = "<group>"; };
 		13C9712D197869350099CE32 /* ReportDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReportDelegate.h; sourceTree = "<group>"; };
+		13C97131197AD45F0099CE32 /* UIView+Animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Animations.h"; sourceTree = "<group>"; };
+		13C97132197AD45F0099CE32 /* UIView+Animations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Animations.m"; sourceTree = "<group>"; };
+		13C97134197AE28F0099CE32 /* TextMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextMessageViewController.h; sourceTree = "<group>"; };
+		13C97135197AE28F0099CE32 /* TextMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextMessageViewController.m; sourceTree = "<group>"; };
+		13C97136197AE28F0099CE32 /* TextMessageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextMessageViewController.xib; sourceTree = "<group>"; };
 		13D28CF5196F303400E8A5C7 /* CreateReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateReportViewController.h; sourceTree = "<group>"; };
 		13D28CF6196F303400E8A5C7 /* CreateReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateReportViewController.m; sourceTree = "<group>"; };
 		13D28CF7196F303400E8A5C7 /* CreateReportViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateReportViewController.xib; sourceTree = "<group>"; };
@@ -243,6 +251,11 @@
 				13C97129197852DB0099CE32 /* ReportHeaderView.m */,
 				13C9712B197852FF0099CE32 /* ReportHeaderView.xib */,
 				13C9712D197869350099CE32 /* ReportDelegate.h */,
+				13C97131197AD45F0099CE32 /* UIView+Animations.h */,
+				13C97132197AD45F0099CE32 /* UIView+Animations.m */,
+				13C97134197AE28F0099CE32 /* TextMessageViewController.h */,
+				13C97135197AE28F0099CE32 /* TextMessageViewController.m */,
+				13C97136197AE28F0099CE32 /* TextMessageViewController.xib */,
 			);
 			path = WellDoneiOS;
 			sourceTree = "<group>";
@@ -376,6 +389,9 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = welldone;
 				TargetAttributes = {
+					1337FAAF196DAEB300BC9B65 = {
+						DevelopmentTeam = 6VDG77DH63;
+					};
 					1337FACA196DAEB300BC9B65 = {
 						TestTargetID = 1337FAAF196DAEB300BC9B65;
 					};
@@ -409,6 +425,7 @@
 				133B1EC91973610700D43A30 /* cvCell.xib in Resources */,
 				B9517100196DB47800DAACA3 /* PumpsMapViewController.xib in Resources */,
 				1337FABE196DAEB300BC9B65 /* InfoPlist.strings in Resources */,
+				13C97138197AE28F0099CE32 /* TextMessageViewController.xib in Resources */,
 				B9C81FAB19720F60002C19E5 /* PumpDetailViewController.xib in Resources */,
 				B9C81FB21972523A002C19E5 /* 07-map-marker.png in Resources */,
 				135AB2111975BAF9001EBED1 /* StatsViewController.xib in Resources */,
@@ -478,6 +495,7 @@
 				B95170EF196DB46900DAACA3 /* PumpsListViewController.m in Sources */,
 				135AB2101975BAF9001EBED1 /* StatsViewController.m in Sources */,
 				132F5CC4196F66C90063A428 /* ListReportsViewController.m in Sources */,
+				13C97133197AD45F0099CE32 /* UIView+Animations.m in Sources */,
 				1337FAC0196DAEB300BC9B65 /* main.m in Sources */,
 				B9C81FAA19720F60002C19E5 /* PumpDetailViewController.m in Sources */,
 				B9517102196DB47800DAACA3 /* PumpLocation.m in Sources */,
@@ -486,6 +504,7 @@
 				13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */,
 				13D28D05196F480A00E8A5C7 /* Report.m in Sources */,
 				13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */,
+				13C97137197AE28F0099CE32 /* TextMessageViewController.m in Sources */,
 				B9517101196DB47800DAACA3 /* Pump.m in Sources */,
 				133B1ECA1973610700D43A30 /* ImageCollectionViewCell.m in Sources */,
 				132F5CBF196F60830063A428 /* SensorData.m in Sources */,
@@ -607,8 +626,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rajat Bhargava (K7UUU9BK44)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rajat Bhargava (K7UUU9BK44)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Parse",
@@ -617,6 +636,7 @@
 				GCC_PREFIX_HEADER = "WellDoneiOS/WellDoneiOS-Prefix.pch";
 				INFOPLIST_FILE = "WellDoneiOS/WellDoneiOS-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -627,8 +647,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Rajat Bhargava (K7UUU9BK44)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Rajat Bhargava (K7UUU9BK44)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/Parse",
@@ -637,6 +657,7 @@
 				GCC_PREFIX_HEADER = "WellDoneiOS/WellDoneiOS-Prefix.pch";
 				INFOPLIST_FILE = "WellDoneiOS/WellDoneiOS-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
