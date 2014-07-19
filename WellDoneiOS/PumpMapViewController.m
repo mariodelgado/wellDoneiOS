@@ -176,9 +176,9 @@
 - (void) setUpView {
 //    [self plotPump:self.pump];
     self.pumpViewControllers = [NSMutableArray array];
-    
+//    [self plotAllPumpsInView];
     for (Pump *p in self.pumps) {
-        [self plotPump:p];
+//        [self plotPump:p];
         if(self.firstLoad){
             PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
             // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
@@ -189,6 +189,12 @@
     self.firstLoad = NO;
     [self.pageViewController setViewControllers:@[self.pumpViewControllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
+}
+- (void) plotAllPumpsInView {
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    for (Pump *p in self.pumps) {
+           [self plotPump:p];
+    }
 }
 
 //TODO: remove this call from here
@@ -205,21 +211,23 @@
         }
     }];
 }
+
 - (void)setPump:(Pump *)pump {
     _pump = pump;
     [self loadMapAtRegion];
     [self plotPump:pump];
+    [self plotAllPumpsInView];
 }
+
 - (void)loadMapAtRegion {
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = self.pump.location.latitude;
     coordinate.longitude = self.pump.location.longitude;
-    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE)];
+    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE) animated:YES];
 
 }
 
 - (void)plotPump:(Pump *)pump {
-//    [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView addAnnotation:pump];
 }
 
@@ -227,8 +235,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     //add a delay here and test
-    
-    [self.mapView selectAnnotation:self.pump animated:YES];
+//    [self.mapView selectAnnotation:self.pump animated:YES];
 }
 
 -(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
@@ -257,14 +264,27 @@
     }
     return pinView;
 }
+
+- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view NS_AVAILABLE(10_9, 4_0)
+{
+    Pump *selectedPump = (Pump *)view.annotation;
+    if(selectedPump != self.pump){
+        int index = [self.pumps indexOfObject:view.annotation];
+        [self.pageViewController setViewControllers:@[self.pumpViewControllers[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        self.pump = selectedPump;
+    }
+
+
+}
+
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews
 {
     for (MKAnnotationView *annView in annotationViews)
     {
         CGRect endFrame = annView.frame;
         annView.frame = CGRectOffset(endFrame, 0, -500);
-//        [UIView animateWithDuration:0.9
-//                         animations:^{ annView.frame = endFrame; }];
+        [UIView animateWithDuration:0.9
+                         animations:^{ annView.frame = endFrame; }];
     }
 }
 

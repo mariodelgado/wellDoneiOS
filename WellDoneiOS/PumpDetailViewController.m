@@ -62,30 +62,26 @@
     self.reportHeaderView.delegate = self; 
     
 }
+
 - (void)loadChart {
-//    JBLineChartView *lineChartView = [[JBLineChartView alloc] init];
-//    lineChartView.delegate = self;
-//    lineChartView.dataSource = self;
-////    lineChartView.frame = self.chartView.bounds;
-////    [lineChartView reloadData];
-//    [self.chartView addSubview:lineChartView];
-    
     PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:self.chartView.bounds];
     [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
-    [barChart setYValues:@[@200,  @300, @250, @275, @200,@300,@400]];
+    [barChart setYValues:@[@200, @300, @250, @275, @200, @300, @400]];
     [barChart strokeChart];
     [self.chartView addSubview:barChart];
-    
     self.report = [[Report alloc] init];
 }
+
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
     self.lblLastUpdated.text = [self giveMePrettyDate];
-//    [self addStatusLabel:pump.status]; Was acting weired.
+    self.lblStatus.text = pump.status;
+    //[self addStatusLabel:pump.status]; //Was acting weired.
 
 }
+
 - (NSString *)giveMePrettyDate {
     if (self.report.updatedAt) {
         return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateShortRelativeTime];
@@ -93,6 +89,7 @@
         return @"NA";
     }
 }
+
 - (void)setPump:(Pump *)pump{
     _pump = pump;
     __weak PumpDetailViewController *weakSelf = self;
@@ -101,7 +98,6 @@
         [self reloadViewWithData:pump];
 
     }];
-
 }
 
 - (void)didReceiveMemoryWarning

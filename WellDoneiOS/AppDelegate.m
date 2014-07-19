@@ -24,6 +24,16 @@
     [Parse setApplicationId:@"XR5W6MLXuh81taNlbhRQ82mLlzOxmfLnv0isdvvi"
                   clientKey:@"jp00u3EcjTA4ZRh5dBNGC8mTgbak2U0anLlPrswW"];
     
+    NSDictionary *notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
+//    NSLog(@"notification payload %@", notificationPayload);
+    UIAlertView *message = [[UIAlertView alloc] initWithTitle:@"Notification!"
+                                                      message:[NSString stringWithFormat:@"%@", notificationPayload]
+                                                     delegate:nil
+                                            cancelButtonTitle:@"OK"
+                                            otherButtonTitles:nil];
+    
+//    [message show];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpMapViewController alloc] init]];
     
