@@ -82,29 +82,17 @@
 
 }
 - (NSString *)giveMePrettyDate {
-    
-    NSDateFormatter *_formatter;
-    
-    _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
     if (self.report.updatedAt) {
-        NSString *dateStr = [NSString stringWithFormat:@"%@", self.report.updatedAt];
-        NSLog(@"dateStr %@", dateStr);
-        return [MHPrettyDate prettyDateFromDate:[_formatter dateFromString:dateStr] withFormat:MHPrettyDateShortRelativeTime];
+        return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateShortRelativeTime];
     }else {
         return @"NA";
     }
 }
 - (void)setPump:(Pump *)pump{
     _pump = pump;
-//    __block Report *report;
     __weak PumpDetailViewController *weakSelf = self;
     [Report getReportsForPump:pump withBlock:^(NSArray *objects, NSError *error) {
-                        weakSelf.report = [objects firstObject];
-        NSLog(@"report for pump %@ is %@", pump.name, weakSelf.report);
-                        NSDateFormatter *_formatter;
-                        _formatter = [[NSDateFormatter alloc] init];
-                        [_formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
+                        weakSelf.report = [objects firstObject];                      
         [self reloadViewWithData:pump];
 
     }];

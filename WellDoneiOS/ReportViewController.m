@@ -97,7 +97,7 @@
     
 
     [manager POST:@"https://api.twilio.com/2010-04-01/Accounts/AC371a1c80e474891a978040c2ffbe09f4/Messages.json" parameters:[self jsonDict] success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"Response Object:%@",responseObject);
+//        NSLog(@"Response Object:%@",responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error:%@",error);
  

@@ -59,6 +59,7 @@
     [self.pageViewController didMoveToParentViewController:self];
     self.initialY = self.viewContainer.frame.origin.y;
 }
+
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
 
@@ -73,7 +74,7 @@
     return YES;
 }
 
-#pragma mark PageviewController delegate methods
+#pragma mark PageviewController data source methods
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
     int index = (int)[self.pumpViewControllers indexOfObject:viewController];
@@ -94,6 +95,8 @@
         return nil;
     }
 }
+
+#pragma mark PageviewController delegate methods
 
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray *)pendingViewControllers NS_AVAILABLE_IOS(6_0){
         self.panGestureRecognizer.enabled = YES;
@@ -175,7 +178,7 @@
     self.pumpViewControllers = [NSMutableArray array];
     
     for (Pump *p in self.pumps) {
-//        [self plotPump:p];
+        [self plotPump:p];
         if(self.firstLoad){
             PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
             // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
@@ -198,7 +201,6 @@
             self.pump = self.pumps[0];
             [self setUpView];
         } else {
-            
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
@@ -213,10 +215,11 @@
     coordinate.latitude = self.pump.location.latitude;
     coordinate.longitude = self.pump.location.longitude;
     [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE)];
+
 }
 
 - (void)plotPump:(Pump *)pump {
-    [self.mapView removeAnnotations:self.mapView.annotations];
+//    [self.mapView removeAnnotations:self.mapView.annotations];
     [self.mapView addAnnotation:pump];
 }
 
@@ -224,6 +227,7 @@
 
 - (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
     //add a delay here and test
+    
     [self.mapView selectAnnotation:self.pump animated:YES];
 }
 
