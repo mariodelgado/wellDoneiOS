@@ -17,7 +17,9 @@
 #import "ReportHeaderView.h"
 #import "CreateReportViewController.h"
 #import "UILabel+BorderedLabel.h"
+#import <QuartzCore/QuartzCore.h>
 #import "UIView+Animations.h"
+
 
 
 @interface PumpDetailViewController ()
@@ -60,16 +62,47 @@
     [self loadChart];
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
-    self.reportHeaderView.delegate = self; 
+    self.reportHeaderView.delegate = self;
     
+    float width = self.imgPump.bounds.size.width;
+    self.imgPump.layer.cornerRadius = width/2;
+    self.imgPump.layer.borderColor = [UIColor lightGrayColor].CGColor; //change this to status color of pump
+    self.imgPump.layer.borderWidth = 4;
+  
+
 }
 
+
+
 - (void)loadChart {
-    PNBarChart * barChart = [[PNBarChart alloc] initWithFrame:self.chartView.bounds];
-    [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
-    [barChart setYValues:@[@200, @300, @250, @275, @200, @300, @400]];
-    [barChart strokeChart];
-    [self.chartView addSubview:barChart];
+    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, -25, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
+    [lineChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
+
+    lineChart.backgroundColor = [UIColor clearColor];
+
+    // Line Chart No.1
+    NSArray * data01Array = @[@60.1, @160.1, @126.4, @262.2, @186.2];
+    PNLineChartData *data01 = [PNLineChartData new];
+    data01.color = PNFreshGreen;
+    data01.itemCount = lineChart.xLabels.count;
+    data01.getData = ^(NSUInteger index) {
+        CGFloat yValue = [data01Array[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
+    // Line Chart No.2
+    NSArray * data02Array = @[@20.1, @180.1, @26.4, @202.2, @126.2];
+    PNLineChartData *data02 = [PNLineChartData new];
+    data02.color = PNTwitterColor;
+    data02.itemCount = lineChart.xLabels.count;
+    data02.getData = ^(NSUInteger index) {
+        CGFloat yValue = [data02Array[index] floatValue];
+        return [PNLineChartDataItem dataItemWithY:yValue];
+    };
+    
+    lineChart.chartData = @[data01, data02];
+    [lineChart strokeChart];
+    [self.chartView addSubview:lineChart];
+    
     self.report = [[Report alloc] init];
 }
 
@@ -107,6 +140,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+
 #pragma mark - table delegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.reports.count;
@@ -117,6 +152,12 @@
     UITableViewCell *cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Report"];
     Report *report = self.reports[indexPath.row];
     cell.textLabel.text = report.reportName;
+    cell.textLabel.textColor = [UIColor whiteColor];
+    
+  
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+
+    cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15];
     return cell;
 }
 
