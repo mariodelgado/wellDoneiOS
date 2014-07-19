@@ -29,7 +29,7 @@
                     <gestureRecognizers/>
                 </view>
                 <view opaque="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kbm-TD-ICj">
-                    <rect key="frame" x="0.0" y="451" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="459" width="320" height="560"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.066588133573532104" green="0.087758399546146393" blue="0.087876923382282257" alpha="0.086508648825065274" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

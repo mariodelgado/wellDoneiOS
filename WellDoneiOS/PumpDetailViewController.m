@@ -68,6 +68,12 @@
     self.imgPump.layer.cornerRadius = width/2;
     self.imgPump.layer.borderColor = [UIColor lightGrayColor].CGColor; //change this to status color of pump
     self.imgPump.layer.borderWidth = 4;
+    self.lblName.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.lblName.layer.shadowRadius = 6.0f;
+    self.lblName.layer.shadowOpacity = 1.0;
+    self.lblName.layer.shadowOffset = CGSizeZero;
+    self.lblName.layer.masksToBounds = NO;
+
   
 
 }
