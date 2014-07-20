@@ -12,7 +12,7 @@
 
 
 #define METERS_PER_MILE 1609.344
-#define GESTURE1_Y_OFFSET 200
+#define GESTURE1_Y_OFFSET 243
 
 
 @interface PumpMapViewController ()
