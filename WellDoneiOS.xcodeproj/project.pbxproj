@@ -39,6 +39,8 @@
 		13D28D02196F339A00E8A5C7 /* UILabel+BorderedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28D01196F339A00E8A5C7 /* UILabel+BorderedLabel.m */; };
 		13D28D05196F480A00E8A5C7 /* Report.m in Sources */ = {isa = PBXBuildFile; fileRef = 13D28D04196F480A00E8A5C7 /* Report.m */; };
 		20D59F76762B4D009110A722 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 208851D49B43414A91E3329F /* libPods.a */; };
+		A2DE705B197C53EC00102D24 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DE7059197C53EB00102D24 /* LoginViewController.m */; };
+		A2DE705C197C53EC00102D24 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2DE705A197C53EB00102D24 /* LoginViewController.xib */; };
 		B95170EF196DB46900DAACA3 /* PumpsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170ED196DB46900DAACA3 /* PumpsListViewController.m */; };
 		B95170F0196DB46900DAACA3 /* PumpsListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B95170EE196DB46900DAACA3 /* PumpsListViewController.xib */; };
 		B95170FC196DB47800DAACA3 /* PumpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B95170F2196DB47800DAACA3 /* PumpTableViewCell.m */; };
@@ -117,6 +119,9 @@
 		13D28D06196F495D00E8A5C7 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Pods/Parse/Parse.framework; sourceTree = "<group>"; };
 		208851D49B43414A91E3329F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		37A92B7BE69E4D2EB78076B5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		A2DE7058197C53EB00102D24 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		A2DE7059197C53EB00102D24 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
+		A2DE705A197C53EB00102D24 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		B95170EC196DB46900DAACA3 /* PumpsListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PumpsListViewController.h; sourceTree = "<group>"; };
 		B95170ED196DB46900DAACA3 /* PumpsListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PumpsListViewController.m; sourceTree = "<group>"; };
 		B95170EE196DB46900DAACA3 /* PumpsListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PumpsListViewController.xib; sourceTree = "<group>"; };
@@ -246,6 +251,9 @@
 				B9C534661976FD9C008596A1 /* 177-building.png */,
 				135AB20D1975BAF9001EBED1 /* StatsViewController.h */,
 				135AB20E1975BAF9001EBED1 /* StatsViewController.m */,
+				A2DE7058197C53EB00102D24 /* LoginViewController.h */,
+				A2DE7059197C53EB00102D24 /* LoginViewController.m */,
+				A2DE705A197C53EB00102D24 /* LoginViewController.xib */,
 				135AB20F1975BAF9001EBED1 /* StatsViewController.xib */,
 				13C97128197852DB0099CE32 /* ReportHeaderView.h */,
 				13C97129197852DB0099CE32 /* ReportHeaderView.m */,
@@ -423,6 +431,7 @@
 				B9C81FB019720F85002C19E5 /* PumpMapViewController.xib in Resources */,
 				B95170F0196DB46900DAACA3 /* PumpsListViewController.xib in Resources */,
 				133B1EC91973610700D43A30 /* cvCell.xib in Resources */,
+				A2DE705C197C53EC00102D24 /* LoginViewController.xib in Resources */,
 				B9517100196DB47800DAACA3 /* PumpsMapViewController.xib in Resources */,
 				1337FABE196DAEB300BC9B65 /* InfoPlist.strings in Resources */,
 				13C97138197AE28F0099CE32 /* TextMessageViewController.xib in Resources */,
@@ -500,6 +509,7 @@
 				B9C81FAA19720F60002C19E5 /* PumpDetailViewController.m in Sources */,
 				B9517102196DB47800DAACA3 /* PumpLocation.m in Sources */,
 				13D28CFD196F303400E8A5C7 /* ReportViewController.m in Sources */,
+				A2DE705B197C53EC00102D24 /* LoginViewController.m in Sources */,
 				B95170FC196DB47800DAACA3 /* PumpTableViewCell.m in Sources */,
 				13D28CFB196F303400E8A5C7 /* CreateReportViewController.m in Sources */,
 				13D28D05196F480A00E8A5C7 /* Report.m in Sources */,
