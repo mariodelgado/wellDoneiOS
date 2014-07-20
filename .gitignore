@@ -12,6 +12,7 @@ Pods/
 *.pbxuser
 *.xcworkspace
 xcuserdata
+*.xcuserdata
 
 # Build products
 build/

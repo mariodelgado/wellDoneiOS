@@ -8,6 +8,7 @@
             <connections>
                 <outlet property="blurView" destination="faI-5X-f61" id="dyn-8g-gF4"/>
                 <outlet property="bottomPanGestureRecognizer" destination="o7L-oa-Sk3" id="GDg-eP-xQw"/>
+                <outlet property="darkenView" destination="EOe-Lv-L4c" id="4xI-kd-PGl"/>
                 <outlet property="mapView" destination="KxV-xu-rH3" id="PVg-Bp-O55"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewContainer" destination="Kbm-TD-ICj" id="ICv-9a-Zmc"/>
@@ -22,21 +23,26 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </mapView>
                 <view appearanceType="aqua" opaque="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="faI-5X-f61" customClass="LFGlassView">
-                    <rect key="frame" x="0.0" y="451" width="320" height="568"/>
+                    <rect key="frame" x="0.0" y="471" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                 </view>
                 <view opaque="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kbm-TD-ICj">
-                    <rect key="frame" x="0.0" y="456" width="320" height="563"/>
+                    <rect key="frame" x="0.0" y="471" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" red="0.066588133573532104" green="0.087758399546146393" blue="0.087876923382282257" alpha="0.086508648825065274" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.30548302872062666" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="o7L-oa-Sk3" appends="YES" id="keM-aW-PDg"/>
                     </connections>
+                </view>
+                <view appearanceType="aqua" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EOe-Lv-L4c">
+                    <rect key="frame" x="0.0" y="570" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

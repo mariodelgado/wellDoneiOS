@@ -12,6 +12,8 @@
 
 
 #define METERS_PER_MILE 1609.344
+#define GESTURE1_Y_OFFSET 243
+
 
 @interface PumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -24,6 +26,9 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, assign) CGFloat initialY;
 @property (nonatomic, assign) BOOL firstLoad;
+@property (weak, nonatomic) IBOutlet UIView *darkenView;
+@property (nonatomic, assign) BOOL firstSwipe;
+
 
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index;
@@ -38,6 +43,8 @@
     if (self) {
         // Custom initialization
         self.firstLoad = YES;
+        self.firstSwipe = YES;
+
     }
     return self;
 }
@@ -63,17 +70,32 @@
     [self.pageViewController didMoveToParentViewController:self];
     self.initialY = self.viewContainer.frame.origin.y;
     
+    self.blurView.center = CGPointMake(self.blurView.center.x, 900);
+    self.viewContainer.center = CGPointMake(self.blurView.center.x, 900);
+    self.viewContainer.layer.opacity = 0.0f;
+    self.blurView.layer.opacity = 0.0f;
 
-    
-    
-    
-    
+    [UIView animateWithDuration:.4 delay:1 usingSpringWithDamping:.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.blurView.center = CGPointMake(self.blurView.center.x, 745);
+        self.viewContainer.center = CGPointMake(self.blurView.center.x, 745);
+        self.viewContainer.layer.opacity = 1.0f;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.viewContainer.layer.opacity = 1.0f;
+              self.blurView.layer.opacity = 1.0f;
+        }];
+    }];
+}
+
+-(void) drawRect:(CGRect)viewContainer {
+    [[UIColor colorWithWhite:0.0 alpha:0.5] setFill];
+    UIRectFillUsingBlendMode( viewContainer , kCGBlendModeSoftLight);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
-
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -90,7 +112,6 @@
     int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     
     if (index > 0) {
-//        self.pump = self.pumps[index-1];
         return [self pumpViewControllerAtIndex:index - 1];
     } else {
         return nil;
@@ -99,7 +120,6 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
     int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     if (index < self.pumpViewControllers.count - 1) {
-//        self.pump = self.pumps[index+1];
         return [self pumpViewControllerAtIndex:index + 1];
     } else {
         return nil;
@@ -126,7 +146,6 @@
     self.panGestureRecognizer = panGestureRecognizer;
     CGPoint translation = [panGestureRecognizer translationInView:self.view];
     CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-   
     if (fabs(velocity.y) > fabs(velocity.x)) {
         [self disablePageViewController];
         panGestureRecognizer.enabled = YES;
@@ -160,12 +179,24 @@
         // Enable Page View Controller
         [UIView animateWithDuration:0.5 animations:^{
             if (velocity.y < 0) {
-                self.viewContainer.center = self.view.center;
-                self.blurView.center = self.view.center;
+                CGPoint stop1;
+                if (self.firstSwipe) {
+                     stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
+                    self.firstSwipe = NO;
+                    CGRect annotationRect = CGRectMake(0, 0, 320, GESTURE1_Y_OFFSET);
+                    MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
+                    [self.mapView setRegion:adjustedRegion animated:YES];
+                    [self loadMapAtRegion:CGPointMake(0, 200)];
+                }else{
+                     stop1 = CGPointMake(self.view.center.x, self.view.center.y);
+                }
+                self.viewContainer.center = stop1; //self.view.center;
+                self.blurView.center = stop1;
             } else { //going down
                 self.viewContainer.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
                 self.viewContainer.alpha = 1;
                 self.blurView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
+                self.firstSwipe = YES;
             }
  
         }];
@@ -188,11 +219,8 @@
 
 #pragma mark- Setting up pageviews and adding annotations
 - (void) setUpView {
-//    [self plotPump:self.pump];
     self.pumpViewControllers = [NSMutableArray array];
-//    [self plotAllPumpsInView];
     for (Pump *p in self.pumps) {
-//        [self plotPump:p];
         if(self.firstLoad){
             PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
             // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
@@ -228,17 +256,31 @@
 
 - (void)setPump:(Pump *)pump {
     _pump = pump;
-    [self loadMapAtRegion];
+    [self loadMapAtRegion: CGPointMake(0, 0)];
     [self plotPump:pump];
     [self plotAllPumpsInView];
 }
 
-- (void)loadMapAtRegion {
+- (void)loadMapAtRegion: (CGPoint)offset {
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = self.pump.location.latitude;
     coordinate.longitude = self.pump.location.longitude;
-    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE) animated:YES];
+    if (offset.y != 0) {
+            [self moveCenterByOffset:offset from:coordinate];
+    }else{
+            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE) animated:YES];
+    }
 
+
+
+}
+- (void)moveCenterByOffset:(CGPoint)offset from:(CLLocationCoordinate2D)coordinate
+{
+    CGPoint point = [self.mapView convertCoordinate:coordinate toPointToView:self.mapView];
+    point.x += offset.x;
+    point.y += offset.y;
+    CLLocationCoordinate2D center = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    [self.mapView setCenterCoordinate:center animated:YES];
 }
 
 - (void)plotPump:(Pump *)pump {
@@ -287,8 +329,6 @@
         [self.pageViewController setViewControllers:@[self.pumpViewControllers[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
         self.pump = selectedPump;
     }
-
-
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews
@@ -304,7 +344,6 @@
 
 -(void)onListButtonClick{
     [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 
