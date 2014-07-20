@@ -11,6 +11,7 @@
 #import "MHPrettyDate.h"
 #import "ReportViewController.h"
 #import "StatsViewController.h"
+#import "PumpMapViewController.h"
 
 #import "MHPrettyDate.h"
 #import "PNChart.h"
@@ -34,6 +35,7 @@
 @property (strong, nonatomic) Report *report;
 @property (strong, nonatomic) ReportHeaderView *reportHeaderView;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
+@property (weak, nonatomic) IBOutlet UIButton *addButton;
 
 @property (nonatomic, assign) BOOL isPresenting;
 @end
@@ -66,31 +68,79 @@
     
     float width = self.imgPump.bounds.size.width;
     self.imgPump.layer.cornerRadius = width/2;
-    self.imgPump.layer.borderColor = [UIColor lightGrayColor].CGColor; //change this to status color of pump
+    self.imgPump.layer.borderColor =  [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:1].CGColor; //change this to status color of pump
     self.imgPump.layer.borderWidth = 4;
+
+    self.lblName.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.lblName.layer.shadowRadius = 14.0f;
+    self.lblName.layer.shadowOpacity = 1.0;
+    self.lblName.layer.shadowOffset = CGSizeZero;
+    self.lblName.layer.masksToBounds = NO;
+    self.lblName.layer.opacity = 0;
+    self.lblLastUpdated.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.lblLastUpdated.layer.shadowRadius = 9.0f;
+    self.lblLastUpdated.layer.shadowOpacity = 1.0;
+    self.lblLastUpdated.layer.shadowOffset = CGSizeZero;
+    self.lblLastUpdated.layer.masksToBounds = NO;
+    self.lblLastUpdated.layer.opacity = 0;
+
+    self.lblStatus.layer.shadowColor = [[UIColor blackColor] CGColor];
+    self.lblStatus.layer.shadowRadius = 19.0f;
+    self.lblStatus.layer.shadowOpacity = 1.0;
+    self.lblStatus.layer.shadowOffset = CGSizeZero;
+    self.lblStatus.layer.masksToBounds = NO;
+    self.lblStatus.layer.opacity = 0;
+
+    self.addButton.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.addButton.layer.shadowOpacity = 0.8;
+    self.addButton.layer.shadowRadius = 0.5;
+    self.addButton.layer.shadowOffset = CGSizeMake(0, 1.0f);
+    self.imgPump.transform = CGAffineTransformMakeScale(0,0);
     
-    
+
+    [UIView animateWithDuration:0.3 delay:0.3 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.imgPump.transform = CGAffineTransformMakeScale(1,1);
+
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.lblName.layer.opacity = 1;
+
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:0.2 animations:^{
+                self.lblLastUpdated.layer.opacity = 1;
+            } completion:^(BOOL finished) {
+                nil;
+            }];
+            [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
+                self.lblStatus.layer.opacity = 1;
+            } completion:^(BOOL finished) {
+                nil;
+            }];
+
+        }];
+    }];
 }
 
 
 
 - (void)loadChart {
-    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 10, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
+    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 18, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
     [lineChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
     
     lineChart.backgroundColor = [UIColor clearColor];
     
     // Line Chart No.1
-    NSArray * data01Array = @[@60.1, @160.1, @126.4, @262.2, @186.2];
+    NSArray * data01Array = @[@60.1, @40.1, @16.4, @62.2, @66.2];
     PNLineChartData *data01 = [PNLineChartData new];
-    data01.color = PNFreshGreen;
+    data01.color = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8];
+    
     data01.itemCount = lineChart.xLabels.count;
     data01.getData = ^(NSUInteger index) {
         CGFloat yValue = [data01Array[index] floatValue];
         return [PNLineChartDataItem dataItemWithY:yValue];
     };
     // Line Chart No.2
-    NSArray * data02Array = @[@20.1, @180.1, @26.4, @202.2, @126.2];
+    NSArray * data02Array = @[@180.1, @180.1, @180.1, @180.1, @0];
     PNLineChartData *data02 = [PNLineChartData new];
     data02.color = PNTwitterColor;
     data02.itemCount = lineChart.xLabels.count;
@@ -118,7 +168,7 @@
 
 - (NSString *)giveMePrettyDate {
     if (self.report.updatedAt) {
-        return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateShortRelativeTime];
+        return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateLongRelativeTime];
     }else {
         return @"NA";
     }
@@ -153,11 +203,9 @@
     Report *report = self.reports[indexPath.row];
     cell.textLabel.text = report.reportName;
     cell.textLabel.textColor = [UIColor whiteColor];
-    
-    
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
+    cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.09];
     
-    cell.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.15];
     return cell;
 }
 
@@ -172,7 +220,7 @@
     return self.reportHeaderView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40.0f;
+    return 30.0f;
 }
 
 - (void) loadReports {
@@ -248,7 +296,7 @@
 }
 
 - (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext {
-    return 2.0;
+    return 1.0;
 }
 
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext {
@@ -280,12 +328,11 @@
         
         [statsView.animateView addSubview:barChart];
         //        [toViewController.view addSubview:barChart];
-        //        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
-        
-        [UIView animateWithDuration:1 animations:^{
-            
-            toViewController.view.frame = containerView.frame;
+//        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+        [UIView animateWithDuration:0.5 animations:^{
+          toViewController.view.frame = containerView.frame;
             statsView.animateView.frame = self.chartView.frame;
+            
             
             toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             toViewController.view.alpha = 1;
@@ -307,7 +354,8 @@
     } else {
         
         [UIView animateWithDuration:0.5 animations:^{
-            //            fromViewController.view.transform = CGAffineTransformMakeRotation(30* (M_PI/180));
+            self.view.superview.transform = CGAffineTransformMakeScale(1, 1);
+
             fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];
@@ -329,8 +377,18 @@
     CreateReportViewController *cvc = [[CreateReportViewController alloc] init];
     cvc.pump = self.pump;
     UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:cvc];
+    
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.4;
+    transition.type = kCATransitionMoveIn;
+    transition.subtype = kCATransitionFromTop;
+    [self.view.window.layer addAnimation:transition forKey:kCATransition];
     [self presentViewController:nvc animated:YES completion:nil];
 }
+
+
+
+
 - (IBAction)onAddReport:(id)sender {
     [self addReport];
 }
