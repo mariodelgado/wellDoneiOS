@@ -12,6 +12,8 @@
 
 
 #define METERS_PER_MILE 1609.344
+#define GESTURE1_Y_OFFSET 200
+
 
 @interface PumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -25,6 +27,8 @@
 @property (nonatomic, assign) CGFloat initialY;
 @property (nonatomic, assign) BOOL firstLoad;
 @property (weak, nonatomic) IBOutlet UIView *darkenView;
+@property (nonatomic, assign) BOOL firstSwipe;
+
 
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index;
@@ -39,6 +43,8 @@
     if (self) {
         // Custom initialization
         self.firstLoad = YES;
+        self.firstSwipe = YES;
+
     }
     return self;
 }
@@ -79,10 +85,6 @@
               self.blurView.layer.opacity = 1.0f;
         }];
     }];
-    
-    
-    
-    
 }
 
 -(void) drawRect:(CGRect)viewContainer {
@@ -110,7 +112,6 @@
     int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     
     if (index > 0) {
-//        self.pump = self.pumps[index-1];
         return [self pumpViewControllerAtIndex:index - 1];
     } else {
         return nil;
@@ -119,7 +120,6 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
     int index = (int)[self.pumpViewControllers indexOfObject:viewController];
     if (index < self.pumpViewControllers.count - 1) {
-//        self.pump = self.pumps[index+1];
         return [self pumpViewControllerAtIndex:index + 1];
     } else {
         return nil;
@@ -146,7 +146,6 @@
     self.panGestureRecognizer = panGestureRecognizer;
     CGPoint translation = [panGestureRecognizer translationInView:self.view];
     CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
-   
     if (fabs(velocity.y) > fabs(velocity.x)) {
         [self disablePageViewController];
         panGestureRecognizer.enabled = YES;
@@ -180,12 +179,20 @@
         // Enable Page View Controller
         [UIView animateWithDuration:0.5 animations:^{
             if (velocity.y < 0) {
-                self.viewContainer.center = self.view.center;
-                self.blurView.center = self.view.center;
+                CGPoint stop1;
+                if (self.firstSwipe) {
+                     stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
+                    self.firstSwipe = NO;
+                }else{
+                     stop1 = CGPointMake(self.view.center.x, self.view.center.y);
+                }
+                self.viewContainer.center = stop1; //self.view.center;
+                self.blurView.center = stop1;
             } else { //going down
                 self.viewContainer.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
                 self.viewContainer.alpha = 1;
                 self.blurView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
+                self.firstSwipe = YES;
             }
  
         }];
@@ -307,8 +314,6 @@
         [self.pageViewController setViewControllers:@[self.pumpViewControllers[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
         self.pump = selectedPump;
     }
-
-
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)annotationViews
@@ -324,7 +329,6 @@
 
 -(void)onListButtonClick{
     [self dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 
