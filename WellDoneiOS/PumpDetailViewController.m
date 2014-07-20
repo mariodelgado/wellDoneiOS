@@ -75,7 +75,7 @@
 
 
 - (void)loadChart {
-    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, -25, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
+    PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 10, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];
     [lineChart setXLabels:@[@"SEP 1",@"SEP 2",@"SEP 3",@"SEP 4",@"SEP 5"]];
     
     lineChart.backgroundColor = [UIColor clearColor];
