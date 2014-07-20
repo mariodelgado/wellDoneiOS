@@ -77,9 +77,9 @@
 
 - (void)performLogin {
     if (self.usernameField.text.length > 0 && [self.passwordField.text isEqualToString:@"password"]) {
-        PostViewController *postViewController = [[PostViewController alloc] init];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:postViewController];
-        [self presentViewController:navigationController animated:YES completion:nil];
+//        PostViewController *postViewController = [[PostViewController alloc] init];
+//        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:postViewController];
+//        [self presentViewController:navigationController animated:YES completion:nil];
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
