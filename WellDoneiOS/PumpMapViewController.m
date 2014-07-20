@@ -12,7 +12,7 @@
 
 
 #define METERS_PER_MILE 1609.344
-#define GESTURE1_Y_OFFSET 200
+#define GESTURE1_Y_OFFSET 243
 
 
 @interface PumpMapViewController ()
@@ -94,8 +94,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     self.navigationController.navigationBarHidden = YES;
-
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -183,6 +183,10 @@
                 if (self.firstSwipe) {
                      stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
                     self.firstSwipe = NO;
+                    CGRect annotationRect = CGRectMake(0, 0, 320, GESTURE1_Y_OFFSET);
+                    MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
+                    [self.mapView setRegion:adjustedRegion animated:YES];
+                    [self loadMapAtRegion:CGPointMake(0, 200)];
                 }else{
                      stop1 = CGPointMake(self.view.center.x, self.view.center.y);
                 }
@@ -215,11 +219,8 @@
 
 #pragma mark- Setting up pageviews and adding annotations
 - (void) setUpView {
-//    [self plotPump:self.pump];
     self.pumpViewControllers = [NSMutableArray array];
-//    [self plotAllPumpsInView];
     for (Pump *p in self.pumps) {
-//        [self plotPump:p];
         if(self.firstLoad){
             PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
             // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
@@ -255,17 +256,31 @@
 
 - (void)setPump:(Pump *)pump {
     _pump = pump;
-    [self loadMapAtRegion];
+    [self loadMapAtRegion: CGPointMake(0, 0)];
     [self plotPump:pump];
     [self plotAllPumpsInView];
 }
 
-- (void)loadMapAtRegion {
+- (void)loadMapAtRegion: (CGPoint)offset {
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = self.pump.location.latitude;
     coordinate.longitude = self.pump.location.longitude;
-    [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE) animated:YES];
+    if (offset.y != 0) {
+            [self moveCenterByOffset:offset from:coordinate];
+    }else{
+            [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE) animated:YES];
+    }
 
+
+
+}
+- (void)moveCenterByOffset:(CGPoint)offset from:(CLLocationCoordinate2D)coordinate
+{
+    CGPoint point = [self.mapView convertCoordinate:coordinate toPointToView:self.mapView];
+    point.x += offset.x;
+    point.y += offset.y;
+    CLLocationCoordinate2D center = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
+    [self.mapView setCenterCoordinate:center animated:YES];
 }
 
 - (void)plotPump:(Pump *)pump {
