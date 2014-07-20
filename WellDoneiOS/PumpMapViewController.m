@@ -24,6 +24,7 @@
 @property (nonatomic, strong) UIPanGestureRecognizer *panGestureRecognizer;
 @property (nonatomic, assign) CGFloat initialY;
 @property (nonatomic, assign) BOOL firstLoad;
+@property (weak, nonatomic) IBOutlet UIView *darkenView;
 
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index;
@@ -63,11 +64,30 @@
     [self.pageViewController didMoveToParentViewController:self];
     self.initialY = self.viewContainer.frame.origin.y;
     
+    self.blurView.center = CGPointMake(self.blurView.center.x, 900);
+    self.viewContainer.center = CGPointMake(self.blurView.center.x, 900);
+    self.viewContainer.layer.opacity = 0.0f;
+    self.blurView.layer.opacity = 0.0f;
 
+    [UIView animateWithDuration:.4 delay:1 usingSpringWithDamping:.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.blurView.center = CGPointMake(self.blurView.center.x, 745);
+        self.viewContainer.center = CGPointMake(self.blurView.center.x, 745);
+        self.viewContainer.layer.opacity = 1.0f;
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.viewContainer.layer.opacity = 1.0f;
+              self.blurView.layer.opacity = 1.0f;
+        }];
+    }];
     
     
     
     
+}
+
+-(void) drawRect:(CGRect)viewContainer {
+    [[UIColor colorWithWhite:0.0 alpha:0.5] setFill];
+    UIRectFillUsingBlendMode( viewContainer , kCGBlendModeSoftLight);
 }
 
 - (void)viewWillAppear:(BOOL)animated{
