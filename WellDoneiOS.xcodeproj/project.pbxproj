@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1302777219732A9C00BF6A19 /* NewYork.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1302777119732A9C00BF6A19 /* NewYork.jpg */; };
+		1322B6B7197C69C9005D2419 /* NextPumpMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1322B6B5197C69C9005D2419 /* NextPumpMapViewController.m */; };
+		1322B6B8197C69C9005D2419 /* NextPumpMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1322B6B6197C69C9005D2419 /* NextPumpMapViewController.xib */; };
 		132F5CBF196F60830063A428 /* SensorData.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F5CBE196F60830063A428 /* SensorData.m */; };
 		132F5CC4196F66C90063A428 /* ListReportsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 132F5CC2196F66C90063A428 /* ListReportsViewController.m */; };
 		132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 132F5CC3196F66C90063A428 /* ListReportsViewController.xib */; };
@@ -68,6 +70,9 @@
 
 /* Begin PBXFileReference section */
 		1302777119732A9C00BF6A19 /* NewYork.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = NewYork.jpg; sourceTree = "<group>"; };
+		1322B6B4197C69C9005D2419 /* NextPumpMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NextPumpMapViewController.h; sourceTree = "<group>"; };
+		1322B6B5197C69C9005D2419 /* NextPumpMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NextPumpMapViewController.m; sourceTree = "<group>"; };
+		1322B6B6197C69C9005D2419 /* NextPumpMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NextPumpMapViewController.xib; sourceTree = "<group>"; };
 		132F5CBD196F60830063A428 /* SensorData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SensorData.h; sourceTree = "<group>"; };
 		132F5CBE196F60830063A428 /* SensorData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SensorData.m; sourceTree = "<group>"; };
 		132F5CC1196F66C90063A428 /* ListReportsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListReportsViewController.h; sourceTree = "<group>"; };
@@ -256,6 +261,9 @@
 				13C97134197AE28F0099CE32 /* TextMessageViewController.h */,
 				13C97135197AE28F0099CE32 /* TextMessageViewController.m */,
 				13C97136197AE28F0099CE32 /* TextMessageViewController.xib */,
+				1322B6B4197C69C9005D2419 /* NextPumpMapViewController.h */,
+				1322B6B5197C69C9005D2419 /* NextPumpMapViewController.m */,
+				1322B6B6197C69C9005D2419 /* NextPumpMapViewController.xib */,
 			);
 			path = WellDoneiOS;
 			sourceTree = "<group>";
@@ -435,6 +443,7 @@
 				132F5CC5196F66C90063A428 /* ListReportsViewController.xib in Resources */,
 				13D28CFC196F303400E8A5C7 /* CreateReportViewController.xib in Resources */,
 				B9C534671976FD9C008596A1 /* 177-building.png in Resources */,
+				1322B6B8197C69C9005D2419 /* NextPumpMapViewController.xib in Resources */,
 				B95170FD196DB47800DAACA3 /* pump.jpeg in Resources */,
 				B95170FE196DB47800DAACA3 /* PumpTableViewCell.xib in Resources */,
 				13C9712C197852FF0099CE32 /* ReportHeaderView.xib in Resources */,
@@ -507,6 +516,7 @@
 				13C97137197AE28F0099CE32 /* TextMessageViewController.m in Sources */,
 				B9517101196DB47800DAACA3 /* Pump.m in Sources */,
 				133B1ECA1973610700D43A30 /* ImageCollectionViewCell.m in Sources */,
+				1322B6B7197C69C9005D2419 /* NextPumpMapViewController.m in Sources */,
 				132F5CBF196F60830063A428 /* SensorData.m in Sources */,
 				13C9712A197852DB0099CE32 /* ReportHeaderView.m in Sources */,
 			);
