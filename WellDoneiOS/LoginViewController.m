@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-#import "PostViewController.h"
+//#import "PostViewController.h"
 
 @interface LoginViewController ()
 - (IBAction)onLoginButtonClick:(id)sender;
