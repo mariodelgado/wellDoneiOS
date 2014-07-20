@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblGraphTitle;
 @property (strong, nonatomic) IBOutlet UIView *viewGraph1;
 @property (weak, nonatomic) IBOutlet UIView *viewGraph2;
+@property (weak, nonatomic) IBOutlet UIView *backImage;
 
 @end
 
@@ -36,6 +37,9 @@
     [self styleView];
 //    [self lineChart1];
 //    [self lineChart2];
+    
+    [self.view sendSubviewToBack: self.backImage];
+
 }
 
 
@@ -48,10 +52,7 @@
 #pragma mark - style View
 - (void)styleView
 {
-    self.view.layer.cornerRadius = 5;
-    [self.view.layer setShadowColor:[UIColor blackColor].CGColor];
-    [self.view.layer setShadowOpacity:0.7];
-    [self.view.layer setShadowOffset:CGSizeMake(-1, -1)];
+    self.view.layer.cornerRadius = 2;
 }
 
 
@@ -94,7 +95,7 @@
     [self.viewGraph1 addSubview:lineChart];
     [self.viewGraph1 addSubview:lblGraphTitle];
     
-    
+    [self.view sendSubviewToBack: self.backImage];
     
    
     
