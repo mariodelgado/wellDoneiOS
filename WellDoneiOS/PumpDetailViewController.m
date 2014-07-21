@@ -22,7 +22,6 @@
 #import "UIView+Animations.h"
 
 
-
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UILabel *lblLastUpdated;
@@ -120,7 +119,6 @@
         }];
     }];
 }
-
 
 
 - (void)loadChart {

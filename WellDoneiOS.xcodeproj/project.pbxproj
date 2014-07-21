@@ -390,7 +390,7 @@
 				ORGANIZATIONNAME = welldone;
 				TargetAttributes = {
 					1337FAAF196DAEB300BC9B65 = {
-						DevelopmentTeam = 4MVAASZV55;
+						DevelopmentTeam = 6VDG77DH63;
 					};
 					1337FACA196DAEB300BC9B65 = {
 						TestTargetID = 1337FAAF196DAEB300BC9B65;
