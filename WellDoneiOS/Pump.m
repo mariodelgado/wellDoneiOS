@@ -11,7 +11,7 @@
 #import "Pump.h"
 
 const PumpStatusType *PumpStatusGood = @"GOOD";
-const PumpStatusType *PumpStatusBrokenTemp = @"BROKEN_TEMP";
+const PumpStatusType *PumpStatusBroken = @"BROKEN";
 NSString *const PUMP = @"Pump";
 
 @interface Pump ()
