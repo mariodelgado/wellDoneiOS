@@ -30,6 +30,8 @@
 @property (nonatomic, assign) BOOL firstLoad;
 @property (weak, nonatomic) IBOutlet UIView *darkenView;
 @property (nonatomic, assign) BOOL firstSwipe;
+@property (nonatomic, retain) NSString *message;
+
 
 
 
@@ -61,6 +63,8 @@
 
     self.bottomPanGestureRecognizer.delegate = self;
     
+ 
+    
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     [self addChildViewController:self.pageViewController];
     
@@ -78,6 +82,8 @@
     self.viewContainer.center = CGPointMake(self.blurView.center.x, 900);
     self.viewContainer.layer.opacity = 0.0f;
     self.blurView.layer.opacity = 0.0f;
+    
+    self.darkenView.layer.opacity = 0.2;
 
     [UIView animateWithDuration:.4 delay:1 usingSpringWithDamping:.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.blurView.center = CGPointMake(self.blurView.center.x, 745);
@@ -99,13 +105,13 @@
         for (Pump *p in self.pumps) {
             index++;
             if ([p.name isEqualToString:pumpName]) {
-//                self.pump = p;
                 return index-1;
             }
         }
     }
     return 0;
 }
+
 -(void) drawRect:(CGRect)viewContainer {
     [[UIColor colorWithWhite:0.0 alpha:0.5] setFill];
     UIRectFillUsingBlendMode( viewContainer , kCGBlendModeSoftLight);
@@ -153,11 +159,19 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray *)previousViewControllers transitionCompleted:(BOOL)completed{
     int index = (int)[self.pumpViewControllers indexOfObject:pageViewController.viewControllers[0]];
     self.pump = self.pumps[index];
+    if (self.firstSwipe == NO) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Light" object:nil];
+    }
 }
 
 - (UIViewController *)pumpViewControllerAtIndex:(int)index {
     return self.pumpViewControllers[index];
 }
+
+
+
+
+
 
 #pragma mark Pan handler
 
@@ -180,6 +194,7 @@
         }
         self.bottomContainerCenter = self.viewContainer.center;
         self.bottomContainerCenter = self.blurView.center;
+        self.bottomContainerCenter = self.darkenView.center;
         // Disable Page View Controller
         
         if (fabs(velocity.y) > fabs(velocity.x)) {
@@ -193,32 +208,50 @@
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
         self.viewContainer.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         self.blurView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
+        self.darkenView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
+        
+
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         // Enable Page View Controller
-        [UIView animateWithDuration:0.5 animations:^{
-            if (velocity.y < 0) {
-                CGPoint stop1;
-                if (self.firstSwipe) {
-                     stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
-                    self.firstSwipe = NO;
-                    CGRect annotationRect = CGRectMake(0, 0, 320, GESTURE1_Y_OFFSET);
-                    MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
-                    [self.mapView setRegion:adjustedRegion animated:YES];
-                    [self loadMapAtRegion:CGPointMake(0, 200)];
-                }else{
-                     stop1 = CGPointMake(self.view.center.x, self.view.center.y);
-                }
-                self.viewContainer.center = stop1; //self.view.center;
-                self.blurView.center = stop1;
-            } else { //going down
-                self.viewContainer.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
-                self.viewContainer.alpha = 1;
-                self.blurView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
-                self.firstSwipe = YES;
-            }
- 
-        }];
+        
+    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+    if (velocity.y < 0) {
+        CGPoint stop1;
+        if (self.firstSwipe) {
+            self.darkenView.layer.opacity = 1;
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"Light" object:nil];
+
+            
+            stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
+            self.firstSwipe = NO;
+            CGRect annotationRect = CGRectMake(0, 0, 320, GESTURE1_Y_OFFSET);
+            MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
+            [self.mapView setRegion:adjustedRegion animated:YES];
+            [self loadMapAtRegion:CGPointMake(0, 200)];
+        }else{
+            stop1 = CGPointMake(self.view.center.x, self.view.center.y);
+            
+        }
+        self.viewContainer.center = stop1; //self.view.center;
+        self.blurView.center = stop1;
+        self.darkenView.center = stop1;
+    } else { //going down
+        self.viewContainer.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
+        self.viewContainer.alpha = 1;
+        self.blurView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
+        self.darkenView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
+        self.darkenView.layer.opacity = 0.2;
+        self.firstSwipe = YES;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"Dark" object:nil];
+    }
+    
+
+        } completion:^(BOOL finished) {
+            nil;
+}];
+        
+
     }
 }
 - (void) disablePageViewController{
@@ -244,13 +277,15 @@
             PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
             // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
             currPumpController.pump = p;
+            
+
+            
+
             [self.pumpViewControllers addObject:currPumpController];
         }
     }
     self.firstLoad = NO;
-    
     [self.pageViewController setViewControllers:@[self.pumpViewControllers[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
 }
 - (void) plotAllPumpsInView {
     [self.mapView removeAnnotations:self.mapView.annotations];
@@ -300,6 +335,7 @@
     point.y += offset.y;
     CLLocationCoordinate2D center = [self.mapView convertPoint:point toCoordinateFromView:self.mapView];
     [self.mapView setCenterCoordinate:center animated:YES];
+
 }
 
 - (void)plotPump:(Pump *)pump {
@@ -368,9 +404,10 @@
     for (MKAnnotationView *annView in annotationViews)
     {
         CGRect endFrame = annView.frame;
-        annView.frame = CGRectOffset(endFrame, 0, -500);
-        [UIView animateWithDuration:0.9
-                         animations:^{ annView.frame = endFrame; }];
+        annView.frame = CGRectOffset(endFrame, 0, 0);
+        annView.layer.opacity = 0;
+        [UIView animateWithDuration:0.4
+                         animations:^{ annView.layer.opacity = 1; }];
     }
 }
 

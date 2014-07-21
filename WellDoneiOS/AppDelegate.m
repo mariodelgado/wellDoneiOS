@@ -12,7 +12,7 @@
 #import "ReportViewController.h"
 #import "Report.h"
 #import "Pump.h"
-#import "ListReportsViewController.h"
+#import "NextPumpMapViewController.h"
 #import "PumpMapViewController.h"
 
 @implementation AppDelegate
