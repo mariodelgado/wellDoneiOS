@@ -37,6 +37,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 @property (weak, nonatomic) IBOutlet UIButton *addButton;
 
+@property (nonatomic, assign) BOOL firstSwipe;
+@property (nonatomic, retain) NSString *message;
+
+
+
 @property (nonatomic, assign) BOOL isPresenting;
 @end
 
@@ -70,13 +75,16 @@
     self.imgPump.layer.cornerRadius = width/2;
     self.imgPump.layer.borderColor =  [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:1].CGColor; //change this to status color of pump
     self.imgPump.layer.borderWidth = 4;
-
+    
+    self.lblName.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
     self.lblName.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.lblName.layer.shadowRadius = 14.0f;
     self.lblName.layer.shadowOpacity = 1.0;
     self.lblName.layer.shadowOffset = CGSizeZero;
     self.lblName.layer.masksToBounds = NO;
     self.lblName.layer.opacity = 0;
+    
+    self.lblLastUpdated.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
     self.lblLastUpdated.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.lblLastUpdated.layer.shadowRadius = 9.0f;
     self.lblLastUpdated.layer.shadowOpacity = 1.0;
@@ -84,6 +92,7 @@
     self.lblLastUpdated.layer.masksToBounds = NO;
     self.lblLastUpdated.layer.opacity = 0;
 
+    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
     self.lblStatus.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.lblStatus.layer.shadowRadius = 19.0f;
     self.lblStatus.layer.shadowOpacity = 1.0;
@@ -98,6 +107,11 @@
     self.imgPump.transform = CGAffineTransformMakeScale(0,0);
     
 
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeLight) name:@"Light" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeDark) name:@"Dark" object:nil];
+
+    
+    
     [UIView animateWithDuration:0.3 delay:0.3 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.imgPump.transform = CGAffineTransformMakeScale(1,1);
 
@@ -119,6 +133,19 @@
 
         }];
     }];
+}
+
+
+- (void) makeLight{
+    self.lblName.textColor = [UIColor whiteColor];
+    self.lblStatus.textColor = [UIColor whiteColor];
+    self.lblLastUpdated.textColor = [UIColor whiteColor];
+}
+
+- (void) makeDark{
+    self.lblName.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
+    self.lblLastUpdated.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
+    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
 }
 
 

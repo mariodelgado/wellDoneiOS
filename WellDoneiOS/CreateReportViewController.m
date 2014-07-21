@@ -252,10 +252,14 @@
 
 -(void)loadInitialViews {
     UIImage *image = [UIImage imageNamed:@"addPhoto"];
+    
+    [image drawInRect:CGRectMake(0,0,160,160) blendMode:kCGBlendModeNormal alpha:0.8];
     [self.dataArray addObject:image];
     
     
 }
+
+
 
 
 
