@@ -55,7 +55,7 @@
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setTranslucent:YES];
-
+    [self.dataArray addObject:self.bgImage];
 
     self.imageCollectionView.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -68,9 +68,10 @@
     [flowLayout setItemSize:CGSizeMake(100, 100)];
     [flowLayout setSectionInset:UIEdgeInsetsMake(0, 10, 0, 0)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+
+
     
     [self.imageCollectionView setCollectionViewLayout:flowLayout];
-    
     [self loadInitialViews];
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(onSave)];
@@ -78,14 +79,10 @@
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancel)];
     self.navigationItem.leftBarButtonItem= cancel;
+    self.navigationItem.leftBarButtonItem.tintColor = [UIColor redColor];
     
     
-    [UIView animateWithDuration:3.9 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.bgImage.center = CGPointMake(self.bgImage.center.x, 00);
-    } completion:^(BOOL finished) {
-        nil;
-    }];
-}
+    }
 
 - (void)didReceiveMemoryWarning
 {
@@ -222,20 +219,33 @@
     static NSString *cellIdentifier = @"imageCellectionViewCell";
     
     
+    
     ImageCollectionViewCell *cell = (ImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    cell.backgroundView.alpha = 0.1;
-    [cell setBackgroundColor:[UIColor clearColor]];
+    cell.layer.opacity = 1;
+    cell.layer.opaque = NO;
+    cell.contentView.backgroundColor = [UIColor clearColor];
+    [cell.selectedBackgroundView removeFromSuperview];
+    cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
+            cell.superview.layer.backgroundColor = [UIColor clearColor].CGColor;
 
 
 
- 
+
 
     if (indexPath.section == 0) {
+        
+        UIImage *image = [UIImage imageNamed:@"addPhoto1"];
+        [self.dataArray addObject:image];
+        
+
+
         UITapGestureRecognizer *tabGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onCamera)];
-        cell.backgroundColor = [UIColor clearColor];
+        cell.superview.backgroundColor = [UIColor clearColor];
         [cell addGestureRecognizer:tabGesture];
+        
     }
     
+
     
     //NSMutableArray *data = [self.dataArray objectAtIndex:indexPath.row];
     //
@@ -244,18 +254,25 @@
     //    [cell.name setText:cellData];
     
     cell.imageView.image = [self.dataArray objectAtIndex:indexPath.section];
+    cell.imageView.backgroundColor = [UIColor clearColor];
     cell.imageView.clipsToBounds = YES;
     
     
     return cell;
 }
 
+
+
 -(void)loadInitialViews {
-    UIImage *image = [UIImage imageNamed:@"addPhoto"];
-    [self.dataArray addObject:image];
+    UIImage *image = [UIImage imageNamed:@"addPhoto1"];
+    
+    
+    [self.dataArray replaceObjectAtIndex:0 withObject:image];
     
     
 }
+
+
 
 
 
