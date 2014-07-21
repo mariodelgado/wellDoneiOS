@@ -69,7 +69,7 @@
     float width = self.imgPump.bounds.size.width;
     self.imgPump.layer.cornerRadius = width/2;
     self.imgPump.layer.borderColor =  [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:1].CGColor; //change this to status color of pump
-    self.imgPump.layer.borderWidth = 4;
+    self.imgPump.layer.borderWidth = 3;
 
     self.lblName.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.lblName.layer.shadowRadius = 14.0f;
@@ -159,7 +159,7 @@
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
-    self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
+    self.imgPump.image = [UIImage imageNamed:@"pumpPlaceholder.png"];
     self.lblLastUpdated.text = [self giveMePrettyDate];
     self.lblStatus.text = pump.status;
     //[self addStatusLabel:pump.status]; //Was acting weired.
