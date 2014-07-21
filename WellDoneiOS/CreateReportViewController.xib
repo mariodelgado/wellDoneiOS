@@ -147,9 +147,6 @@
                         <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                     </collectionViewFlowLayout>
                     <cells/>
-                    <connections>
-                        <outletCollection property="gestureRecognizers" destination="6Qm-cb-bkG" appends="YES" id="uXE-DO-tRh"/>
-                    </connections>
                 </collectionView>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vek-1z-3Dr" userLabel="Button - Create Report">
                     <rect key="frame" x="0.0" y="489" width="320" height="79"/>
@@ -167,11 +164,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
         </view>
-        <tapGestureRecognizer id="6Qm-cb-bkG">
-            <connections>
-                <action selector="onCamera:" destination="-1" id="yyK-Mo-Io4"/>
-            </connections>
-        </tapGestureRecognizer>
+        <tapGestureRecognizer id="6Qm-cb-bkG"/>
     </objects>
     <resources>
         <image name="map bg" width="1193" height="932"/>

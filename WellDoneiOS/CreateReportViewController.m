@@ -181,8 +181,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     // Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
-    [self.imageDataToSave addObject:imageData];
+//     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
+//    [self.imageDataToSave addObject:imageData];
     
    
     
@@ -235,8 +235,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
     if (indexPath.section == 0) {
         
-        UIImage *image = [UIImage imageNamed:@"addPhoto1"];
-        [self.dataArray addObject:image];
+//        UIImage *image = [UIImage imageNamed:@"addPhoto1"];
+//        [self.dataArray addObject:image];
         
 
 
