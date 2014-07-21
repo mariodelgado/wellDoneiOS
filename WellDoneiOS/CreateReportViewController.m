@@ -18,6 +18,9 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
 @property (strong, nonatomic)NSMutableArray *dataArray;
 @property (strong, nonatomic)NSMutableArray *imageDataToSave;
+@property (weak, nonatomic) IBOutlet UIView *blurView;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImage;
+
 
 
 @end
@@ -32,15 +35,34 @@
         self.imageDataToSave = [NSMutableArray array];
     }
     return self;
+    
+
 }
 
 - (void)viewDidLoad
 {
+    [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.bgImage.layer.opacity = 1;
+    } completion:^(BOOL finished) {
+        nil;
+    }];
     [super viewDidLoad];
     self.imageCollectionView.dataSource = self;
     self.imageCollectionView.delegate = self;
     [self.imageCollectionView registerClass:[ImageCollectionViewCell class] forCellWithReuseIdentifier:@"imageCellectionViewCell"];
+    [self.view sendSubviewToBack: self.blurView];
     
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    [self.navigationController.navigationBar setTranslucent:YES];
+
+
+    self.imageCollectionView.backgroundColor = [UIColor clearColor];
+    [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.bgImage.layer.opacity = 1;
+    } completion:^(BOOL finished) {
+        nil;
+    }];
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setItemSize:CGSizeMake(100, 100)];
@@ -57,6 +79,12 @@
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancel)];
     self.navigationItem.leftBarButtonItem= cancel;
     
+    
+    [UIView animateWithDuration:3.9 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.bgImage.center = CGPointMake(self.bgImage.center.x, 00);
+    } completion:^(BOOL finished) {
+        nil;
+    }];
 }
 
 - (void)didReceiveMemoryWarning
@@ -107,6 +135,11 @@
 
 -(void) onCancel {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        self.bgImage.layer.opacity = 0;
+    } completion:^(BOOL finished) {
+        nil;
+    }];
 }
 
 - (IBAction)onCamera:(id)sender {
@@ -182,15 +215,24 @@
     
 }
 
+
+
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"imageCellectionViewCell";
     
     
     ImageCollectionViewCell *cell = (ImageCollectionViewCell *)[collectionView dequeueReusableCellWithReuseIdentifier:cellIdentifier forIndexPath:indexPath];
-    
+    cell.backgroundView.alpha = 0.1;
+    [cell setBackgroundColor:[UIColor clearColor]];
+
+
+
+ 
+
     if (indexPath.section == 0) {
         UITapGestureRecognizer *tabGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onCamera)];
+        cell.backgroundColor = [UIColor clearColor];
         [cell addGestureRecognizer:tabGesture];
     }
     
@@ -203,6 +245,7 @@
     
     cell.imageView.image = [self.dataArray objectAtIndex:indexPath.section];
     cell.imageView.clipsToBounds = YES;
+    
     
     return cell;
 }
