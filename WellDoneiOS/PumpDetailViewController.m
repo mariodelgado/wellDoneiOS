@@ -23,7 +23,6 @@
 #import "NextPumpMapViewController.h"
 
 
-
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UILabel *lblLastUpdated;
@@ -137,7 +136,6 @@
     }];
 }
 
-
 - (void) makeLight{
     self.lblName.textColor = [UIColor whiteColor];
     self.lblStatus.textColor = [UIColor whiteColor];
@@ -149,8 +147,6 @@
     self.lblLastUpdated.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
     self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
 }
-
-
 
 - (void)loadChart {
     PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 18, self.chartView.frame.size.width, self.chartView.frame.size.height -20)];

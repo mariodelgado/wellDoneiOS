@@ -9,10 +9,12 @@
 #import "PumpMapViewController.h"
 #import "PumpDetailViewController.h"
 #import <LiveFrost.h>
+#import "AppDelegate.h"
 
 
 #define METERS_PER_MILE 1609.344
 #define GESTURE1_Y_OFFSET 243
+#define BROKEN_STATUS "BROKEN"
 
 
 @interface PumpMapViewController ()
@@ -55,6 +57,8 @@
 {
     [super viewDidLoad];
     self.mapView.delegate = self;
+//    [self loadPumpFromPushNotification];
+
     [self loadPumps];
 
     self.bottomPanGestureRecognizer.delegate = self;
@@ -93,9 +97,20 @@
     }];
 }
 
-
-
-
+- (int)loadPumpFromPushNotification {
+    NSDictionary *pushPayload = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationPayload];
+    if (pushPayload) {
+        NSString *pumpName = pushPayload[@"pumpName"];
+        int index = 0;
+        for (Pump *p in self.pumps) {
+            index++;
+            if ([p.name isEqualToString:pumpName]) {
+                return index-1;
+            }
+        }
+    }
+    return 0;
+}
 
 -(void) drawRect:(CGRect)viewContainer {
     [[UIColor colorWithWhite:0.0 alpha:0.5] setFill];
@@ -255,7 +270,7 @@
 }
 
 #pragma mark- Setting up pageviews and adding annotations
-- (void) setUpView {
+- (void) setUpView: (int)index {
     self.pumpViewControllers = [NSMutableArray array];
     for (Pump *p in self.pumps) {
         if(self.firstLoad){
@@ -270,9 +285,7 @@
         }
     }
     self.firstLoad = NO;
-
-    [self.pageViewController setViewControllers:@[self.pumpViewControllers[0]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
-    
+    [self.pageViewController setViewControllers:@[self.pumpViewControllers[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
 }
 - (void) plotAllPumpsInView {
     [self.mapView removeAnnotations:self.mapView.annotations];
@@ -288,8 +301,9 @@
         if (!error) {
             self.pumps = objects;
             //TODO: remove this line and tie it to a pump being clicked on the list view?
-            self.pump = self.pumps[0];
-            [self setUpView];
+            int index = [self loadPumpFromPushNotification];
+            self.pump = self.pumps[index];
+            [self setUpView: index];
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
@@ -312,10 +326,8 @@
     }else{
             [self.mapView setRegion:MKCoordinateRegionMakeWithDistance(coordinate, 1.0*METERS_PER_MILE, 1.0*METERS_PER_MILE) animated:YES];
     }
-
-
-
 }
+
 - (void)moveCenterByOffset:(CGPoint)offset from:(CLLocationCoordinate2D)coordinate
 {
     CGPoint point = [self.mapView convertCoordinate:coordinate toPointToView:self.mapView];
@@ -353,8 +365,21 @@
         pinView.canShowCallout = YES;
         if (pump == self.pump) {
             pinView.image = [UIImage imageNamed:@"177-building"];
+            if([pump.status isEqualToString:@BROKEN_STATUS]){
+                pinView.image = [UIImage imageNamed:@"mMarkerBadCurrent"];
+                
+            }else {
+                pinView.image = [UIImage imageNamed:@"mMarkerGoodCurrent"];
+            }
+
         }else {
-            pinView.image = [UIImage imageNamed:@"07-map-marker"];
+            if([pump.status isEqualToString:@BROKEN_STATUS]){
+                pinView.image = [UIImage imageNamed:@"mMarkerBad"];
+
+            }else {
+                pinView.image = [UIImage imageNamed:@"mMarkerGood"];
+            }
+
         }
 
     }
@@ -368,7 +393,7 @@
 {
     Pump *selectedPump = (Pump *)view.annotation;
     if(selectedPump != self.pump){
-        int index = [self.pumps indexOfObject:view.annotation];
+        int index = (int)[self.pumps indexOfObject:view.annotation];
         [self.pageViewController setViewControllers:@[self.pumpViewControllers[index]] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
         self.pump = selectedPump;
     }
