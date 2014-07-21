@@ -15,7 +15,7 @@
 typedef const NSString PumpStatusType;
 
 PumpStatusType *PumpStatusGood;
-PumpStatusType *PumpStatusBrokenTemp;
+PumpStatusType *PumpStatusBroken;
 
 @interface Pump : PFObject<PFSubclassing, MKAnnotation>
 
