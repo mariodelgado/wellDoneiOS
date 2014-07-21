@@ -20,6 +20,7 @@
 #import "UILabel+BorderedLabel.h"
 #import <QuartzCore/QuartzCore.h>
 #import "UIView+Animations.h"
+#import "NextPumpMapViewController.h"
 
 
 
@@ -53,6 +54,7 @@
     if (self) {
         // Custom initialization
         self.reportHeaderView = [ReportHeaderView new];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
         
     }
     return self;
@@ -418,5 +420,13 @@
 
 - (IBAction)onAddReport:(id)sender {
     [self addReport];
+}
+
+-(void)reportSavedShowNextRoute {
+    NSLog(@"I am the observer");
+    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+    [self presentViewController:npVC animated:YES completion:nil];
+    
+    
 }
 @end

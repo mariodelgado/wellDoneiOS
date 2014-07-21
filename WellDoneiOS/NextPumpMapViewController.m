@@ -10,12 +10,15 @@
 #import <MapKit/MapKit.h>
 
 #define METERS_PER_MILE 1609.344
+#define Y_OFFSET 284
 
 @interface NextPumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *overLayView;
 @property (weak, nonatomic) IBOutlet UILabel *lblPumpName;
 @property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
+@property (assign, nonatomic) CGPoint overLayCenter;
+@property (assign, nonatomic) CGPoint overLayCenterOriginal;
 
 @end
 
@@ -33,7 +36,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.overLayCenterOriginal = CGPointMake(self.overLayView.center.x, self.overLayView.center.y);
     self.mapView.delegate = self;
+    [self setPanGestureOnOverlayView];
    
     //This is only for testing delete it.
     PFQuery *pumpQuery = [Pump query];
@@ -119,7 +124,7 @@
     
     request.destination = destination;
     
-    request.requestsAlternateRoutes = YES;
+//    request.requestsAlternateRoutes = YES;
     
     MKDirections *directions =[[MKDirections alloc] initWithRequest:request];
     
@@ -138,11 +143,13 @@
 
 -(void)showRoute:(MKDirectionsResponse *)response
 {
-    for (MKRoute *route in response.routes)
-    {
-        [self.mapView
-         addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
-    }
+//    for (MKRoute *route in response.routes)
+//    {
+//        [self.mapView
+//         addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+//    }
+    MKRoute *route = response.routes[0];
+    [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
@@ -170,6 +177,9 @@
     nextLocation.latitude = location.latitude;
     nextLocation.longitude = location.longitude;
     
+    
+    
+    
     MKMapItem *destination = [[MKMapItem alloc] initWithPlacemark:[[MKPlacemark alloc] initWithCoordinate:nextLocation addressDictionary:nil]];
     directionRequest.destination = destination;
     
@@ -185,6 +195,61 @@
     
     
 }
+
+-(void)setPanGestureOnOverlayView {
+    UIPanGestureRecognizer *panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPan:)];
+    [self.overLayView addGestureRecognizer:panGestureRecognizer];
+}
+
+
+
+
+-(void)onPan:(UIPanGestureRecognizer*)panGestureRecognizer {
+    
+    CGPoint translation = [panGestureRecognizer translationInView:self.view];
+    CGPoint velocity = [panGestureRecognizer velocityInView:self.view];
+    
+    if (panGestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        self.overLayCenter = self.overLayView.center;
+        NSLog(@"Center: %f", self.overLayCenter.y);
+        
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateChanged) {
+        self.overLayView.center = CGPointMake(self.overLayCenter.x, self.overLayCenter.y + translation.y);
+
+        
+    } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        NSLog(@"PanGesture Ended");
+        // Enable Page View Controller
+        [UIView animateWithDuration:0.5 animations:^{
+            if (velocity.y < 0) {
+                
+                CGPoint closed = CGPointMake(self.view.center.x, self.view.center.y - Y_OFFSET);
+
+//                    CGRect annotationRect = CGRectMake(0, 0, 320, GESTURE1_Y_OFFSET);
+//                    MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
+                    
+                
+                self.overLayView.center = closed; //self.view.center;
+//                self.blurView.center = closed;
+            } else { //going down
+
+
+                
+                self.overLayView.center = self.overLayCenterOriginal;
+
+//                self.blurView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
+
+            }
+            
+        }];
+    }
+}
+
+
+
+
+
+
 
 
 

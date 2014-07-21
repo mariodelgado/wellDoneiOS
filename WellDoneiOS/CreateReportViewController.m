@@ -11,6 +11,8 @@
 #import "Report.h"
 #import "ImageCollectionViewCell.h"
 
+NSString * const ReportSavedNotification = @"ReportSavedNotification";
+
 @interface CreateReportViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *txtReportNotes;
 @property (weak, nonatomic) IBOutlet UITextField *reportName;
@@ -20,6 +22,8 @@
 @property (strong, nonatomic)NSMutableArray *imageDataToSave;
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
+
+
 
 
 
@@ -92,18 +96,6 @@
 
 - (void) onSave {
     
-//    //Compress the images from the collection view. except the first one.
-//    NSRange theRange;
-//    
-//    theRange.location = 1;
-//    theRange.length = self.dataArray.count-1;
-//    NSArray *imagesToCompress = [self.dataArray subarrayWithRange:theRange];
-//    for (UIImage *image in imagesToCompress) {
-//        NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
-////        [self uploadImage:imageData];
-//    }
-    
- //upload a file.
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
     
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
@@ -122,16 +114,17 @@
         
     }];
     
-    
-    
-    
+    //send a notification
+   
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    
 }
 
 -(void) onCancel {
+    
     [self dismissViewControllerAnimated:YES completion:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:nil];
     [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
         self.bgImage.layer.opacity = 0;
     } completion:^(BOOL finished) {
@@ -272,6 +265,8 @@
     
 }
 
+
+//listen for a notificatoin
 
 
 

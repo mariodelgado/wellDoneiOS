@@ -12,7 +12,7 @@
 #import "ReportViewController.h"
 #import "Report.h"
 #import "Pump.h"
-#import "ListReportsViewController.h"
+#import "NextPumpMapViewController.h"
 #import "PumpMapViewController.h"
 
 @implementation AppDelegate
@@ -37,7 +37,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpMapViewController alloc] init]];
     
-//     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ReportViewController alloc] init]];
+//     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[NextPumpMapViewController alloc] init]];
     
 //    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[ListReportsViewController alloc] init]]; 
     
