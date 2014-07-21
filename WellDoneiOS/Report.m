@@ -15,6 +15,7 @@ NSString *const REPORT = @"Report";
 
 @dynamic reportName;
 @dynamic reportNote;
+@dynamic status;
 @dynamic pump;
 @dynamic reportImage;
 
@@ -23,10 +24,11 @@ NSString *const REPORT = @"Report";
     return REPORT; 
 }
 
-+ (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump {
++ (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump status:(NSString*)status {
     Report *report = [[Report alloc]init];
     report.reportName = reportName;
     report.reportNote = note;
+    report.status = status;
     report.pump = pump;
     return report; 
     
@@ -35,6 +37,7 @@ NSString *const REPORT = @"Report";
 + (void )getReportsForPump:(Pump*)pump withBlock:(PFArrayResultBlock)block {
     PFQuery *reportsPerPump = [Report query];
     [reportsPerPump whereKey:@"pump" equalTo:pump];
+    [reportsPerPump orderByDescending:@"createdAt"];
     [reportsPerPump findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         block(objects,error);
     }];

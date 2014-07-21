@@ -10,6 +10,7 @@
 #import <Parse/Parse.h>
 #import "Report.h"
 #import "ImageCollectionViewCell.h"
+#import <MMPickerView.h>
 
 NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
@@ -23,6 +24,10 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
 
+
+- (IBAction)onStatus:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *btnStatus;
+- (IBAction)onSubmit:(id)sender;
 
 
 
@@ -51,6 +56,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
         nil;
     }];
     [super viewDidLoad];
+    self.reportName.delegate = self;
     self.imageCollectionView.dataSource = self;
     self.imageCollectionView.delegate = self;
     [self.imageCollectionView registerClass:[ImageCollectionViewCell class] forCellWithReuseIdentifier:@"imageCellectionViewCell"];
@@ -78,13 +84,12 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     [self.imageCollectionView setCollectionViewLayout:flowLayout];
     [self loadInitialViews];
     
-    UIBarButtonItem *save = [[UIBarButtonItem alloc] initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(onSave)];
-    self.navigationItem.rightBarButtonItem= save;
     
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancel)];
     self.navigationItem.leftBarButtonItem= cancel;
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor redColor];
     
+
     
     }
 
@@ -103,10 +108,13 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
         if (succeeded) {
             
             //After image is saved , saved the report.
-                Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump];
+                Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
                 newReport.reportImage = imageFile;
                 
+                
                 [newReport saveInBackground];
+            self.pump.status = self.btnStatus.titleLabel.text;
+            [self.pump saveInBackground];
            
 
         }
@@ -266,10 +274,36 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 }
 
 
-//listen for a notificatoin
+-(void)showUIPicker {
+    
+    NSArray *strings = @[PumpStatusGood, PumpStatusBroken];
+    
+    [MMPickerView showPickerViewInView:self.view
+                           withStrings:strings
+                           withOptions:nil
+                            completion:^(NSString *selectedString) {
+                                //selectedString is the return value which you can use as you wish
+                                self.btnStatus.titleLabel.text = selectedString;
+                                
+                            }];
+}
 
 
 
 
 
+- (IBAction)onStatus:(id)sender {
+    [self showUIPicker];
+}
+
+
+#pragma textFieldDelegate
+//This will make the keyboard dissapear
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [textField resignFirstResponder];
+    return YES;
+}
+- (IBAction)onSubmit:(id)sender {
+    [self onSave];
+}
 @end
