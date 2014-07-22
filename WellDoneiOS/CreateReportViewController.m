@@ -111,7 +111,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
                 
                 [newReport saveInBackground];
             self.pump.status = self.btnStatus.titleLabel.text;
-            [self.pump saveInBackground];
+//            [self.pump saveInBackground];
            
 
         }
