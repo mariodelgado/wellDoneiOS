@@ -50,11 +50,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 - (void)viewDidLoad
 {
-    [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.bgImage.layer.opacity = 1;
-    } completion:^(BOOL finished) {
-        nil;
-    }];
+
     [super viewDidLoad];
     self.reportName.delegate = self;
     self.imageCollectionView.dataSource = self;
@@ -65,7 +61,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setTranslucent:YES];
-    [self.dataArray addObject:self.bgImage];
+   // [self.dataArray addObject:self.bgImage];
 
     self.imageCollectionView.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -268,7 +264,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     UIImage *image = [UIImage imageNamed:@"addPhoto1"];
     
     
-    [self.dataArray replaceObjectAtIndex:0 withObject:image];
+    [self.dataArray addObject:image];
     
     
 }

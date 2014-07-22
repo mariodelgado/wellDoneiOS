@@ -41,6 +41,11 @@
 
 @implementation PumpMapViewController
 
+
+
+
+
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -58,8 +63,28 @@
     [super viewDidLoad];
     self.mapView.delegate = self;
 //    [self loadPumpFromPushNotification];
+    
+    [self setNeedsStatusBarAppearanceUpdate];
 
-    [self loadPumps];
+    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 70)];
+    navbar.translucent = YES;
+    navbar.backgroundColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
+    
+    UIView *colourView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 70.f)];
+    colourView.opaque = NO;
+    colourView.alpha = 1.0f;
+    colourView.backgroundColor = navbar.backgroundColor;
+
+    [navbar.layer insertSublayer:colourView.layer atIndex:1];
+    [self.view addSubview:navbar];
+    
+    UIImage* logoImage = [UIImage imageNamed:@"logo.png"];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
+    
+    self.navigationItem.title = @"WellDone";
+    navbar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor darkGrayColor] forKey:NSForegroundColorAttributeName];
+
+    [navbar pushNavigationItem:self.navigationItem animated:NO];    [self loadPumps];
 
     self.bottomPanGestureRecognizer.delegate = self;
     
@@ -110,6 +135,10 @@
         }
     }
     return 0;
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleDefault;
 }
 
 -(void) drawRect:(CGRect)viewContainer {
