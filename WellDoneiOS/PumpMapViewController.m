@@ -112,9 +112,8 @@
     self.viewContainer.center = CGPointMake(self.blurView.center.x, 900);
     self.viewContainer.layer.opacity = 0.0f;
     self.blurView.layer.opacity = 0.0f;
-    
-    self.darkenView.layer.opacity = 0.2;
-    
+    self.darkenView.layer.opacity = 0;
+
     [UIView animateWithDuration:.4 delay:1 usingSpringWithDamping:.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.blurView.center = CGPointMake(self.blurView.center.x, 745);
         self.viewContainer.center = CGPointMake(self.blurView.center.x, 745);

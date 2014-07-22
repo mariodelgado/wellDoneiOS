@@ -30,6 +30,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 - (IBAction)onSubmit:(id)sender;
 
 
+@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *onDismissKeyboard;
 
 
 @end
@@ -302,4 +303,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 - (IBAction)onSubmit:(id)sender {
     [self onSave];
 }
+
+
+
 @end

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="14A283o" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -7,12 +7,14 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PumpDetailViewController">
             <connections>
                 <outlet property="addButton" destination="vUa-xj-lYV" id="8hY-xB-jdk"/>
+                <outlet property="brokenIndicatorImageView" destination="uAm-dB-6Wh" id="NE7-X8-tWl"/>
                 <outlet property="chartView" destination="05s-OI-SBw" id="Gsn-cb-ez3"/>
                 <outlet property="imgPump" destination="q1C-cx-NQe" id="B0l-av-XUf"/>
                 <outlet property="lblDecsription" destination="duL-d9-FsM" id="JYf-O7-eOV"/>
                 <outlet property="lblLastUpdated" destination="EnZ-gI-Ovr" id="vTo-RM-v5F"/>
                 <outlet property="lblName" destination="5K6-yh-qHO" id="Gnl-0d-DNJ"/>
                 <outlet property="lblStatus" destination="ged-j2-7VT" id="HHo-1Y-xnw"/>
+                <outlet property="notBrokenIndicatorImageView" destination="zna-hi-5pJ" id="8ag-sD-90A"/>
                 <outlet property="tableView" destination="L4N-4J-eSJ" id="SyU-0d-ToP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -134,6 +136,14 @@
                     <color key="textColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="brokenMarker" translatesAutoresizingMaskIntoConstraints="NO" id="uAm-dB-6Wh">
+                    <rect key="frame" x="60" y="10" width="26" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="notBrokenMarker" translatesAutoresizingMaskIntoConstraints="NO" id="zna-hi-5pJ">
+                    <rect key="frame" x="60" y="10" width="26" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -141,4 +151,8 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
+    <resources>
+        <image name="brokenMarker" width="26" height="26"/>
+        <image name="notBrokenMarker" width="26" height="26"/>
+    </resources>
 </document>
