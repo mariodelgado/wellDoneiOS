@@ -193,7 +193,14 @@
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
     self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
-    self.lblLastUpdated.text = [self giveMePrettyDate];
+//  NSString *prettyDAte = [self giveMePrettyDate];
+//  NSLog(@"report update %@ for pump %@", prettyDAte, self.pump.name);
+//  self.pump.updatedAt = prettyDAte;
+    if(pump.lastUpdatedAt){
+        NSLog(@"pump name %@", pump.name);
+    self.lblLastUpdated.text = pump.lastUpdatedAt;
+    }
+
     self.lblStatus.text = pump.status;
     //[self addStatusLabel:pump.status]; //Was acting weired.
 
@@ -201,6 +208,7 @@
 }
 
 - (NSString *)giveMePrettyDate {
+
     if (self.report.updatedAt) {
         return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateLongRelativeTime];
     }else {
