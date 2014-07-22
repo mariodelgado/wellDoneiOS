@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-//#import "PostViewController.h"
+#import "PumpMapViewController.h"
 
 @interface LoginViewController ()
 - (IBAction)onLoginButtonClick:(id)sender;
@@ -48,6 +48,8 @@
     [self.loadingIndicator setHidesWhenStopped:YES];
     [self.loadingIndicator setColor:[UIColor blackColor]];
     
+    self.navigationController.navigationBarHidden = YES;
+    
 }
 
 
@@ -77,9 +79,9 @@
 
 - (void)performLogin {
     if (self.usernameField.text.length > 0 && [self.passwordField.text isEqualToString:@"password"]) {
-//        PostViewController *postViewController = [[PostViewController alloc] init];
-//        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:postViewController];
-//        [self presentViewController:navigationController animated:YES completion:nil];
+        PumpMapViewController *pumpMapViewController = [[PumpMapViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pumpMapViewController];
+        [self presentViewController:navigationController animated:YES completion:nil];
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
