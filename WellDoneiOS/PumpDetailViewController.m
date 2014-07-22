@@ -12,6 +12,8 @@
 #import "ReportViewController.h"
 #import "StatsViewController.h"
 #import "PumpMapViewController.h"
+#import "CWStatusBarNotification.h"
+
 
 #import "MHPrettyDate.h"
 #import "PNChart.h"
@@ -39,6 +41,9 @@
 
 @property (nonatomic, assign) BOOL firstSwipe;
 @property (nonatomic, retain) NSString *message;
+@property (weak, nonatomic) IBOutlet UIImageView *brokenIndicatorImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *notBrokenIndicatorImageView;
+
 
 
 
@@ -72,6 +77,8 @@
     [self configureTapGestureOnChartView];
     self.reportHeaderView.delegate = self;
     
+    
+    
     float width = self.imgPump.bounds.size.width;
     self.imgPump.layer.cornerRadius = width/2;
     self.imgPump.layer.borderColor =  [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:1].CGColor; //change this to status color of pump
@@ -92,34 +99,39 @@
     self.lblLastUpdated.layer.shadowOffset = CGSizeZero;
     self.lblLastUpdated.layer.masksToBounds = NO;
     self.lblLastUpdated.layer.opacity = 0;
-
-    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
+    
+    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     self.lblStatus.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.lblStatus.layer.shadowRadius = 19.0f;
     self.lblStatus.layer.shadowOpacity = 1.0;
     self.lblStatus.layer.shadowOffset = CGSizeZero;
     self.lblStatus.layer.masksToBounds = NO;
     self.lblStatus.layer.opacity = 0;
-
+    
     self.addButton.layer.shadowColor = [UIColor blackColor].CGColor;
     self.addButton.layer.shadowOpacity = 0.8;
     self.addButton.layer.shadowRadius = 0.5;
     self.addButton.layer.shadowOffset = CGSizeMake(0, 1.0f);
     self.imgPump.transform = CGAffineTransformMakeScale(0,0);
+    self.brokenIndicatorImageView.transform = CGAffineTransformMakeScale(0, 0);
+    self.notBrokenIndicatorImageView.transform = CGAffineTransformMakeScale(0, 0);
     
-
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeLight) name:@"Light" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeDark) name:@"Dark" object:nil];
-
+    
+    
     
     
     [UIView animateWithDuration:0.3 delay:0.3 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.imgPump.transform = CGAffineTransformMakeScale(1,1);
-
+        self.brokenIndicatorImageView.transform = CGAffineTransformMakeScale(1, 1);
+        self.notBrokenIndicatorImageView.transform = CGAffineTransformMakeScale(1, 1);
+        
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3 animations:^{
             self.lblName.layer.opacity = 1;
-
+            
         } completion:^(BOOL finished) {
             [UIView animateWithDuration:0.2 animations:^{
                 self.lblLastUpdated.layer.opacity = 1;
@@ -131,21 +143,23 @@
             } completion:^(BOOL finished) {
                 nil;
             }];
-
+            
         }];
     }];
 }
 
 - (void) makeLight{
     self.lblName.textColor = [UIColor whiteColor];
-    self.lblStatus.textColor = [UIColor whiteColor];
+    self.lblStatus.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.0];
     self.lblLastUpdated.textColor = [UIColor whiteColor];
+    
+    
 }
 
 - (void) makeDark{
     self.lblName.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
     self.lblLastUpdated.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
-    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
+    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.0];
 }
 
 - (void)loadChart {
@@ -184,18 +198,34 @@
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
-    self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
-    self.lblLastUpdated.text = [self giveMePrettyDate];
+    self.imgPump.image = [UIImage imageNamed:@"pumpPlaceholder"];
+    //  NSString *prettyDAte = [self giveMePrettyDate];
+    //  NSLog(@"report update %@ for pump %@", prettyDAte, self.pump.name);
+    //  self.pump.updatedAt = prettyDAte;
+    if(pump.lastUpdatedAt){
+        NSLog(@"pump name %@", pump.name);
+        self.lblLastUpdated.text = pump.lastUpdatedAt;
+    }
+    
     self.lblStatus.text = pump.status;
     //[self addStatusLabel:pump.status]; //Was acting weired.
+    
+    if ([self.lblStatus.text isEqualToString:@"BROKEN"]) {
+        self.brokenIndicatorImageView.hidden = NO;
+        self.notBrokenIndicatorImageView.hidden = YES;
+    } else {
+        self.brokenIndicatorImageView.hidden = YES;
+        self.notBrokenIndicatorImageView.hidden = NO;
+    }
     
 }
 
 - (NSString *)giveMePrettyDate {
+    
     if (self.report.updatedAt) {
         return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateLongRelativeTime];
     }else {
-        return @"NA";
+        return @"3 hours ago";
     }
 }
 
@@ -257,10 +287,12 @@
             self.reports = objects;
             [self.tableView reloadData];
             [self endRefresh];
+            
         } else {
             
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
+        
     }];
     
     //    PFQuery *queryForReports = [Report query];
@@ -335,8 +367,6 @@
         [barChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
         [barChart setYValues:@[@200,  @300, @250, @275, @200,@300,@400]];
         [barChart strokeChart];
-        
-        //        toViewController.view.frame = containerView.frame;
         toViewController.view.frame = self.chartView.frame;
         
         [containerView addSubview:toViewController.view];
@@ -346,18 +376,12 @@
         statsView.animateView = [[UIView alloc] initWithFrame:statsView.view.bounds];
         statsView.animateView.backgroundColor = [UIColor blackColor];
         [statsView.view addSubview:statsView.animateView];
-        //        statsView.animateView.frame = self.chartView.frame;
-        NSLog(@"Frame:%f, %f",statsView.animateView.frame.origin.x, statsView.animateView.frame.origin.y );
-        NSLog(@"Frame Chart View:%f,%f",self.chartView.frame.origin.x, self.chartView.frame.origin.y);
         
         
         [statsView.animateView addSubview:barChart];
-        //        [toViewController.view addSubview:barChart];
-//        toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
         [UIView animateWithDuration:0.5 animations:^{
-          toViewController.view.frame = containerView.frame;
+            toViewController.view.frame = containerView.frame;
             statsView.animateView.frame = self.chartView.frame;
-            
             
             toViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
             toViewController.view.alpha = 1;
@@ -380,7 +404,7 @@
         
         [UIView animateWithDuration:0.5 animations:^{
             self.view.superview.transform = CGAffineTransformMakeScale(1, 1);
-
+            
             fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
         } completion:^(BOOL finished) {
             [transitionContext completeTransition:YES];

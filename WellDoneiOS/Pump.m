@@ -27,6 +27,7 @@ NSString *const PUMP = @"Pump";
 @dynamic address;
 @dynamic barcode;
 @dynamic descriptionText;
+@dynamic lastUpdatedAt;
 
 + (NSString *)parseClassName {
     return PUMP;
@@ -43,6 +44,7 @@ NSString *const PUMP = @"Pump";
     p.location = location;
     p.status = (NSString *) status;
     p.descriptionText = descriptionText;
+    p.lastUpdatedAt = @"";
     return p;
 }
 
