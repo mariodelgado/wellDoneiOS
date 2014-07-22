@@ -472,13 +472,16 @@
 
 -(void)reportSavedShowNextRoute {
     NSLog(@"I am the observer");
-    [self performSelector:@selector(showNext) withObject:nil afterDelay:0.1];
+    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+    [self presentViewController:npVC animated:YES completion:nil];
+    
+//    [self performSelector:@selector(showNext) withObject:nil afterDelay:0.1];
     
 }
 - (void)showNext {
-    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
-    [self.pumpViewControllers[0] presentViewController:npVC animated:YES completion:nil];
-
+//    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+//    [self presentViewController:npVC animated:YES completion:nil];
+//
 }
 
 @end
