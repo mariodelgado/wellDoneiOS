@@ -26,7 +26,7 @@ PumpStatusType *PumpStatusBroken;
 @property (retain) NSString *address;
 @property (retain) NSNumber *barcode;
 @property (retain) NSString *descriptionText;
-
+@property (retain) NSString *lastUpdatedAt;
 
 + (NSString *)parseClassName;
 + (Pump *)pumpWithName:(NSString *)name location:(PFGeoPoint *)location status:(PumpStatusType *)status descriptionText:(NSString *)descriptionText;

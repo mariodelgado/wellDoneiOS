@@ -10,10 +10,12 @@
 #import "PumpDetailViewController.h"
 #import <LiveFrost.h>
 #import "AppDelegate.h"
-
+#import "Report.h"
+#import "MHPrettyDate.h"
 
 #define METERS_PER_MILE 1609.344
 #define GESTURE1_Y_OFFSET 243
+#define MAP_POSITION_OFFSET 170
 #define BROKEN_STATUS "BROKEN"
 
 
@@ -168,11 +170,6 @@
     return self.pumpViewControllers[index];
 }
 
-
-
-
-
-
 #pragma mark Pan handler
 
 - (IBAction)onBottomPan:(UIPanGestureRecognizer *)panGestureRecognizer {
@@ -210,25 +207,19 @@
         self.blurView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         self.darkenView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         
-
-        
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         // Enable Page View Controller
         
-    [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-    if (velocity.y < 0) {
-        CGPoint stop1;
-        if (self.firstSwipe) {
+        [UIView animateWithDuration:.5 delay:0 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
+        if (velocity.y < 0) {
+            CGPoint stop1;
+            if (self.firstSwipe) {
             self.darkenView.layer.opacity = 1;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"Light" object:nil];
-
             
             stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
             self.firstSwipe = NO;
-            CGRect annotationRect = CGRectMake(0, 0, 320, GESTURE1_Y_OFFSET);
-            MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
-            [self.mapView setRegion:adjustedRegion animated:YES];
-            [self loadMapAtRegion:CGPointMake(0, 200)];
+            [self loadMapAtRegion: CGPointMake(0, MAP_POSITION_OFFSET)];
         }else{
             stop1 = CGPointMake(self.view.center.x, self.view.center.y);
             
@@ -277,10 +268,6 @@
             PumpDetailViewController *currPumpController = [[PumpDetailViewController alloc] init];
             // TODO: Only if there are performance issues with 20 view controllers, then switch to using a dictionary and lazy create the view controllers. The key of the dictionary is the index of the pump.
             currPumpController.pump = p;
-            
-
-            
-
             [self.pumpViewControllers addObject:currPumpController];
         }
     }
@@ -303,16 +290,33 @@
             //TODO: remove this line and tie it to a pump being clicked on the list view?
             int index = [self loadPumpFromPushNotification];
             self.pump = self.pumps[index];
+            __weak PumpMapViewController *weakSelf = self;
+            [Report getReportsForPump:self.pump withBlock:^(NSArray *objects, NSError *error) {
+                Report *report = [objects firstObject];
+                weakSelf.pump.lastUpdatedAt = [weakSelf giveMePrettyDate:report.updatedAt];
+            }];
             [self setUpView: index];
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     }];
 }
+- (NSString *)giveMePrettyDate:(NSDate *)date {
+    if (date) {
+        return [MHPrettyDate prettyDateFromDate:date withFormat:MHPrettyDateLongRelativeTime];
+    }else {
+        return @"NA";
+    }
+}
 
 - (void)setPump:(Pump *)pump {
     _pump = pump;
-    [self loadMapAtRegion: CGPointMake(0, 0)];
+    if (self.firstSwipe) {
+        [self loadMapAtRegion:CGPointMake(0, 0)];
+    }else {
+        [self loadMapAtRegion: CGPointMake(0, MAP_POSITION_OFFSET)];
+    }
+
     [self plotPump:pump];
     [self plotAllPumpsInView];
 }
