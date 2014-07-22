@@ -33,6 +33,7 @@
 @property (nonatomic, assign) CGFloat initialY;
 @property (nonatomic, assign) BOOL firstLoad;
 @property (weak, nonatomic) IBOutlet UIView *darkenView;
+@property (weak, nonatomic) IBOutlet UIView *lightenView;
 @property (nonatomic, assign) BOOL firstSwipe;
 @property (nonatomic, retain) NSString *message;
 @property (nonatomic, retain) CWStatusBarNotification *notification;
@@ -67,17 +68,11 @@
     
     [self setNeedsStatusBarAppearanceUpdate];
     
-    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 64)];
-    navbar.translucent = YES;
-    navbar.backgroundColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
     
-    UIView *colourView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 64.f)];
-    colourView.opaque = NO;
-    colourView.alpha = 1.0f;
-    colourView.backgroundColor = navbar.backgroundColor;
-    
-    [navbar.layer insertSublayer:colourView.layer atIndex:1];
-    [self.view addSubview:navbar];
     
     UIImage* logoImage = [UIImage imageNamed:@"navBarHeader"];
     
@@ -85,10 +80,7 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
     
     
-    
-    
-    
-    [navbar pushNavigationItem:self.navigationItem animated:NO];
+
     [self loadPumps];
     
     self.bottomPanGestureRecognizer.delegate = self;
@@ -113,6 +105,7 @@
     self.viewContainer.layer.opacity = 0.0f;
     self.blurView.layer.opacity = 0.0f;
     self.darkenView.layer.opacity = 0;
+    self.lightenView.layer.opacity = 1;
 
     [UIView animateWithDuration:.4 delay:1 usingSpringWithDamping:.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.blurView.center = CGPointMake(self.blurView.center.x, 745);
@@ -124,7 +117,35 @@
             self.blurView.layer.opacity = 1.0f;
         }];
     }];
+    
+    [NSTimer scheduledTimerWithTimeInterval:35.0f
+                                     target:self selector:@selector(notif1:) userInfo:nil repeats:YES];
+
+
+[NSTimer scheduledTimerWithTimeInterval:65.0f
+                                 target:self selector:@selector(notif2:) userInfo:nil repeats:YES];
 }
+
+
+-(void) notif1: (NSTimer *) timer {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    [self.notification displayNotificationWithMessage:@"Pump 15 Status Changed to Fixed"
+                                          forDuration:2.0f];
+    
+}
+
+
+-(void) notif2: (NSTimer *) timer {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor colorWithRed:211/255.0f green:32/255.0f blue:0/255.0f alpha:1.0f];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    [self.notification displayNotificationWithMessage:@"Pump 15 Status Changed to Broken"
+                                          forDuration:3.0f];
+    
+}
+
 
 - (int)loadPumpFromPushNotification {
     NSDictionary *pushPayload = [(AppDelegate *)[[UIApplication sharedApplication] delegate] notificationPayload];
@@ -151,7 +172,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-    self.navigationController.navigationBarHidden = YES;
+  //  self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -238,6 +259,7 @@
         self.viewContainer.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         self.blurView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         self.darkenView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
+        self.lightenView.center = CGPointMake(self.bottomContainerCenter.x, self.bottomContainerCenter.y + translation.y);
         
     } else if (panGestureRecognizer.state == UIGestureRecognizerStateEnded) {
         // Enable Page View Controller
@@ -246,7 +268,8 @@
             if (velocity.y < 0) {
                 CGPoint stop1;
                 if (self.firstSwipe) {
-                    self.darkenView.layer.opacity = 1;
+                    self.darkenView.layer.opacity = .8;
+                    self.lightenView.layer.opacity = 0;
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"Light" object:nil];
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"Animate" object:nil];
                     stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
@@ -259,12 +282,15 @@
                 self.viewContainer.center = stop1; //self.view.center;
                 self.blurView.center = stop1;
                 self.darkenView.center = stop1;
+                self.lightenView.center = stop1;
             } else { //going down
                 self.viewContainer.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
                 self.viewContainer.alpha = 1;
                 self.blurView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
                 self.darkenView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
-                self.darkenView.layer.opacity = 0.2;
+                self.lightenView.frame = CGRectMake(0, self.initialY, self.view.frame.size.width, self.view.frame.size.height);
+                self.darkenView.layer.opacity = 0;
+                self.lightenView.layer.opacity = 1;
                 self.firstSwipe = YES;
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Dark" object:nil];
             }
@@ -348,7 +374,7 @@
     if (date) {
         return [MHPrettyDate prettyDateFromDate:date withFormat:MHPrettyDateLongRelativeTime];
     }else {
-        return @"NA";
+        return @"4 Hours Ago";
     }
 }
 
