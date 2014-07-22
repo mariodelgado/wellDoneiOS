@@ -108,6 +108,8 @@
     self.addButton.layer.shadowRadius = 0.5;
     self.addButton.layer.shadowOffset = CGSizeMake(0, 1.0f);
     self.imgPump.transform = CGAffineTransformMakeScale(0,0);
+    self.brokenIndicatorImageView.transform = CGAffineTransformMakeScale(0, 0);
+    self.notBrokenIndicatorImageView.transform = CGAffineTransformMakeScale(0, 0);
     
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeLight) name:@"Light" object:nil];
@@ -117,6 +119,8 @@
     
     [UIView animateWithDuration:0.3 delay:0.3 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.imgPump.transform = CGAffineTransformMakeScale(1,1);
+        self.brokenIndicatorImageView.transform = CGAffineTransformMakeScale(1, 1);
+        self.notBrokenIndicatorImageView.transform = CGAffineTransformMakeScale(1, 1);
 
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.3 animations:^{
