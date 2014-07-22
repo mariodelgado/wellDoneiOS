@@ -91,7 +91,7 @@
     UILabel *lblGraphTitle = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 300, 20)];
     lblGraphTitle.text = @"Water Usage With Other Pump";
     
-    self.viewGraph1.backgroundColor = [UIColor greenColor];
+    self.viewGraph1.backgroundColor = [UIColor whiteColor];
     [self.viewGraph1 addSubview:lineChart];
     [self.viewGraph1 addSubview:lblGraphTitle];
     
