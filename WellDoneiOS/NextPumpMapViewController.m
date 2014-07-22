@@ -8,6 +8,7 @@
 
 #import "NextPumpMapViewController.h"
 #import <MapKit/MapKit.h>
+#import <LiveFrost.h>
 
 #define METERS_PER_MILE 1609.344
 #define Y_OFFSET 294
@@ -20,6 +21,8 @@
 @property (assign, nonatomic) CGPoint overLayCenter;
 @property (assign, nonatomic) CGPoint overLayCenterOriginal;
 - (IBAction)onClose:(id)sender;
+
+
 
 @end
 
@@ -68,6 +71,8 @@
 }
 
 - (void)loadMapAtRegion {
+    
+    
     CLLocationCoordinate2D coordinate;
     coordinate.latitude = self.pumpFrom.location.latitude;
     coordinate.longitude = self.pumpFrom.location.longitude;
@@ -157,8 +162,8 @@
 {
     MKPolylineRenderer *renderer =
     [[MKPolylineRenderer alloc] initWithOverlay:overlay];
-    renderer.strokeColor = [UIColor blueColor];
-    renderer.lineWidth = 2.5;
+    renderer.strokeColor =  [UIColor colorWithRed:0 green:0.569 blue:1 alpha:1];
+    renderer.lineWidth = 10.5;
     return renderer;
 }
 
