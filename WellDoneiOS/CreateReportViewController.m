@@ -65,7 +65,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
     self.imageCollectionView.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.bgImage.layer.opacity = 1;
+        self.bgImage.layer.opacity = 0.4;
     } completion:^(BOOL finished) {
         nil;
     }];
@@ -223,7 +223,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     cell.contentView.backgroundColor = [UIColor clearColor];
     [cell.selectedBackgroundView removeFromSuperview];
     cell.selectedBackgroundView.backgroundColor = [UIColor clearColor];
-            cell.superview.layer.backgroundColor = [UIColor clearColor].CGColor;
+    cell.superview.layer.backgroundColor = [UIColor clearColor].CGColor;
 
 
 

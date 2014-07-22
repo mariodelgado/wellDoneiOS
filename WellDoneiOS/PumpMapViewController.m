@@ -10,6 +10,8 @@
 #import "PumpDetailViewController.h"
 #import <LiveFrost.h>
 #import "AppDelegate.h"
+#import "CWStatusBarNotification.h"
+
 
 
 #define METERS_PER_MILE 1609.344
@@ -31,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIView *darkenView;
 @property (nonatomic, assign) BOOL firstSwipe;
 @property (nonatomic, retain) NSString *message;
+@property (nonatomic, retain) CWStatusBarNotification *notification;
 
 
 
@@ -66,11 +69,11 @@
     
     [self setNeedsStatusBarAppearanceUpdate];
 
-    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 70)];
+    UINavigationBar *navbar = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 64)];
     navbar.translucent = YES;
     navbar.backgroundColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
     
-    UIView *colourView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 70.f)];
+    UIView *colourView = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 320.f, 64.f)];
     colourView.opaque = NO;
     colourView.alpha = 1.0f;
     colourView.backgroundColor = navbar.backgroundColor;
@@ -78,13 +81,17 @@
     [navbar.layer insertSublayer:colourView.layer atIndex:1];
     [self.view addSubview:navbar];
     
-    UIImage* logoImage = [UIImage imageNamed:@"logo.png"];
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
-    
-    self.navigationItem.title = @"WellDone";
-    navbar.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor darkGrayColor] forKey:NSForegroundColorAttributeName];
+    UIImage* logoImage = [UIImage imageNamed:@"navBarHeader"];
 
-    [navbar pushNavigationItem:self.navigationItem animated:NO];    [self loadPumps];
+
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
+
+
+
+    
+
+    [navbar pushNavigationItem:self.navigationItem animated:NO];
+    [self loadPumps];
 
     self.bottomPanGestureRecognizer.delegate = self;
     
@@ -138,7 +145,7 @@
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle{
-    return UIStatusBarStyleDefault;
+    return UIStatusBarStyleLightContent;
 }
 
 -(void) drawRect:(CGRect)viewContainer {
@@ -190,6 +197,7 @@
     self.pump = self.pumps[index];
     if (self.firstSwipe == NO) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"Light" object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"Animate" object:nil];
     }
 }
 
@@ -250,6 +258,7 @@
         if (self.firstSwipe) {
             self.darkenView.layer.opacity = 1;
             [[NSNotificationCenter defaultCenter] postNotificationName:@"Light" object:nil];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"Animate" object:nil];
 
             
             stop1 = CGPointMake(self.view.center.x, self.view.center.y + GESTURE1_Y_OFFSET);
@@ -333,8 +342,19 @@
             int index = [self loadPumpFromPushNotification];
             self.pump = self.pumps[index];
             [self setUpView: index];
+            self.notification = [CWStatusBarNotification new];
+            self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
+            self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+
+            
+            [self.notification displayNotificationWithMessage:@"Pumps Loaded."
+                                                  forDuration:2.0f];
         } else {
             NSLog(@"Error: %@ %@", error, [error userInfo]);
+            self.notification = [CWStatusBarNotification new];
+            
+            [self.notification displayNotificationWithMessage:@"Download Error - No Internet Connection"
+                                                  forDuration:1.0f];
         }
     }];
 }
@@ -369,6 +389,8 @@
 
 - (void)plotPump:(Pump *)pump {
     [self.mapView addAnnotation:pump];
+
+    
 }
 
 #pragma mark MapView delegate methods
