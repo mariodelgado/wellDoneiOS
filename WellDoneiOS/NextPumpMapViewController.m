@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
 @property (assign, nonatomic) CGPoint overLayCenter;
 @property (assign, nonatomic) CGPoint overLayCenterOriginal;
+- (IBAction)onClose:(id)sender;
 
 @end
 
@@ -245,12 +246,7 @@
     }
 }
 
-
-
-
-
-
-
-
-
+- (IBAction)onClose:(id)sender {
+     [self dismissViewControllerAnimated:YES completion:nil];
+}
 @end

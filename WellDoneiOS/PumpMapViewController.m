@@ -10,6 +10,7 @@
 #import "PumpDetailViewController.h"
 #import <LiveFrost.h>
 #import "AppDelegate.h"
+#import "NextPumpMapViewController.h"
 
 
 #define METERS_PER_MILE 1609.344
@@ -48,6 +49,8 @@
         // Custom initialization
         self.firstLoad = YES;
         self.firstSwipe = YES;
+        
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
 
     }
     return self;
@@ -415,5 +418,15 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)reportSavedShowNextRoute {
+    NSLog(@"I am the observer");
+    [self performSelector:@selector(showNext) withObject:nil afterDelay:0.1];
+    
+}
+- (void)showNext {
+    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+    [self.pumpViewControllers[0] presentViewController:npVC animated:YES completion:nil];
+
+}
 
 @end

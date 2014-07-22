@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Pump.h"
 
-extern NSString *const ReportSavedNotification;
+
 
 @interface CreateReportViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
 @property (strong, nonatomic) Pump *pump; 

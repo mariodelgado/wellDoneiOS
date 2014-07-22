@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Pump.h"
 
 @interface TextMessageViewController : UIViewController
+@property (strong, nonatomic)Pump *pump;
 
 @end

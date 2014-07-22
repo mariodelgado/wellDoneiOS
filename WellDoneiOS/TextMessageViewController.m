@@ -31,6 +31,9 @@
 {
     [super viewDidLoad];
     [self styleView];
+    //get the Pump name
+    self.txtSMS.text = self.pump.name;
+    //Get the closed pump
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,7 +53,7 @@
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     result[@"From"] =@"+14087136419";
     result[@"To"] =@"+16186969454";
-    result[@"Body"] = [NSString stringWithFormat:@"Pump With Name:%@ is broken.", @"Pump 16"];
+    result[@"Body"] = self.txtSMS.text;
     
     return result;
     
@@ -69,8 +72,9 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error:%@",error);
         
-        
     }];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

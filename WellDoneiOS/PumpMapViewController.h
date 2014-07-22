@@ -10,6 +10,8 @@
 #import <MapKit/MapKit.h>
 #import "Pump.h"
 
+extern NSString *const ReportSavedNotification;
+
 @interface PumpMapViewController : UIViewController<MKMapViewDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIGestureRecognizerDelegate>
 @property  (nonatomic, strong) Pump *pump;
 @property  (nonatomic, strong) NSArray *pumps;
