@@ -63,7 +63,7 @@
 -(void) lineChart1 {
     //For LineChart
     PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 200.0)];
-    [lineChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
+    [lineChart setXLabels:@[@"8/30",@"8/31",@"9/1",@"9/2",@"9/3",@"9/4",@"9/5"]];
     
     // Line Chart No.1
     NSArray * data01Array = @[@60.1, @160.1, @126.4, @262.2, @186.2, @300, @250];
@@ -89,7 +89,7 @@
     [lineChart strokeChart];
     
     UILabel *lblGraphTitle = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 300, 20)];
-    lblGraphTitle.text = @"Water Usage With Other Pump";
+    lblGraphTitle.text = @"Water Usage Vs. Population";
     
     self.viewGraph1.backgroundColor = [UIColor whiteColor];
     [self.viewGraph1 addSubview:lineChart];
@@ -105,7 +105,7 @@
 
 -(void) lineChart2 {
     PNLineChart * lineChart = [[PNLineChart alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 100.0)];
-    [lineChart setXLabels:@[@"10/14",@"10/15",@"10/16",@"10/17",@"10/18",@"10/19",@"10/20"]];
+    [lineChart setXLabels:@[@"8/30",@"8/31",@"9/1",@"9/2",@"9/3",@"9/4",@"9/5"]];
     
     // Line Chart No.1
     NSArray * data01Array = @[@60.1, @160.1, @126.4, @262.2, @186.2, @300, @250];

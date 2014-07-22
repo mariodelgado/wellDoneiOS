@@ -253,7 +253,7 @@
                     self.firstSwipe = NO;
                     [self loadMapAtRegion: CGPointMake(0, MAP_POSITION_OFFSET)];
                 }else{
-                    stop1 = CGPointMake(self.view.center.x, self.view.center.y);
+                    stop1 = CGPointMake(self.view.center.x, self.view.center.y + 64); //set new height here
                     
                 }
                 self.viewContainer.center = stop1; //self.view.center;
