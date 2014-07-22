@@ -12,6 +12,8 @@
 #import "ReportViewController.h"
 #import "StatsViewController.h"
 #import "PumpMapViewController.h"
+#import "CWStatusBarNotification.h"
+
 
 #import "MHPrettyDate.h"
 #import "PNChart.h"
@@ -39,6 +41,7 @@
 
 @property (nonatomic, assign) BOOL firstSwipe;
 @property (nonatomic, retain) NSString *message;
+
 
 
 
@@ -71,6 +74,8 @@
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
     self.reportHeaderView.delegate = self;
+
+
     
     float width = self.imgPump.bounds.size.width;
     self.imgPump.layer.cornerRadius = width/2;
@@ -113,6 +118,7 @@
 
     
     
+    
     [UIView animateWithDuration:0.3 delay:0.3 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.imgPump.transform = CGAffineTransformMakeScale(1,1);
 
@@ -140,6 +146,8 @@
     self.lblName.textColor = [UIColor whiteColor];
     self.lblStatus.textColor = [UIColor whiteColor];
     self.lblLastUpdated.textColor = [UIColor whiteColor];
+
+
 }
 
 - (void) makeDark{
@@ -195,6 +203,7 @@
 
     self.lblStatus.text = pump.status;
     //[self addStatusLabel:pump.status]; //Was acting weired.
+
     
 }
 
@@ -265,10 +274,12 @@
             self.reports = objects;
             [self.tableView reloadData];
             [self endRefresh];
+            
         } else {
             
             NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
+
     }];
     
     //    PFQuery *queryForReports = [Report query];

@@ -24,7 +24,8 @@
         // Initialization code
         UINib *nib = [UINib nibWithNibName:@"cvCell" bundle:nil];
         NSArray *objects = [nib instantiateWithOwner:self options:nil];
-        
+        self.contentView.backgroundColor = [UIColor clearColor];
+        self.imageView.backgroundColor = [UIColor clearColor];
         UIView *subview = objects[0];
         self.frame = subview.frame;
         [self addSubview:objects[0]];
