@@ -8,11 +8,13 @@
 
 #import "TextMessageViewController.h"
 #import "AFNetworking.h"
+#import "CWStatusBarNotification.h"
 
 @interface TextMessageViewController ()
 - (IBAction)onSend:(id)sender;
 - (IBAction)onCancel:(id)sender;
 @property (weak, nonatomic) IBOutlet UITextView *txtSMS;
+@property (strong, nonatomic) CWStatusBarNotification *notification;
 
 @end
 
@@ -85,6 +87,7 @@
         
     }];
 //    [textView];
+    [self notificationWithMessage:@"Text Message Sent"];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -105,6 +108,16 @@
     self.txtSMS.layer.borderColor = [[UIColor blackColor] CGColor];
     self.txtSMS.layer.cornerRadius = 5;
     self.txtSMS.delegate = self;
+}
+
+-(void)notificationWithMessage: (NSString*)message {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    
+    
+    [self.notification displayNotificationWithMessage:message
+                                          forDuration:2.0f];
 }
 
 

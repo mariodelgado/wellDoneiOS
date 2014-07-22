@@ -58,7 +58,7 @@
         self.firstSwipe = YES;
         
 
-         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute:) name:ReportSavedNotification object:nil];
 
 
     }
@@ -470,8 +470,12 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)reportSavedShowNextRoute {
+-(void)reportSavedShowNextRoute:(NSNotification*)notification {
     NSLog(@"I am the observer");
+    
+    //Add the new report to the array of reports
+    Report *newReport = (Report*)notification.userInfo[@"report"];
+    
     NextPumpMapViewController *npVC = [NextPumpMapViewController new];
     [self presentViewController:npVC animated:YES completion:nil];
     
