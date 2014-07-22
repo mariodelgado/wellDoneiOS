@@ -108,7 +108,7 @@
 
 -(void)getDirections {
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
-    request.transportType = MKDirectionsTransportTypeWalking;
+    request.transportType = MKDirectionsTransportTypeAutomobile;
 
     
     CLLocationCoordinate2D currentLocation;
@@ -160,7 +160,7 @@
     MKPolylineRenderer *renderer =
     [[MKPolylineRenderer alloc] initWithOverlay:overlay];
     renderer.strokeColor = [UIColor blueColor];
-    renderer.lineWidth = 2.5;
+    renderer.lineWidth = 4;
     return renderer;
 }
 

@@ -11,6 +11,6 @@
 
 @interface ReportViewController : UIViewController <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
-@property (strong, nonatomic) Report *report; 
+@property (strong, nonatomic) Report *report;
 
 @end
