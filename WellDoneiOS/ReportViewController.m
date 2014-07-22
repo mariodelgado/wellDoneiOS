@@ -13,6 +13,7 @@
 #import "AFNetworking.h"
 #import "TextMessageViewController.h"
 #import "UIView+Animations.h"
+#import "MHPrettyDate.h"
 
 @interface ReportViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *pumpImage;
@@ -61,8 +62,8 @@
 }
 - (void) loadDataFromModel {
     self.lblReportName.text = self.report.reportName;
-    self.lblDateCreated.text = @"12:00 :43 - March 4, 2015";
-    //self.lblStatus.text = @"Fixed";
+    self.lblDateCreated.text = [self giveMePrettyDate];
+    self.lblStatus.text = self.report.status;
     self.lblNotes.text = self.report.reportNote;
     UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
     [lblStatusNew constructBorderedLabelWithText:@"Fixed" color:[UIColor redColor] angle:30];
@@ -82,6 +83,13 @@
     
 }
 
+- (NSString *)giveMePrettyDate {
+    if (self.report.updatedAt) {
+        return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateLongRelativeTime];
+    }else {
+        return @"NA";
+    }
+}
 
 - (IBAction)onCreateReport:(id)sender {
     CreateReportViewController *cvc = [[CreateReportViewController alloc] init];

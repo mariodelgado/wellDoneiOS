@@ -13,11 +13,12 @@
 
 @property (retain) NSString *reportName;
 @property (retain) NSString *reportNote;
+@property (retain) NSString *status;
 @property (retain) Pump *pump;
 @property (retain) PFFile *reportImage; 
 
 + (NSString *)parseClassName;
-+ (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump;
++ (Report *) reportWithName:(NSString *)reportName note:(NSString*)note pump:(Pump*)pump status:(NSString*)status;
 + (void )getReportsForPump:(Pump*)pump withBlock:(PFArrayResultBlock)block;
 
 @end
