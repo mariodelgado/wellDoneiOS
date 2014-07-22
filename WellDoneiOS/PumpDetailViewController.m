@@ -39,6 +39,8 @@
 
 @property (nonatomic, assign) BOOL firstSwipe;
 @property (nonatomic, retain) NSString *message;
+@property (weak, nonatomic) IBOutlet UIImageView *brokenIndicatorImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *notBrokenIndicatorImageView;
 
 
 
@@ -93,7 +95,7 @@
     self.lblLastUpdated.layer.masksToBounds = NO;
     self.lblLastUpdated.layer.opacity = 0;
 
-    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
+    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0];
     self.lblStatus.layer.shadowColor = [[UIColor blackColor] CGColor];
     self.lblStatus.layer.shadowRadius = 19.0f;
     self.lblStatus.layer.shadowOpacity = 1.0;
@@ -138,14 +140,14 @@
 
 - (void) makeLight{
     self.lblName.textColor = [UIColor whiteColor];
-    self.lblStatus.textColor = [UIColor whiteColor];
+    self.lblStatus.textColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.0];
     self.lblLastUpdated.textColor = [UIColor whiteColor];
 }
 
 - (void) makeDark{
     self.lblName.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
     self.lblLastUpdated.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
-    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.65];
+    self.lblStatus.textColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.0];
 }
 
 - (void)loadChart {
@@ -184,7 +186,7 @@
 - (void)reloadViewWithData: (Pump *)pump {
     self.lblName.text = pump.name;
     self.lblDecsription.text = pump.descriptionText;
-    self.imgPump.image = [UIImage imageNamed:@"pump.jpeg"];
+    self.imgPump.image = [UIImage imageNamed:@"pumpPlaceholder"];
 //  NSString *prettyDAte = [self giveMePrettyDate];
 //  NSLog(@"report update %@ for pump %@", prettyDAte, self.pump.name);
 //  self.pump.updatedAt = prettyDAte;
@@ -195,6 +197,13 @@
 
     self.lblStatus.text = pump.status;
     //[self addStatusLabel:pump.status]; //Was acting weired.
+    if ([self.lblStatus.text isEqualToString:@"BROKEN"]) {
+        self.brokenIndicatorImageView.hidden = NO;
+        self.notBrokenIndicatorImageView.hidden = YES;
+    } else {
+        self.brokenIndicatorImageView.hidden = YES;
+        self.notBrokenIndicatorImageView.hidden = NO;
+    }
     
 }
 
@@ -203,7 +212,7 @@
     if (self.report.updatedAt) {
         return [MHPrettyDate prettyDateFromDate:self.report.updatedAt withFormat:MHPrettyDateLongRelativeTime];
     }else {
-        return @"NA";
+        return @"3 hours ago";
     }
 }
 
