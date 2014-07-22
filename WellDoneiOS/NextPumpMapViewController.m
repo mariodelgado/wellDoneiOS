@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 
 #define METERS_PER_MILE 1609.344
-#define Y_OFFSET 284
+#define Y_OFFSET 294
 
 @interface NextPumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
@@ -19,6 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
 @property (assign, nonatomic) CGPoint overLayCenter;
 @property (assign, nonatomic) CGPoint overLayCenterOriginal;
+- (IBAction)onClose:(id)sender;
+@property (strong, nonatomic) NSMutableArray *locations;
 
 @end
 
@@ -91,9 +93,9 @@
         
         pinView.canShowCallout = YES;
         if (pump == self.pumpTo) {
-            pinView.image = [UIImage imageNamed:@"177-building"];
+            pinView.image = [UIImage imageNamed:@"mMarkerBad"];
         }else {
-            pinView.image = [UIImage imageNamed:@"07-map-marker"];
+            pinView.image = [UIImage imageNamed:@"mMarkerGood"];
         }
         
     }
@@ -106,7 +108,7 @@
 
 -(void)getDirections {
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
-    request.transportType = MKDirectionsTransportTypeWalking;
+    request.transportType = MKDirectionsTransportTypeAutomobile;
 
     
     CLLocationCoordinate2D currentLocation;
@@ -134,7 +136,7 @@
             NSLog(@"Error:%@",error.description);
         } else {
             NSLog(@"Log:%lu",(unsigned long)[response.routes count]);
-            [self showRoute:response];
+                        [self showRoute:response];
         }
     }];
     
@@ -150,6 +152,7 @@
 //    }
     MKRoute *route = response.routes[0];
     [self.mapView addOverlay:route.polyline level:MKOverlayLevelAboveRoads];
+    [self centerMapWithRespone:route];
 }
 
 - (MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id < MKOverlay >)overlay
@@ -157,7 +160,7 @@
     MKPolylineRenderer *renderer =
     [[MKPolylineRenderer alloc] initWithOverlay:overlay];
     renderer.strokeColor = [UIColor blueColor];
-    renderer.lineWidth = 2.5;
+    renderer.lineWidth = 4;
     return renderer;
 }
 
@@ -176,6 +179,8 @@
     CLLocationCoordinate2D nextLocation;
     nextLocation.latitude = location.latitude;
     nextLocation.longitude = location.longitude;
+    
+    
     
     
     
@@ -245,12 +250,45 @@
     }
 }
 
+- (IBAction)onClose:(id)sender {
+     [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 
+-(void) centerMapWithRespone:(MKRoute *)route
+{
+    MKCoordinateRegion region;
+    CLLocationDegrees maxLat = -90.0;
+    CLLocationDegrees maxLon = -180.0;
+    CLLocationDegrees minLat = 90.0;
+    CLLocationDegrees minLon = 180.0;
+    
+    CLLocation *currentLocation = [[CLLocation alloc] initWithLatitude:self.pumpFrom.location.latitude longitude:self.pumpFrom.location.longitude];
+    CLLocation *toLocation = [[CLLocation alloc] initWithLatitude:self.pumpTo.location.latitude longitude:self.pumpTo.location.longitude];
+    NSArray *routes = @[currentLocation, toLocation];
 
-
-
-
-
+   for(int idx = 0; idx < routes.count; idx++)
+   {
+        CLLocation* currentLocation = [routes objectAtIndex:idx];
+       if(currentLocation.coordinate.latitude > maxLat)
+            maxLat = currentLocation.coordinate.latitude;
+        if(currentLocation.coordinate.latitude < minLat)
+            minLat = currentLocation.coordinate.latitude;
+        if(currentLocation.coordinate.longitude > maxLon)
+            maxLon = currentLocation.coordinate.longitude;
+        if(currentLocation.coordinate.longitude < minLon)
+            minLon = currentLocation.coordinate.longitude;
+   }
+    region.center.latitude     = (maxLat + minLat) / 2.0;
+    region.center.longitude    = (maxLon + minLon) / 2.0;
+    region.span.latitudeDelta = 0.01;
+    region.span.longitudeDelta = 0.01;
+    
+    region.span.latitudeDelta  = ((maxLat - minLat)<0.0)?100.0:(maxLat - minLat);
+    region.span.latitudeDelta = region.span.latitudeDelta *1.5;
+    region.span.longitudeDelta = ((maxLon - minLon)<0.0)?100.0:(maxLon - minLon);
+    region.span.longitudeDelta = region.span.longitudeDelta *1.5;
+    [self.mapView setRegion:region animated:YES];
+}
 
 @end

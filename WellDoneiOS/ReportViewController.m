@@ -104,6 +104,7 @@
     TextMessageViewController *textVC = [TextMessageViewController new];
     textVC.modalPresentationStyle = UIModalPresentationCustom;
     textVC.transitioningDelegate = self;
+    textVC.pump = self.report.pump; 
     [self presentViewController:textVC animated:YES completion:nil];
     
     

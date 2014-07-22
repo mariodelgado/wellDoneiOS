@@ -31,6 +31,20 @@
 {
     [super viewDidLoad];
     [self styleView];
+    //get the Pump name
+    [Pump getPumpWithPumpId:self.pump.objectId block:^(NSArray *objects, NSError *error) {
+        Pump *pump = (Pump*)[objects firstObject];
+        NSString *currentPumpName= pump.name;
+        __block NSString* nextGoodPumpName;
+        [Pump getPumpsCloseToLocation:pump.location withStatus:PumpStatusGood block:^(NSArray *objects, NSError *error) {
+            Pump *nextGoodPump = (Pump*)[objects firstObject];
+            nextGoodPumpName = nextGoodPump.name;
+            NSString *smsTextMsg = [NSString stringWithFormat:@"Your pump:%@ is currently Broken. Next working pump close to you is pump:%@ ",currentPumpName,nextGoodPumpName];
+            _txtSMS.text = smsTextMsg;
+        }];
+    }];
+    
+    //Get the closed pump
 }
 
 - (void)didReceiveMemoryWarning
@@ -50,7 +64,7 @@
     NSMutableDictionary *result = [[NSMutableDictionary alloc] init];
     result[@"From"] =@"+14087136419";
     result[@"To"] =@"+16186969454";
-    result[@"Body"] = [NSString stringWithFormat:@"Pump With Name:%@ is broken.", @"Pump 16"];
+    result[@"Body"] = self.txtSMS.text;
     
     return result;
     
@@ -69,12 +83,14 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error:%@",error);
         
-        
     }];
+//    [textView];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
 - (IBAction)onCancel:(id)sender {
+//    [textField dissmissFirstResponder];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -85,6 +101,11 @@
     [self.view.layer setShadowColor:[UIColor blackColor].CGColor];
     [self.view.layer setShadowOpacity:0.7];
     [self.view.layer setShadowOffset:CGSizeMake(-1, -1)];
+    self.txtSMS.layer.borderWidth =2;
+    self.txtSMS.layer.borderColor = [[UIColor blackColor] CGColor];
+    self.txtSMS.layer.cornerRadius = 5;
+    self.txtSMS.delegate = self;
 }
+
 
 @end

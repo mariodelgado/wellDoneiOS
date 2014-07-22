@@ -59,7 +59,7 @@
     if (self) {
         // Custom initialization
         self.reportHeaderView = [ReportHeaderView new];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
+       
         
     }
     return self;
@@ -443,11 +443,5 @@
     [self addReport];
 }
 
--(void)reportSavedShowNextRoute {
-    NSLog(@"I am the observer");
-    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
-    [self presentViewController:npVC animated:YES completion:nil];
-    
-    
-}
+
 @end

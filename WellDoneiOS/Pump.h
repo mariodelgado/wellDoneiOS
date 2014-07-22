@@ -33,5 +33,6 @@ PumpStatusType *PumpStatusBroken;
 + (void )getListOfPumpsWithBlock:(PFArrayResultBlock)block;
 + (void) getPumpsCloseToLocation:(PFGeoPoint *)location block:(PFArrayResultBlock)block;
 + (void) getPumpsCloseToLocation:(PFGeoPoint *)location withStatus:(PumpStatusType*)status block:(PFArrayResultBlock)block;
++ (void) getPumpWithPumpId:(NSString *)objectId block:(PFArrayResultBlock)block;
 
 @end

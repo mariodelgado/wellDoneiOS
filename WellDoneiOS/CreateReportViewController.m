@@ -111,7 +111,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
                 
                 [newReport saveInBackground];
             self.pump.status = self.btnStatus.titleLabel.text;
-            [self.pump saveInBackground];
+//            [self.pump saveInBackground];
            
 
         }
@@ -120,21 +120,30 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     }];
     
     //send a notification
+    //send notifcation to add the report to the mapView
+
    
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:nil];
+        
+    }];
+    
+    
     
 }
 
 -(void) onCancel {
-    
+   
     [self dismissViewControllerAnimated:YES completion:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:nil];
-    [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
-        self.bgImage.layer.opacity = 0;
-    } completion:^(BOOL finished) {
-        nil;
-    }];
+
+    
+//   
+//    [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
+//        self.bgImage.layer.opacity = 0;
+//    } completion:^(BOOL finished) {
+//        nil;
+//    }];
 }
 
 - (IBAction)onCamera:(id)sender {

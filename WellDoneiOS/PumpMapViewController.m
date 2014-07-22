@@ -10,9 +10,11 @@
 #import "PumpDetailViewController.h"
 #import <LiveFrost.h>
 #import "AppDelegate.h"
+#import "NextPumpMapViewController.h"
 #import "CWStatusBarNotification.h"
 #import "Report.h"
 #import "MHPrettyDate.h"
+
 
 
 #define METERS_PER_MILE 1609.344
@@ -56,6 +58,10 @@
         self.firstLoad = YES;
         self.firstSwipe = YES;
         
+
+         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
+
+
     }
     return self;
 }
@@ -490,5 +496,18 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+-(void)reportSavedShowNextRoute {
+    NSLog(@"I am the observer");
+    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+    [self presentViewController:npVC animated:YES completion:nil];
+    
+//    [self performSelector:@selector(showNext) withObject:nil afterDelay:0.1];
+    
+}
+- (void)showNext {
+//    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+//    [self presentViewController:npVC animated:YES completion:nil];
+//
+}
 
 @end
