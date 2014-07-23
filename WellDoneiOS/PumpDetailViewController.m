@@ -210,7 +210,7 @@
     }
     
     self.lblStatus.text = pump.status;
-    //[self addStatusLabel:pump.status]; //Was acting weired.
+  
     
     if ([self.lblStatus.text isEqualToString:@"BROKEN"]) {
         self.brokenIndicatorImageView.hidden = NO;
@@ -333,7 +333,6 @@
 }
 
 -(void) onChartViewTap:(UITapGestureRecognizer*) tapGesture {
-    NSLog(@"I am tapped");
     //On tap open a modal
     StatsViewController *statsVC = [StatsViewController new];
     statsVC.modalPresentationStyle = UIModalPresentationCustom;
@@ -447,8 +446,19 @@
 
 -(void) addReportToArray:(Report*) report{
  
+    
     [self.reports insertObject:report atIndex:0];
     [self.tableView reloadData];
+    
+    
+    if ([report.status isEqualToString:@"BROKEN"]) {
+        self.brokenIndicatorImageView.hidden = NO;
+        self.notBrokenIndicatorImageView.hidden = YES;
+    } else {
+        self.brokenIndicatorImageView.hidden = YES;
+        self.notBrokenIndicatorImageView.hidden = NO;
+    }
+
 }
 
 @end
