@@ -57,11 +57,12 @@
         // Custom initialization
         self.firstLoad = YES;
         self.firstSwipe = YES;
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute:) name:ReportSavedNotification object:nil];
         
-        
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
-        
-        
+
+
+
     }
     return self;
 }
@@ -494,8 +495,13 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)reportSavedShowNextRoute {
+
+
+-(void)reportSavedShowNextRoute:(NSNotification*)notification {
+    
+    Pump *currentPump = (Pump*)notification.userInfo[@"currentPump"];
     NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+    npVC.pumpFrom = currentPump;
     [self presentViewController:npVC animated:YES completion:nil];
     
 }

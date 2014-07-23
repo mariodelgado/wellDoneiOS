@@ -11,6 +11,7 @@
 #import "Report.h"
 #import "ImageCollectionViewCell.h"
 #import <MMPickerView.h>
+#import "CWStatusBarNotification.h"
 
 NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
@@ -23,6 +24,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 @property (strong, nonatomic)NSMutableArray *imageDataToSave;
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
+@property (strong, nonatomic)CWStatusBarNotification *notification;
 
 
 - (IBAction)onStatus:(id)sender;
@@ -99,22 +101,59 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 - (void) onSave {
     
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
+    __block Report *newReport;
     
-    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        
-        if (succeeded) {
-            
-            //After image is saved , saved the report.
-                Report *newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-                newReport.reportImage = imageFile;
-                
-                
-                [newReport saveInBackground];
-            self.pump.status = self.btnStatus.titleLabel.text;
-//            [self.pump saveInBackground];
-           
+//    DeleteThis later
+//    //save everything eventually except the image.
+    newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//    [newReport saveEventually];
+//    self.pump.status = self.btnStatus.titleLabel.text;
+//    [self.pump saveEventually];
+//    
+//    [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
 
+//    
+//   [newReport saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//       NSLog(@"Interent NO: %@", error.description);
+//       if (error) {
+//           NSLog(@"I am in the error block");
+//       }
+//   }];
+   
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+    
+        if (succeeded) {
+
+            //After image is saved , saved the report.
+            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+            newReport.reportImage = imageFile;
+
+            
+            [newReport saveInBackground];
+            self.pump.status = self.btnStatus.titleLabel.text;
+            [self.pump saveInBackground];
+            [self notificationWithMessage:@"Report Successfully Submitted"];
+
+        } else {
+//            //save everything eventually except the image.
+//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//            [newReport saveEventually];
+//            self.pump.status = self.btnStatus.titleLabel.text;
+//            [self.pump saveEventually];
+//            
+//            [self notificationWithMessage:@"Report Will Be Saved When Network Available 1"];
         }
+        
+//        NSLog(@"Error: Internet No: %@",error);
+//        if(error){
+//            //save everything eventually except the image.
+//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//            [newReport saveEventually];
+//            self.pump.status = self.btnStatus.titleLabel.text;
+//            [self.pump saveEventually];
+//
+//            [self notificationWithMessage:@"Report Will Be Submitted When Network Available 2"];
+//        }
         
         
     }];
@@ -125,7 +164,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
    
     
     [self dismissViewControllerAnimated:YES completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:nil];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:self userInfo:@{@"currentPump":self.pump}];
         
     }];
     
@@ -313,6 +353,16 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     [self onSave];
 }
 
+
+-(void)notificationWithMessage:(NSString*)message {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    
+    
+    [self.notification displayNotificationWithMessage:message
+                                          forDuration:2.0f];
+}
 
 
 @end
