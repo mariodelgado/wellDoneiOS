@@ -14,6 +14,7 @@
 #import "Pump.h"
 #import "NextPumpMapViewController.h"
 #import "PumpMapViewController.h"
+#import "LoginViewController.h"
 
 @implementation AppDelegate
 
@@ -26,7 +27,7 @@
     
     self.notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpMapViewController alloc] init]];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
     
     self.window.rootViewController = nvc;
     // Override point for customization after application launch.

@@ -7,7 +7,7 @@
 //
 
 #import "LoginViewController.h"
-//#import "PostViewController.h"
+#import "PumpMapViewController.h"
 
 @interface LoginViewController ()
 - (IBAction)onLoginButtonClick:(id)sender;
@@ -48,6 +48,8 @@
     [self.loadingIndicator setHidesWhenStopped:YES];
     [self.loadingIndicator setColor:[UIColor blackColor]];
     
+    self.navigationController.navigationBarHidden = YES;
+    
 }
 
 
@@ -77,9 +79,9 @@
 
 - (void)performLogin {
     if (self.usernameField.text.length > 0 && [self.passwordField.text isEqualToString:@"password"]) {
-//        PostViewController *postViewController = [[PostViewController alloc] init];
-//        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:postViewController];
-//        [self presentViewController:navigationController animated:YES completion:nil];
+        PumpMapViewController *pumpMapViewController = [[PumpMapViewController alloc] init];
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pumpMapViewController];
+        [self presentViewController:navigationController animated:YES completion:nil];
     }
     else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
@@ -94,9 +96,73 @@
     [self.view endEditing:YES];
 }
 
+//- (void)willShowKeyboard:(NSNotification *)notification {
+//    NSDictionary *userInfo = [notification userInfo];
+//    
+//    // Get the keyboard height and width from the notification
+//    // Size varies depending on OS, language, orientation
+//    CGSize kbSize = [[userInfo objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+//    NSLog(@"Height: %f Width: %f", kbSize.height, kbSize.width);
+//    
+//    // Get the animation duration and curve from the notification
+//    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+//    NSTimeInterval animationDuration = durationValue.doubleValue;
+//    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+//    UIViewAnimationCurve animationCurve = curveValue.intValue;
+//    
+//    // Move the view with the same duration and animation curve so that it will match with the keyboard animation
+//    [UIView animateWithDuration:animationDuration
+//                          delay:0.0
+//                        options:(animationCurve << 16)
+//                     animations:^{
+//                         self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-60);
+//                         self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-60);
+//                         self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-60);
+//                         self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-60);
+//                         self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-50);
+//                     }
+//                     completion:nil];
+//}
+//
+//- (void)willHideKeyboard:(NSNotification *)notification {
+//    NSDictionary *userInfo = [notification userInfo];
+//    
+//    // Get the animation duration and curve from the notification
+//    NSNumber *durationValue = userInfo[UIKeyboardAnimationDurationUserInfoKey];
+//    NSTimeInterval animationDuration = durationValue.doubleValue;
+//    NSNumber *curveValue = userInfo[UIKeyboardAnimationCurveUserInfoKey];
+//    UIViewAnimationCurve animationCurve = curveValue.intValue;
+//    
+//    // Move the view with the same duration and animation curve so that it will match with the keyboard animation
+//    [UIView animateWithDuration:animationDuration
+//                          delay:0.0
+//                        options:(animationCurve << 16)
+//                     animations:^{
+//                         self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y+60);
+//                         self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y+60);
+//                         self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y+60);
+//                         self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y+60);
+//                         self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y+50);
+//                     }
+//                     completion:nil];
+//    
+//}
+
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
     // Adjust position up
     NSLog(@"I need to move up");
+    
+    if (textField == self.passwordField)
+    {
+        self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-60);
+        self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-60);
+        self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-60);
+        self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-60);
+        self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-50);
+    }
+    else
+    {
+        
     
     [UIView animateWithDuration: .54
                           delay: 0
@@ -105,16 +171,16 @@
                         options: 0
                      animations: ^
      {
-         self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-40);
-         self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-40);
-         self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-40);
-         self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-40);
-         self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-40);
+         self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-60);
+         self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-60);
+         self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-60);
+         self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-60);
+         self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-50);
      }
                      completion: nil
      ];
     
-}
+    } }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
     // Adjust position down
@@ -127,11 +193,11 @@
                         options: 0
                      animations: ^
      {
-         self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y+40);
-         self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y+40);
-         self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y+40);
-         self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y+40);
-         self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y+40);
+         self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y+60);
+         self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y+60);
+         self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y+60);
+         self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y+60);
+         self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y+50);
      }
                      completion: nil
      ];
