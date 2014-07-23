@@ -80,7 +80,7 @@
 
 - (void)performLogin {
     if (self.usernameField.text.length > 0 && [self.passwordField.text isEqualToString:@"p"]) {
-        PumpMapViewController *pumpMapViewController = [[PumpMapViewController alloc] init];
+        // PumpMapViewController *pumpMapViewController = [[PumpMapViewController alloc] init];
         
         UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[PumpsListViewController alloc] init]];
         [self presentViewController:navigationController animated:YES completion:nil];
