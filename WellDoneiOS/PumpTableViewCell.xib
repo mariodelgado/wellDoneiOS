@@ -17,8 +17,8 @@
                         <rect key="frame" x="5" y="5" width="85" height="85"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="85" id="4mY-yb-VBy"/>
-                            <constraint firstAttribute="width" constant="85" id="yZT-gC-zha"/>
+                            <constraint firstAttribute="height" constant="85" id="KQF-qs-a7o"/>
+                            <constraint firstAttribute="width" constant="85" id="NiR-aN-RJt"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NnI-1F-CvJ">
@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Last update" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLo-FD-jt3">
-                        <rect key="frame" x="218" y="34" width="92" height="21"/>
+                        <rect key="frame" x="105" y="35" width="92" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -44,14 +44,15 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="GLo-FD-jt3" secondAttribute="trailing" constant="10" id="McH-XM-2Ss"/>
-                    <constraint firstItem="s7R-7i-leE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="Vvo-si-Gj9"/>
-                    <constraint firstItem="s7R-7i-leE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ahJ-oM-USi"/>
-                    <constraint firstItem="NnI-1F-CvJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="d1u-0C-w21"/>
-                    <constraint firstItem="GLo-FD-jt3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="34" id="hXQ-BB-fSN"/>
-                    <constraint firstItem="NnI-1F-CvJ" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="mae-Tf-vfS"/>
-                    <constraint firstAttribute="bottom" secondItem="qH4-Yr-puN" secondAttribute="bottom" constant="8" id="olj-bf-O1D"/>
-                    <constraint firstItem="qH4-Yr-puN" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="sDf-MB-cRC"/>
+                    <constraint firstItem="NnI-1F-CvJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="42L-lg-s4z"/>
+                    <constraint firstItem="s7R-7i-leE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="62M-Rq-GsD"/>
+                    <constraint firstItem="s7R-7i-leE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="6oO-cl-Lnu"/>
+                    <constraint firstItem="NnI-1F-CvJ" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="7kY-6a-U9N"/>
+                    <constraint firstItem="qH4-Yr-puN" firstAttribute="top" secondItem="GLo-FD-jt3" secondAttribute="bottom" constant="7" id="8Rs-zx-dhS"/>
+                    <constraint firstItem="qH4-Yr-puN" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="QTc-ur-FYf"/>
+                    <constraint firstItem="GLo-FD-jt3" firstAttribute="top" secondItem="NnI-1F-CvJ" secondAttribute="bottom" constant="9" id="gkN-Nx-tIn"/>
+                    <constraint firstAttribute="bottom" secondItem="qH4-Yr-puN" secondAttribute="bottom" constant="8" id="gsC-X5-i0O"/>
+                    <constraint firstItem="GLo-FD-jt3" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="vb3-DX-rKV"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
