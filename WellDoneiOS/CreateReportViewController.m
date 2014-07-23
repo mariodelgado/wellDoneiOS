@@ -103,20 +103,49 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
     __block Report *newReport;
     
+//    DeleteThis later
+//    //save everything eventually except the image.
+//    newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//    [newReport saveEventually];
+//    self.pump.status = self.btnStatus.titleLabel.text;
+//    [self.pump saveEventually];
+//    
+//    [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
+    
+    
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         
-        if (succeeded) {
-            
-            //After image is saved , saved the report.
-                newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-                newReport.reportImage = imageFile;
-                
-                
-                [newReport saveInBackground];
-            self.pump.status = self.btnStatus.titleLabel.text;
+//        if (succeeded) {
+//            
+//            //After image is saved , saved the report.
+//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//            newReport.reportImage = imageFile;
+//            
+//            
+//            [newReport saveInBackground];
+//            self.pump.status = self.btnStatus.titleLabel.text;
 //            [self.pump saveInBackground];
-            [self notificationWithMessage:@"Report Successfully Submitted"];
-
+//            [self notificationWithMessage:@"Report Successfully Submitted"];
+//
+//        } else {
+//            //save everything eventually except the image.
+//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//            [newReport saveEventually];
+//            self.pump.status = self.btnStatus.titleLabel.text;
+//            [self.pump saveEventually];
+//            
+//            [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
+//        }
+        
+        NSLog(@"Error: Internet No: %@",error);
+        if(error){
+            //save everything eventually except the image.
+            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+            [newReport saveEventually];
+            self.pump.status = self.btnStatus.titleLabel.text;
+            [self.pump saveEventually];
+            
+            [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
         }
         
         
@@ -128,7 +157,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
    
     
     [self dismissViewControllerAnimated:YES completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:self userInfo:@{@"report":newReport}];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:self userInfo:@{@"report":newReport}];
         
     }];
     
