@@ -28,6 +28,7 @@
 @interface PumpDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
 @property (weak, nonatomic) IBOutlet UILabel *lblLastUpdated;
+
 @property (weak, nonatomic) IBOutlet UIImageView *imgPump;
 @property (weak, nonatomic) IBOutlet UILabel *lblDecsription;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

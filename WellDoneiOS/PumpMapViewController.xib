@@ -9,6 +9,7 @@
                 <outlet property="blurView" destination="faI-5X-f61" id="dyn-8g-gF4"/>
                 <outlet property="bottomPanGestureRecognizer" destination="o7L-oa-Sk3" id="GDg-eP-xQw"/>
                 <outlet property="darkenView" destination="EOe-Lv-L4c" id="4xI-kd-PGl"/>
+                <outlet property="lightenView" destination="g6G-8r-0Pk" id="782-4E-tyD"/>
                 <outlet property="mapView" destination="KxV-xu-rH3" id="PVg-Bp-O55"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewContainer" destination="Kbm-TD-ICj" id="ICv-9a-Zmc"/>
@@ -33,6 +34,11 @@
                     <rect key="frame" x="0.0" y="471" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.30499999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                </view>
+                <view appearanceType="aqua" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g6G-8r-0Pk" userLabel="view light">
+                    <rect key="frame" x="0.0" y="471" width="320" height="568"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="0.30499999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
                 <view opaque="NO" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Kbm-TD-ICj">
                     <rect key="frame" x="0.0" y="471" width="320" height="568"/>
