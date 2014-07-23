@@ -14,6 +14,7 @@
 #import "CWStatusBarNotification.h"
 #import "Report.h"
 #import "MHPrettyDate.h"
+#import "AFNetworkReachabilityManager.h"
 
 
 
@@ -499,19 +500,20 @@
 
 
 -(void)reportSavedShowNextRoute:(NSNotification*)notification {
-    
-    Pump *currentPump = (Pump*)notification.userInfo[@"currentPump"];
-    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
-    npVC.pumpFrom = currentPump;
-    [self presentViewController:npVC animated:YES completion:nil];
+    BOOL isThereNetwork = [[NSUserDefaults standardUserDefaults] boolForKey:@"isReachable"];
+    if (isThereNetwork) {
+        Pump *currentPump = (Pump*)notification.userInfo[@"currentPump"];
+        NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+        npVC.pumpFrom = currentPump;
+        [self presentViewController:npVC animated:YES completion:nil];
+    }
     
 }
 
 -(void)goToNextPump:(NSNotification*)notification {
-    
-    Pump *nextPump = (Pump*)notification.userInfo[@"nextPump"];
-    NSLog(@"Next Pump to show:%@",nextPump);
-    
+
+        Pump *nextPump = (Pump*)notification.userInfo[@"nextPump"];
+        NSLog(@"Next Pump to show:%@",nextPump);
 }
 
 @end
