@@ -11,13 +11,16 @@
 #import <LiveFrost.h>
 
 #define METERS_PER_MILE 1609.344
-#define Y_OFFSET 294
+#define Y_OFFSET 194
 
 @interface NextPumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *overLayView;
+@property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UILabel *lblPumpName;
 @property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
+@property (weak, nonatomic) IBOutlet UIImageView *mapIcon;
+@property (weak, nonatomic) IBOutlet UIImageView *checkMark;
 @property (assign, nonatomic) CGPoint overLayCenter;
 @property (assign, nonatomic) CGPoint overLayCenterOriginal;
 - (IBAction)onClose:(id)sender;
@@ -45,6 +48,9 @@
     self.mapView.delegate = self;
     [self setPanGestureOnOverlayView];
     
+    self.mapIcon.layer.opacity = 0;
+    
+    
     //This is only for testing delete it.
     PFQuery *pumpQuery = [Pump query];
     [pumpQuery whereKey:@"name" equalTo:@"Pump17"];
@@ -59,6 +65,21 @@
         [self getDrivingTimeFromCurrentPump:self.pumpFrom.location ToNextPump:self.pumpTo.location];
         [self loadMapAtRegion];
         [self getDirections];
+        
+        
+        [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.mapIcon.layer.opacity = 0.62;
+            
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.4 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.mapIcon.center = CGPointMake(160, 174);
+                
+            } completion:^(BOOL finished) {
+                
+                
+            }];
+            
+        }];
         
     }];
     
@@ -172,7 +193,7 @@
 
 -(void) getDrivingTimeFromCurrentPump:(PFGeoPoint*)currentPumpLocation ToNextPump:(PFGeoPoint*)location {
     MKDirectionsRequest *directionRequest = [MKDirectionsRequest new];
-    directionRequest.transportType = MKDirectionsTransportTypeAutomobile;
+    directionRequest.transportType = MKDirectionsTransportTypeAny;
     
     CLLocationCoordinate2D currentLocation;
     currentLocation.latitude = currentPumpLocation.latitude;
@@ -232,12 +253,12 @@
                 
                 //                    CGRect annotationRect = CGRectMake(0, 0, 320, GESTURE1_Y_OFFSET);
                 //                    MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
-                
+                self.blurView.layer.opacity = 0;
                 
                 self.overLayView.center = closed; //self.view.center;
                 //                self.blurView.center = closed;
             } else { //going down
-                
+                self.blurView.layer.opacity = 1;
                 
                 
                 self.overLayView.center = self.overLayCenterOriginal;
