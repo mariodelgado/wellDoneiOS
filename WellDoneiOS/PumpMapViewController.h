@@ -11,6 +11,7 @@
 #import "Pump.h"
 
 extern NSString *const ReportSavedNotification;
+extern NSString *const NextPumpSavedNotification;
 
 @interface PumpMapViewController : UIViewController<MKMapViewDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIGestureRecognizerDelegate>
 @property  (nonatomic, strong) Pump *pump;

@@ -59,6 +59,7 @@
         self.firstSwipe = YES;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute:) name:ReportSavedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goToNextPump:) name:NextPumpSavedNotification object:nil];
         
 
 
@@ -503,6 +504,13 @@
     NextPumpMapViewController *npVC = [NextPumpMapViewController new];
     npVC.pumpFrom = currentPump;
     [self presentViewController:npVC animated:YES completion:nil];
+    
+}
+
+-(void)goToNextPump:(NSNotification*)notification {
+    
+    Pump *nextPump = (Pump*)notification.userInfo[@"nextPump"];
+    NSLog(@"Next Pump to show:%@",nextPump);
     
 }
 

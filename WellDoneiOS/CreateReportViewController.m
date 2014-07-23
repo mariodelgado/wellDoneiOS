@@ -318,6 +318,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 
 -(void)loadInitialViews {
+    self.btnStatus.titleLabel.text = self.pump.status;
     UIImage *image = [UIImage imageNamed:@"addPhoto1"];
 
     [self.dataArray addObject:image];

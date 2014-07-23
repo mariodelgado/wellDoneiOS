@@ -13,6 +13,8 @@
 #define METERS_PER_MILE 1609.344
 #define Y_OFFSET 194
 
+NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
+
 @interface NextPumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *overLayView;
@@ -264,7 +266,9 @@
 }
 
 - (IBAction)onClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:NextPumpSavedNotification object:self userInfo:@{@"nextPump":self.pumpTo}];
+    }];
 }
 
 
