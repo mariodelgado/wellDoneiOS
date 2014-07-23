@@ -13,7 +13,7 @@
 @interface PumpTableViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *imgPump;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
-@property (weak, nonatomic) IBOutlet UILabel *lblCurrStatus;
+//@property (weak, nonatomic) IBOutlet UILabel *lblCurrStatus;
 @property (weak, nonatomic) IBOutlet UILabel *lblLastUpdate;
 @property (weak, nonatomic) IBOutlet UIImageView *brokenIndicatorImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *notBrokenIndicatorImageView;
@@ -31,7 +31,7 @@
     self.imgPump.layer.borderWidth = 4;
     
     self.lblLastUpdate.layer.opacity = 0;
-    self.lblCurrStatus.layer.opacity = 0;
+//    self.lblCurrStatus.layer.opacity = 0;
     self.lblName.layer.opacity = 0;
     
     self.imgPump.transform = CGAffineTransformMakeScale(0,0);
@@ -54,7 +54,7 @@
                 nil;
             }];
             [UIView animateWithDuration:0.3 delay:0.1 options:UIViewAnimationOptionCurveLinear animations:^{
-                self.lblCurrStatus.layer.opacity = 1;
+//                self.lblCurrStatus.layer.opacity = 1;
             } completion:^(BOOL finished) {
                 nil;
             }];
@@ -72,10 +72,10 @@
 }
 - (void)setPump:(Pump *)pump{
     self.lblName.text = pump.name;
-    self.lblCurrStatus.text = pump.status;
+//    self.lblCurrStatus.text = pump.status;
     self.lblLastUpdate.text = pump.lastUpdatedAt;
     
-    if ([self.lblCurrStatus.text isEqualToString:@"BROKEN"]) {
+    if ([pump.status isEqualToString:@"BROKEN"]) {
         self.brokenIndicatorImageView.hidden = NO;
         self.notBrokenIndicatorImageView.hidden = YES;
     } else {

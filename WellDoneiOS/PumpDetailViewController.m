@@ -207,7 +207,6 @@
     //  NSLog(@"report update %@ for pump %@", prettyDAte, self.pump.name);
     //  self.pump.updatedAt = prettyDAte;
     if(pump.lastUpdatedAt){
-        NSLog(@"pump name %@", pump.name);
         self.lblLastUpdated.text = pump.lastUpdatedAt;
     }
     
