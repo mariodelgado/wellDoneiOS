@@ -13,10 +13,7 @@
 @interface PumpTableViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *imgPump;
 @property (weak, nonatomic) IBOutlet UILabel *lblName;
-@property (weak, nonatomic) IBOutlet UILabel *lblLocation;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblCurrStatus;
-
 @property (weak, nonatomic) IBOutlet UILabel *lblLastUpdate;
 
 @end
@@ -38,18 +35,7 @@
 - (void)setPump:(Pump *)pump{
     self.lblName.text = pump.name;
     self.lblCurrStatus.text = pump.status;
-    NSDateFormatter *_formatter;
-    
-    
-
-    _formatter = [[NSDateFormatter alloc] init];
-    [_formatter setDateFormat:@"eee MMM dd HH:mm:ss ZZZZ yyyy"];
-//    NSString *dateStr = [NSString stringWithFormat:@"%@", pump.updatedAt];
-//    self.lblLastUpdate.text = [MHPrettyDate prettyDateFromDate:[_formatter dateFromString:dateStr] withFormat:MHPrettyDateShortRelativeTime];
-//    self.lblLastUpdate.text = pump.updatedAt;
-    
-    
-    
+    self.lblLastUpdate.text = pump.lastUpdatedAt;
 
 }
 @end
