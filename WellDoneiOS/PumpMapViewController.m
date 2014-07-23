@@ -58,10 +58,10 @@
         self.firstLoad = YES;
         self.firstSwipe = YES;
         
-
-         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
-
-
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute) name:ReportSavedNotification object:nil];
+        
+        
     }
     return self;
 }
@@ -71,26 +71,19 @@
     [super viewDidLoad];
     self.mapView.delegate = self;
     //    [self loadPumpFromPushNotification];
+    UIBarButtonItem *listButton = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(onListButtonClick)];
+    [listButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = listButton;
     
     [self setNeedsStatusBarAppearanceUpdate];
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-
-    self.navigationController.navigationBar.translucent = YES;
-    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
-    
     
     UIImage* logoImage = [UIImage imageNamed:@"navBarHeader"];
-    
-    
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
     
-    
-
     [self loadPumps];
     
     self.bottomPanGestureRecognizer.delegate = self;
-    
     
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -112,7 +105,7 @@
     self.blurView.layer.opacity = 0.0f;
     self.darkenView.layer.opacity = 0;
     self.lightenView.layer.opacity = 1;
-
+    
     [UIView animateWithDuration:.4 delay:1 usingSpringWithDamping:.6 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.blurView.center = CGPointMake(self.blurView.center.x, 745);
         self.viewContainer.center = CGPointMake(self.blurView.center.x, 745);
@@ -126,12 +119,11 @@
     
     [NSTimer scheduledTimerWithTimeInterval:35.0f
                                      target:self selector:@selector(notif1:) userInfo:nil repeats:YES];
-
-
-[NSTimer scheduledTimerWithTimeInterval:65.0f
-                                 target:self selector:@selector(notif2:) userInfo:nil repeats:YES];
+    
+    
+    [NSTimer scheduledTimerWithTimeInterval:65.0f
+                                     target:self selector:@selector(notif2:) userInfo:nil repeats:YES];
 }
-
 
 -(void) notif1: (NSTimer *) timer {
     self.notification = [CWStatusBarNotification new];
@@ -178,7 +170,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
-  //  self.navigationController.navigationBarHidden = YES;
+    //  self.navigationController.navigationBarHidden = YES;
 }
 
 - (void)didReceiveMemoryWarning
@@ -350,10 +342,18 @@
     PFQuery *queryForReports = [Pump query];
     [queryForReports findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
+            int index;
             self.pumps = objects;
             //TODO: remove this line and tie it to a pump being clicked on the list view?
-            int index = [self loadPumpFromPushNotification];
-            self.pump = self.pumps[index];
+
+            if (!self.index) {//coming from the list view
+                 index = [self loadPumpFromPushNotification];
+                self.pump = self.pumps[index];
+            }else {
+                index = self.index;
+                self.pump = self.pumps[self.index];
+
+            }
             __weak PumpMapViewController *weakSelf = self;
             [Report getReportsForPump:self.pump withBlock:^(NSArray *objects, NSError *error) {
                 Report *report = [objects firstObject];
@@ -363,7 +363,6 @@
             self.notification = [CWStatusBarNotification new];
             self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
             self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
-            
             
             [self.notification displayNotificationWithMessage:@"Pumps Loaded."
                                                   forDuration:2.0f];
@@ -445,7 +444,6 @@
         
         pinView.canShowCallout = YES;
         if (pump == self.pump) {
-            pinView.image = [UIImage imageNamed:@"177-building"];
             if([pump.status isEqualToString:@BROKEN_STATUS]){
                 pinView.image = [UIImage imageNamed:@"mMarkerBadCurrent"];
                 
@@ -497,17 +495,9 @@
 }
 
 -(void)reportSavedShowNextRoute {
-    NSLog(@"I am the observer");
     NextPumpMapViewController *npVC = [NextPumpMapViewController new];
     [self presentViewController:npVC animated:YES completion:nil];
     
-//    [self performSelector:@selector(showNext) withObject:nil afterDelay:0.1];
-    
-}
-- (void)showNext {
-//    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
-//    [self presentViewController:npVC animated:YES completion:nil];
-//
 }
 
 @end

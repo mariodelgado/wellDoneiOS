@@ -8,6 +8,7 @@
 
 #import "LoginViewController.h"
 #import "PumpMapViewController.h"
+#import "PumpsListViewController.h"
 
 @interface LoginViewController ()
 - (IBAction)onLoginButtonClick:(id)sender;
@@ -78,9 +79,10 @@
 }
 
 - (void)performLogin {
-    if (self.usernameField.text.length > 0 && [self.passwordField.text isEqualToString:@"password"]) {
+    if (self.usernameField.text.length > 0 && [self.passwordField.text isEqualToString:@"p"]) {
         PumpMapViewController *pumpMapViewController = [[PumpMapViewController alloc] init];
-        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:pumpMapViewController];
+        
+        UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[PumpsListViewController alloc] init]];
         [self presentViewController:navigationController animated:YES completion:nil];
     }
     else {
