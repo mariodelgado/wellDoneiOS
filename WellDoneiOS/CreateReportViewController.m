@@ -28,14 +28,12 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
 @property (strong, nonatomic)CWStatusBarNotification *notification;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bigAddPhotoImageView;
 
 
 - (IBAction)onStatus:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnStatus;
 - (IBAction)onSubmit:(id)sender;
-
-
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *onDismissKeyboard;
 
 
 @end

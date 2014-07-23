@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CreateReportViewController">
             <connections>
                 <outlet property="bgImage" destination="May-YJ-Oqt" id="BUp-7q-mxX"/>
+                <outlet property="bigAddPhotoImageView" destination="w55-xF-20b" id="EMU-1c-24Y"/>
                 <outlet property="blurView" destination="6lR-YR-nYl" id="YrY-8K-Cm6"/>
                 <outlet property="btnStatus" destination="VLt-PT-DcQ" id="NzB-uz-8Jf"/>
                 <outlet property="imageCollectionView" destination="DxU-zo-6xq" id="OJ0-9A-YWT"/>
@@ -44,8 +45,26 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <collectionView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" id="DxU-zo-6xq">
+                    <rect key="frame" x="0.0" y="64" width="320" height="170"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <gestureRecognizers/>
+                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="6" minimumInteritemSpacing="10" id="TGB-LG-pqm">
+                        <size key="itemSize" width="160" height="160"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <cells/>
+                </collectionView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bigaddphoto" id="w55-xF-20b">
+                    <rect key="frame" x="0.0" y="64" width="320" height="170"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
                 <view contentMode="scaleToFill" id="4pb-nB-B3z" userLabel="Information Field">
-                    <rect key="frame" x="0.0" y="214" width="320" height="278"/>
+                    <rect key="frame" x="0.0" y="234" width="320" height="278"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="jNx-aa-CCo" userLabel="Top Border">
@@ -54,7 +73,7 @@
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.1612067559" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
                         <view contentMode="scaleToFill" id="HJ4-78-bac" userLabel="Bottom Border">
-                            <rect key="frame" x="0.0" y="277" width="320" height="1"/>
+                            <rect key="frame" x="0.0" y="274" width="320" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.16120675587467362" colorSpace="custom" customColorSpace="sRGB"/>
                         </view>
@@ -135,22 +154,8 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <collectionView opaque="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" indicatorStyle="white" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" id="DxU-zo-6xq">
-                    <rect key="frame" x="0.0" y="45" width="320" height="170"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <gestureRecognizers/>
-                    <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="6" minimumInteritemSpacing="10" id="TGB-LG-pqm">
-                        <size key="itemSize" width="160" height="160"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    </collectionViewFlowLayout>
-                    <cells/>
-                </collectionView>
                 <button opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Vek-1z-3Dr" userLabel="Button - Create Report">
-                    <rect key="frame" x="0.0" y="491" width="320" height="79"/>
+                    <rect key="frame" x="0.0" y="506" width="320" height="62"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="0.11793203328981723" colorSpace="custom" customColorSpace="sRGB"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="23"/>
@@ -168,6 +173,7 @@
         </view>
     </objects>
     <resources>
+        <image name="bigaddphoto" width="320" height="170"/>
         <image name="map bg" width="472" height="751"/>
     </resources>
 </document>
