@@ -25,7 +25,10 @@
 @property (assign, nonatomic) CGPoint overLayCenterOriginal;
 - (IBAction)onClose:(id)sender;
 @property (strong, nonatomic) NSMutableArray *locations;
+@property (weak, nonatomic) IBOutlet UILabel *nextPumpName;
+@property (weak, nonatomic) IBOutlet UILabel *nextPumpDistance;
 
+@property (weak, nonatomic) IBOutlet UIImageView *downArrod;
 
 
 @end
@@ -48,6 +51,13 @@
     self.mapView.delegate = self;
     [self setPanGestureOnOverlayView];
     
+    self.mapIcon.transform = CGAffineTransformMakeScale(0, 0);
+    self.checkMark.transform = CGAffineTransformMakeScale(0, 0);
+    
+    self.nextPumpDistance.layer.opacity = 0;
+    self.nextPumpName.layer.opacity = 0;
+    
+    self.downArrod.transform = CGAffineTransformMakeRotation(M_PI);
     
     //Get Next close by broken pump.
     [Pump getPumpsCloseToLocation:self.pumpFrom.location withStatus:PumpStatusBroken block:^(NSArray *objects, NSError *error) {
@@ -59,12 +69,16 @@
         [self getDirections];
         
         
-        [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:.2 delay:0.8 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.mapIcon.layer.opacity = 0.62;
             
+            self.mapIcon.transform = CGAffineTransformMakeScale(1, 1);
+            
         } completion:^(BOOL finished) {
-            [UIView animateWithDuration:.4 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            [UIView animateWithDuration:.4 delay:0.1 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
                 self.mapIcon.center = CGPointMake(160, 174);
+                
+                self.checkMark.transform = CGAffineTransformMakeScale(1, 1);
                 
             } completion:^(BOOL finished) {
                 
@@ -179,7 +193,7 @@
     [[MKPolylineRenderer alloc] initWithOverlay:overlay];
     
     renderer.strokeColor =  [UIColor colorWithRed:0 green:0.569 blue:1 alpha:1];
-    renderer.lineWidth = 10.5;
+    renderer.lineWidth = 4;
     return renderer;
 }
 
@@ -247,10 +261,20 @@
                 //                    MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
                 self.blurView.layer.opacity = 0;
                 
+                self.nextPumpDistance.layer.opacity = 1;
+                self.nextPumpName.layer.opacity = 1;
+                self.downArrod.transform = CGAffineTransformMakeRotation(M_PI /2);
+                self.downArrod.layer.opacity = 0;
+                
                 self.overLayView.center = closed; //self.view.center;
                 //                self.blurView.center = closed;
             } else { //going down
                 self.blurView.layer.opacity = 1;
+                
+                self.nextPumpDistance.layer.opacity = 0;
+                self.nextPumpName.layer.opacity = 0;
+                self.downArrod.transform = CGAffineTransformMakeRotation(M_PI);
+                self.downArrod.layer.opacity = 1;
                 
                 
                 self.overLayView.center = self.overLayCenterOriginal;
@@ -298,9 +322,9 @@
     region.span.longitudeDelta = 0.01;
     
     region.span.latitudeDelta  = ((maxLat - minLat)<0.0)?100.0:(maxLat - minLat);
-    region.span.latitudeDelta = region.span.latitudeDelta *1.5;
+    region.span.latitudeDelta = region.span.latitudeDelta *1.8;
     region.span.longitudeDelta = ((maxLon - minLon)<0.0)?100.0:(maxLon - minLon);
-    region.span.longitudeDelta = region.span.longitudeDelta *1.5;
+    region.span.longitudeDelta = region.span.longitudeDelta *1.8;
     [self.mapView setRegion:region animated:YES];
 }
 

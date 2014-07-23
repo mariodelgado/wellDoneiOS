@@ -73,7 +73,7 @@
     self.mapView.delegate = self;
     //    [self loadPumpFromPushNotification];
     UIBarButtonItem *listButton = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(onListButtonClick)];
-    [listButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    [listButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = listButton;
     
     [self setNeedsStatusBarAppearanceUpdate];
@@ -82,6 +82,9 @@
     UIImage* logoImage = [UIImage imageNamed:@"navBarHeader"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
     
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
+    
     [self loadPumps];
     
     self.bottomPanGestureRecognizer.delegate = self;
@@ -89,6 +92,8 @@
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     [self addChildViewController:self.pageViewController];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     
     self.pageViewController.delegate = self;
@@ -138,7 +143,7 @@
 
 -(void) notif2: (NSTimer *) timer {
     self.notification = [CWStatusBarNotification new];
-    self.notification.notificationLabelBackgroundColor = [UIColor colorWithRed:211/255.0f green:32/255.0f blue:0/255.0f alpha:1.0f];
+    self.notification.notificationLabelBackgroundColor = [UIColor colorWithRed:255/255.0f green:0/255.0f blue:34/255.0f alpha:1.0f];
     self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
     [self.notification displayNotificationWithMessage:@"Pump 15 Status Changed to Broken"
                                           forDuration:3.0f];
