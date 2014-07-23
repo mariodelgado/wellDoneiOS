@@ -91,6 +91,14 @@ NSString *const PUMP = @"Pump";
     }];
 }
 
++ (void) getPumpWithPumpId:(NSString *)objectId block:(PFArrayResultBlock)block {
+    PFQuery *pumpQuery = [Pump query];
+    [pumpQuery whereKey:@"objectId" equalTo:objectId];
+    [pumpQuery findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
+        block(objects, error);
+    }];
+}
+
 
 
 @end
