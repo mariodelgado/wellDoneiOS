@@ -553,6 +553,7 @@
 
 -(void)goToNextPump:(NSNotification*)notification {
     self.firstLoad = YES;
+    self.firstSwipe = YES;
     Pump *nextPump = (Pump*)notification.userInfo[@"nextPump"];
     self.pump = nextPump;
     int index =0;
