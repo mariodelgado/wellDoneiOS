@@ -552,9 +552,17 @@
 }
 
 -(void)goToNextPump:(NSNotification*)notification {
-
-        Pump *nextPump = (Pump*)notification.userInfo[@"nextPump"];
-        NSLog(@"Next Pump to show:%@",nextPump);
+    self.firstLoad = YES;
+    Pump *nextPump = (Pump*)notification.userInfo[@"nextPump"];
+    self.pump = nextPump;
+    int index =0;
+    for (Pump *p in self.pumps) {
+        if ([p.name isEqualToString:nextPump.name]) {
+            [self setUpView:index];
+        }
+        index++;
+    }
+    
 }
 
 @end
