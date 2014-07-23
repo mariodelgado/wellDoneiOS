@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import  "Report.h"
 #import "Pump.h"
 
+@protocol AddReportDelegate <NSObject>
+-(void) addReportToArray:(Report*) report;
 
+@end
 
 @interface CreateReportViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
-@property (strong, nonatomic) Pump *pump; 
+@property (strong, nonatomic) Pump *pump;
+@property (weak, nonatomic) id <AddReportDelegate> delegate;
 
 @end

@@ -11,7 +11,8 @@
 #import "JBLineChartView.h"
 //#import "ReportDelegate.h"
 #import "ReportHeaderView.h"
+#import "CreateReportViewController.h"
 
-@interface PumpDetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning,ReportDelegate>
+@interface PumpDetailViewController : UIViewController<UITableViewDelegate, UITableViewDataSource,UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning,AddReportDelegate>
 @property (nonatomic, strong) Pump *pump;
 @end

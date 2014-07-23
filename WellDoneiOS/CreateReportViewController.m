@@ -13,6 +13,8 @@
 #import <MMPickerView.h>
 #import "CWStatusBarNotification.h"
 
+
+
 NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 @interface CreateReportViewController ()
@@ -25,6 +27,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
 @property (strong, nonatomic)CWStatusBarNotification *notification;
+
 
 
 - (IBAction)onStatus:(id)sender;
@@ -125,7 +128,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
         if (succeeded) {
 
             //After image is saved , saved the report.
-            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
             newReport.reportImage = imageFile;
 
             
@@ -154,7 +157,9 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 //
 //            [self notificationWithMessage:@"Report Will Be Submitted When Network Available 2"];
 //        }
-        
+        if (newReport) {
+            [self.delegate addReportToArray:newReport];
+        }
         
     }];
     
@@ -162,6 +167,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     //send notifcation to add the report to the mapView
 
    
+    
     
     [self dismissViewControllerAnimated:YES completion:^{
         
