@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="5056" systemVersion="13D65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
@@ -28,13 +28,6 @@
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKH-MI-8ep">
-                        <rect key="frame" x="105" y="34" width="67" height="21"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current status" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qH4-Yr-puN">
                         <rect key="frame" x="105" y="63" width="109" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -55,11 +48,8 @@
                     <constraint firstItem="s7R-7i-leE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="Vvo-si-Gj9"/>
                     <constraint firstItem="s7R-7i-leE" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ahJ-oM-USi"/>
                     <constraint firstItem="NnI-1F-CvJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="d1u-0C-w21"/>
-                    <constraint firstItem="pKH-MI-8ep" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="gJz-B9-63R"/>
-                    <constraint firstItem="qH4-Yr-puN" firstAttribute="top" secondItem="pKH-MI-8ep" secondAttribute="bottom" constant="8" id="gtO-VT-Clg"/>
-                    <constraint firstItem="pKH-MI-8ep" firstAttribute="top" secondItem="NnI-1F-CvJ" secondAttribute="bottom" constant="8" id="m18-lw-pbD"/>
+                    <constraint firstItem="GLo-FD-jt3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="34" id="hXQ-BB-fSN"/>
                     <constraint firstItem="NnI-1F-CvJ" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="mae-Tf-vfS"/>
-                    <constraint firstItem="pKH-MI-8ep" firstAttribute="top" secondItem="GLo-FD-jt3" secondAttribute="top" id="mxc-p9-nqA"/>
                     <constraint firstAttribute="bottom" secondItem="qH4-Yr-puN" secondAttribute="bottom" constant="8" id="olj-bf-O1D"/>
                     <constraint firstItem="qH4-Yr-puN" firstAttribute="leading" secondItem="s7R-7i-leE" secondAttribute="trailing" constant="15" id="sDf-MB-cRC"/>
                 </constraints>
@@ -68,7 +58,6 @@
                 <outlet property="imgPump" destination="s7R-7i-leE" id="KX3-AZ-onB"/>
                 <outlet property="lblCurrStatus" destination="qH4-Yr-puN" id="Rz5-pd-cxX"/>
                 <outlet property="lblLastUpdate" destination="GLo-FD-jt3" id="Wb8-cd-1iv"/>
-                <outlet property="lblLocation" destination="pKH-MI-8ep" id="YJA-VB-2f4"/>
                 <outlet property="lblName" destination="NnI-1F-CvJ" id="6B6-UL-z3e"/>
             </connections>
         </tableViewCell>
