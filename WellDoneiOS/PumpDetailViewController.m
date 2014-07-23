@@ -32,7 +32,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgPump;
 @property (weak, nonatomic) IBOutlet UILabel *lblDecsription;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic)NSArray *reports;
+@property (strong, nonatomic)NSMutableArray *reports;
 @property(nonatomic,strong)UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIView *chartView;
 @property (strong, nonatomic) Report *report;
@@ -59,6 +59,7 @@
     if (self) {
         // Custom initialization
         self.reportHeaderView = [ReportHeaderView new];
+        self.reports = [NSMutableArray array];
        
         
     }
@@ -76,7 +77,7 @@
     // [self loadChart];
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
-    self.reportHeaderView.delegate = self;
+//    self.reportHeaderView.delegate = self;
     
     
     
@@ -424,10 +425,11 @@
     [self.view addSubview:lblStatusNew];
 }
 
-#pragma mark - ReportView Delegate
+
 -(void)addReport {
     CreateReportViewController *cvc = [[CreateReportViewController alloc] init];
     cvc.pump = self.pump;
+    cvc.delegate = self;
     UINavigationController *nvc = [[UINavigationController alloc]initWithRootViewController:cvc];
     
     CATransition* transition = [CATransition animation];
@@ -445,5 +447,10 @@
     [self addReport];
 }
 
+-(void) addReportToArray:(Report*) report{
+ 
+    [self.reports insertObject:report atIndex:0];
+    [self.tableView reloadData];
+}
 
 @end
