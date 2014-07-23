@@ -119,7 +119,6 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     NSLog(@"I am in Save");
      __block Report *newReport;
     newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-//    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     self.isThereNetwork = [[NSUserDefaults standardUserDefaults] boolForKey:@"isReachable"];
     if (self.isThereNetwork) {
         NSLog(@"isConntect:%hhd",[self connected]);
@@ -221,8 +220,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     // Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-//     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
-//    [self.imageDataToSave addObject:imageData];
+     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
+    [self.imageDataToSave addObject:imageData];
     
    
     
