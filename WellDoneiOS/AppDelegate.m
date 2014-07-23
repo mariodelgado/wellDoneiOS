@@ -12,11 +12,11 @@
 #import "ReportViewController.h"
 #import "Report.h"
 #import "Pump.h"
-#import "NextPumpMapViewController.h"
 #import "PumpMapViewController.h"
 #import "PumpsListViewController.h"
 #import "LoginViewController.h"
 #import "onboardingViewController.h"
+
 
 @implementation AppDelegate
 
@@ -31,6 +31,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[onboardingViewController alloc] init]];
   UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[onboardingViewController alloc] init]];
+    
     
     self.window.rootViewController = nvc;
     // Override point for customization after application launch.

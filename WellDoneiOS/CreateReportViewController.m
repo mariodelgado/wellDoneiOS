@@ -10,7 +10,7 @@
 #import <Parse/Parse.h>
 #import "Report.h"
 #import "ImageCollectionViewCell.h"
-#import <MMPickerView.h>
+#import "MMPickerView.h"
 #import "CWStatusBarNotification.h"
 
 
@@ -77,14 +77,14 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     } completion:^(BOOL finished) {
         nil;
     }];
-    
+//
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     [flowLayout setItemSize:CGSizeMake(100, 100)];
     [flowLayout setSectionInset:UIEdgeInsetsMake(0, 10, 0, 0)];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
-
-
-    
+//
+//
+//    
     [self.imageCollectionView setCollectionViewLayout:flowLayout];
     [self loadInitialViews];
     
@@ -104,6 +104,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 - (void) onSave {
     
@@ -322,10 +323,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 -(void)loadInitialViews {
     UIImage *image = [UIImage imageNamed:@"addPhoto1"];
-    
-    
+
     [self.dataArray addObject:image];
-    
     
 }
 
@@ -342,6 +341,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
                                 self.btnStatus.titleLabel.text = selectedString;
                                 
                             }];
+    
 }
 
 
@@ -359,6 +359,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     [textField resignFirstResponder];
     return YES;
 }
+
 - (IBAction)onSubmit:(id)sender {
     [self onSave];
 }
@@ -373,6 +374,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     [self.notification displayNotificationWithMessage:message
                                           forDuration:2.0f];
 }
+
 
 
 @end
