@@ -38,7 +38,7 @@
     
     // Animation
     
-    [UIView animateWithDuration:.4 delay:0.1 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+    [UIView animateWithDuration:.4 delay:5 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         // Set to second center
         self.bgImageImageView.center = CGPointMake(160, self.bgImageImageView.center.y);
         
@@ -46,7 +46,7 @@
         self.positionMarkerImageView.center = CGPointMake(self.positionMarkerImageView.center.x +12, self.positionMarkerImageView.center.y);
         
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:.4 delay:0.1 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        [UIView animateWithDuration:.4 delay:5 usingSpringWithDamping:.7 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             // Set to third center
             self.bgImageImageView.center = CGPointMake(-160, self.bgImageImageView.center.y);
             
@@ -55,7 +55,7 @@
             
         } completion:^(BOOL finished) {
             // delay
-            [NSTimer scheduledTimerWithTimeInterval:0.10f
+            [NSTimer scheduledTimerWithTimeInterval:5.0f
                                              target:self selector:@selector(notif1:) userInfo:nil repeats:NO];
         }];
     }];
