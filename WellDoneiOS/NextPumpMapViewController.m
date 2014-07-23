@@ -22,8 +22,8 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *overLayView;
 @property (weak, nonatomic) IBOutlet UIView *blurView;
-@property (weak, nonatomic) IBOutlet UILabel *lblPumpName;
-@property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
+//@property (weak, nonatomic) IBOutlet UILabel *lblPumpName;
+//@property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
 @property (weak, nonatomic) IBOutlet UIImageView *mapIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *checkMark;
 @property (assign, nonatomic) CGPoint overLayCenter;
@@ -32,7 +32,11 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
 @property (strong, nonatomic) NSMutableArray *locations;
 @property (strong, nonatomic) CWStatusBarNotification *notification;
 @property (assign, nonatomic) BOOL isThereNetwork;
+@property (weak, nonatomic) IBOutlet UILabel *nextPumpName;
+@property (weak, nonatomic) IBOutlet UILabel *nextPumpDistance;
 
+
+@property (weak, nonatomic) IBOutlet UIImageView *downArrod;
 
 
 @end
@@ -56,22 +60,34 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
     self.mapView.delegate = self;
     [self setPanGestureOnOverlayView];
     
-    //check for internet
-    if(!self.isThereNetwork){
-        [self notificationWithMessage:@"Internet Not Avalable To Get Next Route"];
-    } else {
-        //Get Next close by broken pump.
-        [Pump getPumpsCloseToLocation:self.pumpFrom.location withStatus:PumpStatusBroken block:^(NSArray *objects, NSError *error) {
-            self.pumpTo = (Pump*)(objects[1]);
-            self.lblPumpName.text = self.pumpTo.name;
+    self.mapIcon.transform = CGAffineTransformMakeScale(0, 0);
+    self.checkMark.transform = CGAffineTransformMakeScale(0, 0);
+    
+    self.nextPumpDistance.layer.opacity = 0;
+    self.nextPumpName.layer.opacity = 0;
+    
+    self.downArrod.transform = CGAffineTransformMakeRotation(M_PI);
+    
+    //Get Next close by broken pump.
+    [Pump getPumpsCloseToLocation:self.pumpFrom.location withStatus:PumpStatusBroken block:^(NSArray *objects, NSError *error) {
+        self.pumpTo = (Pump*)(objects[1]); 
+        self.nextPumpName.text = self.pumpTo.name;
+        
+        [self getDrivingTimeFromCurrentPump:self.pumpFrom.location ToNextPump:self.pumpTo.location];
+        [self loadMapAtRegion];
+        [self getDirections];
+        
+        
+        [UIView animateWithDuration:.2 delay:0.8 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+            self.mapIcon.layer.opacity = 0.62;
             
-            [self getDrivingTimeFromCurrentPump:self.pumpFrom.location ToNextPump:self.pumpTo.location];
-            [self loadMapAtRegion];
-            [self getDirections];
+            self.mapIcon.transform = CGAffineTransformMakeScale(1, 1);
             
-            
-            [UIView animateWithDuration:.2 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-                self.mapIcon.layer.opacity = 0.62;
+        } completion:^(BOOL finished) {
+            [UIView animateWithDuration:.4 delay:0.1 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                self.mapIcon.center = CGPointMake(160, 174);
+                
+                self.checkMark.transform = CGAffineTransformMakeScale(1, 1);
                 
             } completion:^(BOOL finished) {
                 [UIView animateWithDuration:.4 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
@@ -86,7 +102,7 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
             
         }];
 
-    }
+    }];
     
     
     
@@ -193,7 +209,7 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
     [[MKPolylineRenderer alloc] initWithOverlay:overlay];
     
     renderer.strokeColor =  [UIColor colorWithRed:0 green:0.569 blue:1 alpha:1];
-    renderer.lineWidth = 10.5;
+    renderer.lineWidth = 4;
     return renderer;
 }
 
@@ -222,7 +238,7 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
     [directions calculateETAWithCompletionHandler:^(MKETAResponse *response, NSError *error) {
         NSLog(@"Response:%@",response);
         NSLog(@"ETA:%f",response.expectedTravelTime);
-        self.lblTimeTaken.text = [NSString stringWithFormat:@"%d mins Away", (int)(response.expectedTravelTime/60) ];
+        self.nextPumpDistance.text = [NSString stringWithFormat:@"%d mins Away", (int)(response.expectedTravelTime/60) ];
         
     }];
     
@@ -261,10 +277,20 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
                 //                    MKCoordinateRegion adjustedRegion = [self.mapView convertRect:annotationRect toRegionFromView:self.mapView];
                 self.blurView.layer.opacity = 0;
                 
+                self.nextPumpDistance.layer.opacity = 1;
+                self.nextPumpName.layer.opacity = 1;
+                self.downArrod.transform = CGAffineTransformMakeRotation(M_PI /2);
+                self.downArrod.layer.opacity = 0;
+                
                 self.overLayView.center = closed; //self.view.center;
                 //                self.blurView.center = closed;
             } else { //going down
                 self.blurView.layer.opacity = 1;
+                
+                self.nextPumpDistance.layer.opacity = 0;
+                self.nextPumpName.layer.opacity = 0;
+                self.downArrod.transform = CGAffineTransformMakeRotation(M_PI);
+                self.downArrod.layer.opacity = 1;
                 
                 
                 self.overLayView.center = self.overLayCenterOriginal;
@@ -317,9 +343,9 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
     region.span.longitudeDelta = 0.01;
     
     region.span.latitudeDelta  = ((maxLat - minLat)<0.0)?100.0:(maxLat - minLat);
-    region.span.latitudeDelta = region.span.latitudeDelta *1.5;
+    region.span.latitudeDelta = region.span.latitudeDelta *1.8;
     region.span.longitudeDelta = ((maxLon - minLon)<0.0)?100.0:(maxLon - minLon);
-    region.span.longitudeDelta = region.span.longitudeDelta *1.5;
+    region.span.longitudeDelta = region.span.longitudeDelta *1.8;
     [self.mapView setRegion:region animated:YES];
 }
 

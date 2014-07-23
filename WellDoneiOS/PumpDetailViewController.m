@@ -74,7 +74,7 @@
     self.tableView.dataSource = self;
     [self configRefreshControl];
     [self loadReports];
-    [self loadChart];
+    // [self loadChart];
     [self reloadViewWithData:self.pump];
     [self configureTapGestureOnChartView];
 //    self.reportHeaderView.delegate = self;
@@ -122,6 +122,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeLight) name:@"Light" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(makeDark) name:@"Dark" object:nil];
     
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadChart) name:@"Animate" object:nil];
     
     
     
@@ -205,7 +207,6 @@
     //  NSLog(@"report update %@ for pump %@", prettyDAte, self.pump.name);
     //  self.pump.updatedAt = prettyDAte;
     if(pump.lastUpdatedAt){
-        NSLog(@"pump name %@", pump.name);
         self.lblLastUpdated.text = pump.lastUpdatedAt;
     }
     

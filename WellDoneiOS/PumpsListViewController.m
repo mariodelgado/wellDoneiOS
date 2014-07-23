@@ -10,6 +10,7 @@
 #import "PumpTableViewCell.h"
 #import "PumpsMapViewController.h"
 #import "PumpMapViewController.h"
+#import <LiveFrost.h>
 
 @interface PumpsListViewController ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -42,7 +43,7 @@
     _stubCell = [cellNib instantiateWithOwner:nil options:nil][0];
     
     UIBarButtonItem *mapsButton = [[UIBarButtonItem alloc] initWithTitle:@"Maps" style:UIBarButtonItemStyleDone target:self action:@selector(onMapsButtonClick)];
-    [mapsButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    [mapsButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = mapsButton;
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
@@ -70,7 +71,7 @@
     PumpMapViewController *vc = [[PumpMapViewController alloc] init];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
-    nvc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    nvc.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
     [self presentViewController:nvc animated:YES completion:nil];
 }
 - (void)didReceiveMemoryWarning

@@ -20,7 +20,7 @@
 
 #define METERS_PER_MILE 1609.344
 #define GESTURE1_Y_OFFSET 243
-#define MAP_POSITION_OFFSET 170
+#define MAP_POSITION_OFFSET 150
 #define BROKEN_STATUS "BROKEN"
 
 
@@ -75,7 +75,7 @@
     self.mapView.delegate = self;
     //    [self loadPumpFromPushNotification];
     UIBarButtonItem *listButton = [[UIBarButtonItem alloc] initWithTitle:@"List" style:UIBarButtonItemStyleDone target:self action:@selector(onListButtonClick)];
-    [listButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
+    [listButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = listButton;
     
     [self setNeedsStatusBarAppearanceUpdate];
@@ -84,6 +84,9 @@
     UIImage* logoImage = [UIImage imageNamed:@"navBarHeader"];
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
     
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
+    
     [self loadPumps];
     
     self.bottomPanGestureRecognizer.delegate = self;
@@ -91,6 +94,8 @@
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     [self addChildViewController:self.pageViewController];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     
     self.pageViewController.delegate = self;
@@ -120,19 +125,28 @@
         }];
     }];
     
-    [NSTimer scheduledTimerWithTimeInterval:35.0f
-                                     target:self selector:@selector(notif1:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:20.0f
+                                     target:self selector:@selector(notif1:) userInfo:nil repeats:NO];
     
     
-    [NSTimer scheduledTimerWithTimeInterval:65.0f
-                                     target:self selector:@selector(notif2:) userInfo:nil repeats:YES];
+    [NSTimer scheduledTimerWithTimeInterval:55.0f
+                                     target:self selector:@selector(notif2:) userInfo:nil repeats:NO];
+    
+    [NSTimer scheduledTimerWithTimeInterval:105.0f
+                                     target:self selector:@selector(notif3:) userInfo:nil repeats:NO];
+    
+    [NSTimer scheduledTimerWithTimeInterval:182.0f
+                                     target:self selector:@selector(notif4:) userInfo:nil repeats:NO];
+    
+    [NSTimer scheduledTimerWithTimeInterval:250.0f
+                                     target:self selector:@selector(notif5:) userInfo:nil repeats:NO];
 }
 
 -(void) notif1: (NSTimer *) timer {
     self.notification = [CWStatusBarNotification new];
     self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
     self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
-    [self.notification displayNotificationWithMessage:@"Pump 15 Status Changed to Fixed"
+    [self.notification displayNotificationWithMessage:@"Pump 7 Status Changed to Fixed"
                                           forDuration:2.0f];
     
 }
@@ -140,9 +154,36 @@
 
 -(void) notif2: (NSTimer *) timer {
     self.notification = [CWStatusBarNotification new];
-    self.notification.notificationLabelBackgroundColor = [UIColor colorWithRed:211/255.0f green:32/255.0f blue:0/255.0f alpha:1.0f];
+    self.notification.notificationLabelBackgroundColor = [UIColor colorWithRed:255/255.0f green:0/255.0f blue:34/255.0f alpha:1.0f];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    [self.notification displayNotificationWithMessage:@"Pump 12 Status Changed to Broken"
+                                          forDuration:3.0f];
+    
+}
+
+-(void) notif3: (NSTimer *) timer {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor colorWithRed:255/255.0f green:0/255.0f blue:34/255.0f alpha:1.0f];
     self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
     [self.notification displayNotificationWithMessage:@"Pump 15 Status Changed to Broken"
+                                          forDuration:3.0f];
+    
+}
+
+-(void) notif4: (NSTimer *) timer {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    [self.notification displayNotificationWithMessage:@"Pump 11 Status Changed to Fixed"
+                                          forDuration:3.0f];
+    
+}
+
+-(void) notif5: (NSTimer *) timer {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    [self.notification displayNotificationWithMessage:@"Pump 2 Status Changed to Fixed"
                                           forDuration:3.0f];
     
 }
