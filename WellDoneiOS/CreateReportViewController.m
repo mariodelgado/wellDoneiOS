@@ -68,6 +68,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setTranslucent:YES];
    // [self.dataArray addObject:self.bgImage];
+    
+    
 
     self.imageCollectionView.backgroundColor = [UIColor clearColor];
     [UIView animateWithDuration:0.9 delay:1 options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -90,6 +92,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancel)];
     self.navigationItem.leftBarButtonItem= cancel;
     self.navigationItem.leftBarButtonItem.tintColor = [UIColor redColor];
+    self.navigationController.navigationBar.topItem.title = @"Create Report";
+    
     
 
     
