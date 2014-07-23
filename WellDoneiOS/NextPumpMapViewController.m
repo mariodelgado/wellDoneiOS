@@ -45,15 +45,18 @@
     self.mapView.delegate = self;
     [self setPanGestureOnOverlayView];
     
-    //This is only for testing delete it.
-    PFQuery *pumpQuery = [Pump query];
-    [pumpQuery whereKey:@"name" equalTo:@"Pump17"];
-    NSArray *pumps = [pumpQuery findObjects];
-    self.pumpFrom = [pumps firstObject];
+//    //This is only for testing delete it.
+//    PFQuery *pumpQuery = [Pump query];
+//    [pumpQuery whereKey:@"name" equalTo:@"Pump17"];
+//    NSArray *pumps = [pumpQuery findObjects];
+//    self.pumpFrom = [pumps firstObject];
+    
+    //Get the currentPump
+    
     
     //Get Next close by broken pump.
     [Pump getPumpsCloseToLocation:self.pumpFrom.location withStatus:PumpStatusBroken block:^(NSArray *objects, NSError *error) {
-        self.pumpTo = (Pump*)(objects[1]);
+        self.pumpTo = (Pump*)(objects[1]); 
         self.lblPumpName.text = self.pumpTo.name;
         
         [self getDrivingTimeFromCurrentPump:self.pumpFrom.location ToNextPump:self.pumpTo.location];

@@ -105,48 +105,55 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     
 //    DeleteThis later
 //    //save everything eventually except the image.
-//    newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+    newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
 //    [newReport saveEventually];
 //    self.pump.status = self.btnStatus.titleLabel.text;
 //    [self.pump saveEventually];
 //    
 //    [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
-    
-    
+
+//    
+//   [newReport saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+//       NSLog(@"Interent NO: %@", error.description);
+//       if (error) {
+//           NSLog(@"I am in the error block");
+//       }
+//   }];
+   
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        
-//        if (succeeded) {
-//            
-//            //After image is saved , saved the report.
-//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-//            newReport.reportImage = imageFile;
-//            
-//            
-//            [newReport saveInBackground];
-//            self.pump.status = self.btnStatus.titleLabel.text;
-//            [self.pump saveInBackground];
-//            [self notificationWithMessage:@"Report Successfully Submitted"];
-//
-//        } else {
+    
+        if (succeeded) {
+
+            //After image is saved , saved the report.
+            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+            newReport.reportImage = imageFile;
+
+            
+            [newReport saveInBackground];
+            self.pump.status = self.btnStatus.titleLabel.text;
+            [self.pump saveInBackground];
+            [self notificationWithMessage:@"Report Successfully Submitted"];
+
+        } else {
 //            //save everything eventually except the image.
 //            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
 //            [newReport saveEventually];
 //            self.pump.status = self.btnStatus.titleLabel.text;
 //            [self.pump saveEventually];
 //            
-//            [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
-//        }
-        
-        NSLog(@"Error: Internet No: %@",error);
-        if(error){
-            //save everything eventually except the image.
-            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-            [newReport saveEventually];
-            self.pump.status = self.btnStatus.titleLabel.text;
-            [self.pump saveEventually];
-            
-            [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
+//            [self notificationWithMessage:@"Report Will Be Saved When Network Available 1"];
         }
+        
+//        NSLog(@"Error: Internet No: %@",error);
+//        if(error){
+//            //save everything eventually except the image.
+//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
+//            [newReport saveEventually];
+//            self.pump.status = self.btnStatus.titleLabel.text;
+//            [self.pump saveEventually];
+//
+//            [self notificationWithMessage:@"Report Will Be Submitted When Network Available 2"];
+//        }
         
         
     }];
@@ -157,7 +164,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
    
     
     [self dismissViewControllerAnimated:YES completion:^{
-//        [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:self userInfo:@{@"report":newReport}];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:ReportSavedNotification object:self userInfo:@{@"currentPump":self.pump}];
         
     }];
     

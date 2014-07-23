@@ -44,6 +44,13 @@
     UIBarButtonItem *mapsButton = [[UIBarButtonItem alloc] initWithTitle:@"Maps" style:UIBarButtonItemStyleDone target:self action:@selector(onMapsButtonClick)];
     [mapsButton setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor], NSForegroundColorAttributeName,nil] forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItem = mapsButton;
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+    self.navigationController.navigationBar.translucent = YES;
+    self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.0 / 255.0 green:171.0 / 255.0 blue:243.0 / 255.0 alpha:0.6];
+    
+    UIImage* logoImage = [UIImage imageNamed:@"navBarHeader"];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:logoImage];
 
 
 }
@@ -60,7 +67,7 @@
     }];
 }
 - (void) onMapsButtonClick {
-    PumpsMapViewController *vc = [[PumpsMapViewController alloc] init];
+    PumpMapViewController *vc = [[PumpMapViewController alloc] init];
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
     
     nvc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
@@ -85,8 +92,9 @@
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PumpMapViewController *vc = [[PumpMapViewController alloc] init];
-    vc.pump = self.pumps[indexPath.row];
+//    vc.pump = self.pumps[indexPath.row];
     vc.pumps = self.pumps;
+    vc.index = indexPath.row;
     [self.navigationController pushViewController:vc animated:YES];
 
 }

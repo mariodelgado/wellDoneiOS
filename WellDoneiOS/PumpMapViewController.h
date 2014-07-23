@@ -14,6 +14,7 @@ extern NSString *const ReportSavedNotification;
 
 @interface PumpMapViewController : UIViewController<MKMapViewDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIGestureRecognizerDelegate>
 @property  (nonatomic, strong) Pump *pump;
+@property (nonatomic, assign) int index;
 @property  (nonatomic, strong) NSArray *pumps;
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation;
 
