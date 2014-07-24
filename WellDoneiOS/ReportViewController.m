@@ -48,6 +48,7 @@
     UIImage *img = [UIImage imageNamed:@"NewYork.jpg"];
     self.pumpImage.image = img;
     self.pumpImage.clipsToBounds = YES;
+    self.navigationItem.title = @"Report View";
     self.navigationController.navigationBarHidden = NO;
 
     [self loadDataFromModel];
