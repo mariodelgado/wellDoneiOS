@@ -12,6 +12,8 @@
 #import "ImageCollectionViewCell.h"
 #import "MMPickerView.h"
 #import "CWStatusBarNotification.h"
+#import "AFNetworkReachabilityManager.h"
+#import "Reachability.h"
 
 
 
@@ -27,6 +29,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 @property (weak, nonatomic) IBOutlet UIView *blurView;
 @property (weak, nonatomic) IBOutlet UIImageView *bgImage;
 @property (strong, nonatomic)CWStatusBarNotification *notification;
+@property (assign, nonatomic) BOOL isThereNetwork;
 
 @property (weak, nonatomic) IBOutlet UIImageView *bigAddPhotoImageView;
 
@@ -48,6 +51,9 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     if (self) {
         self.dataArray = [NSMutableArray array];
         self.imageDataToSave = [NSMutableArray array];
+      
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+        
     }
     return self;
     
@@ -115,9 +121,12 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     self.navigationController.navigationBar.topItem.title = @"Create Report";
     
     
+//   //Internet
+//    [[AFNetworkReachabilityManager sharedManager] startMonitoring];
+//    self.isThereNetwork = [self connected];
+   
+}
 
-    
-    }
 
 - (void)didReceiveMemoryWarning
 {
@@ -127,72 +136,40 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 
 - (void) onSave {
-
-    
-    PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
     __block Report *newReport;
-    
-//    DeleteThis later
-//    //save everything eventually except the image.
     newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-//    [newReport saveEventually];
-//    self.pump.status = self.btnStatus.titleLabel.text;
-//    [self.pump saveEventually];
-//    
-//    [self notificationWithMessage:@"Report Will Be Saved When Network Available"];
-
-//    
-//   [newReport saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-//       NSLog(@"Interent NO: %@", error.description);
-//       if (error) {
-//           NSLog(@"I am in the error block");
-//       }
-//   }];
-   
-    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-    
-        if (succeeded) {
-
-            //After image is saved , saved the report.
-//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-            newReport.reportImage = imageFile;
-
-            
-            [newReport saveInBackground];
-            self.pump.status = self.btnStatus.titleLabel.text;
-            [self.pump saveInBackground];
-            [self notificationWithMessage:@"Report Successfully Submitted"];
-
-        } else {
-//            //save everything eventually except the image.
-//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-//            [newReport saveEventually];
-//            self.pump.status = self.btnStatus.titleLabel.text;
-//            [self.pump saveEventually];
-//            
-//            [self notificationWithMessage:@"Report Will Be Saved When Network Available 1"];
-        }
+    self.isThereNetwork = [[NSUserDefaults standardUserDefaults] boolForKey:@"isReachable"];
+    if (self.isThereNetwork) {
+        NSLog(@"isConntect:%hhd",[self connected]);
+        PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
         
-//        NSLog(@"Error: Internet No: %@",error);
-//        if(error){
-//            //save everything eventually except the image.
-//            newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
-//            [newReport saveEventually];
-//            self.pump.status = self.btnStatus.titleLabel.text;
-//            [self.pump saveEventually];
-//
-//            [self notificationWithMessage:@"Report Will Be Submitted When Network Available 2"];
-//        }
+        [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+            
+            if (succeeded) {
+                newReport.reportImage = imageFile;
+                
+                [newReport saveInBackground];
+                self.pump.status = self.btnStatus.titleLabel.text;
+                [self.pump saveInBackground];
+                [self notificationWithMessage:@"Report Successfully Submitted"];
+                
+            }
+            if (newReport) {
+                [self.delegate addReportToArray:newReport];
+            }
+            
+        }];
+    } else {
+        NSLog(@"No internet");
         if (newReport) {
             [self.delegate addReportToArray:newReport];
         }
-        
-    }];
-    
-    //send a notification
-    //send notifcation to add the report to the mapView
-
-   
+        self.pump.status = self.btnStatus.titleLabel.text; //So that status change.
+        [self notificationWithMessage:@"Report Will Be Submitted When Network Available"];
+    }
+//    [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+//        NSLog(@"Reachability: %@", AFStringFromNetworkReachabilityStatus(status));
+//    }];
     
     
     [self dismissViewControllerAnimated:YES completion:^{
@@ -259,8 +236,8 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     // Dismiss controller
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-//     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
-//    [self.imageDataToSave addObject:imageData];
+     NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
+    [self.imageDataToSave addObject:imageData];
     
    
     
@@ -343,6 +320,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 
 -(void)loadInitialViews {
+    self.btnStatus.titleLabel.text = self.pump.status;
     UIImage *image = [UIImage imageNamed:@"addPhoto1"];
 
     [self.dataArray addObject:image];
@@ -397,8 +375,18 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     
     
     [self.notification displayNotificationWithMessage:message
-                                          forDuration:2.0f];
+                                          forDuration:5.0f];
 }
+
+#pragma mark - See if there is internet
+- (BOOL)connected {
+    return [AFNetworkReachabilityManager sharedManager].reachable;
+}
+
+//- (void)reachabilityDidChange:(NSNotification *)notification {
+//    Reachability *reachability = (Reachability *)[notification object];
+//    self.isThereNetwork = [reachability isReachable];
+//}
 
 
 

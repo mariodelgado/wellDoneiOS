@@ -14,6 +14,7 @@
 #import "CWStatusBarNotification.h"
 #import "Report.h"
 #import "MHPrettyDate.h"
+#import "AFNetworkReachabilityManager.h"
 
 
 
@@ -59,6 +60,7 @@
         self.firstSwipe = YES;
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reportSavedShowNextRoute:) name:ReportSavedNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goToNextPump:) name:NextPumpSavedNotification object:nil];
         
 
 
@@ -539,11 +541,28 @@
 
 
 -(void)reportSavedShowNextRoute:(NSNotification*)notification {
+    BOOL isThereNetwork = [[NSUserDefaults standardUserDefaults] boolForKey:@"isReachable"];
+    if (isThereNetwork) {
+        Pump *currentPump = (Pump*)notification.userInfo[@"currentPump"];
+        NextPumpMapViewController *npVC = [NextPumpMapViewController new];
+        npVC.pumpFrom = currentPump;
+        [self presentViewController:npVC animated:YES completion:nil];
+    }
     
-    Pump *currentPump = (Pump*)notification.userInfo[@"currentPump"];
-    NextPumpMapViewController *npVC = [NextPumpMapViewController new];
-    npVC.pumpFrom = currentPump;
-    [self presentViewController:npVC animated:YES completion:nil];
+}
+
+-(void)goToNextPump:(NSNotification*)notification {
+    self.firstLoad = YES;
+    self.firstSwipe = YES;
+    Pump *nextPump = (Pump*)notification.userInfo[@"nextPump"];
+    self.pump = nextPump;
+    int index =0;
+    for (Pump *p in self.pumps) {
+        if ([p.name isEqualToString:nextPump.name]) {
+            [self setUpView:index];
+        }
+        index++;
+    }
     
 }
 

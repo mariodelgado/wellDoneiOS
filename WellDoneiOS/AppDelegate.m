@@ -16,6 +16,9 @@
 #import "PumpsListViewController.h"
 #import "LoginViewController.h"
 #import "onboardingViewController.h"
+#import "AFNetworkReachabilityManager.h"
+#import "Reachability.h"
+
 
 
 @implementation AppDelegate
@@ -27,10 +30,12 @@
     [Parse setApplicationId:@"XR5W6MLXuh81taNlbhRQ82mLlzOxmfLnv0isdvvi"
                   clientKey:@"jp00u3EcjTA4ZRh5dBNGC8mTgbak2U0anLlPrswW"];
     
+    
     self.notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[onboardingViewController alloc] init]];
-  UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[onboardingViewController alloc] init]];
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[onboardingViewController alloc] init]];
+//  UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpsListViewController alloc] init]];
+    [self.window setTintColor:[UIColor whiteColor]];
     
     
     self.window.rootViewController = nvc;
@@ -43,8 +48,32 @@
      UIRemoteNotificationTypeBadge |
      UIRemoteNotificationTypeAlert |
      UIRemoteNotificationTypeSound];
+    
+    //Internet
+    Reachability *reachability = [Reachability reachabilityWithHostname:@"www.google.com"];
+    // Start Monitoring
+    [reachability startNotifier];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
+
+    //Intial Internet is YES ..Assumption
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isReachable"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
     return YES;
 }
+
+- (void)reachabilityDidChange:(NSNotification *)notification {
+    Reachability *reachability = (Reachability *)[notification object];
+    BOOL isReachable;
+    if (reachability.isReachable) {
+        isReachable = YES;
+    } else {
+        isReachable = NO;
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:isReachable forKey:@"isReachable"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)newDeviceToken {

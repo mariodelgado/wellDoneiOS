@@ -49,6 +49,7 @@
     UIImage *img = [UIImage imageNamed:@"pumpPic.png"];
     self.pumpImage.image = img;
     self.pumpImage.clipsToBounds = YES;
+    self.navigationItem.title = @"Report View";
     self.navigationController.navigationBarHidden = NO;
 
     [self loadDataFromModel];
@@ -67,22 +68,13 @@
     self.lblDateCreated.text = [self giveMePrettyDate];
     self.lblStatus.text = self.report.status;
     self.lblNotes.text = self.report.reportNote;
-    //UILabel *lblStatusNew = [[UILabel alloc] initWithFrame:CGRectMake(self.lblStatus.frame.origin.x, self.lblStatus.frame.origin.y, 80, 40)];
-    //[lblStatusNew constructBorderedLabelWithText:@"Fixed" color:[UIColor redColor] angle:30];
-    //[self.view addSubview:lblStatusNew];
-    
     //show images
      [self.report.reportImage getDataInBackgroundWithBlock:^(NSData *data, NSError *error) {
         UIImage *image = [UIImage imageWithData:data];
         self.pumpImage.image = image;
         self.pumpImage.clipsToBounds = YES;
     }];
-    
-    
-    
-    
-    
-    
+
 }
 
 - (NSString *)giveMePrettyDate {

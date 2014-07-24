@@ -16,6 +16,7 @@
 @property (strong, nonatomic) IBOutlet UIView *viewGraph1;
 @property (weak, nonatomic) IBOutlet UIView *viewGraph2;
 @property (weak, nonatomic) IBOutlet UIView *backImage;
+- (IBAction)onTouch:(id)sender;
 
 @end
 
@@ -38,7 +39,7 @@
 //    [self lineChart1];
 //    [self lineChart2];
     
-    [self.view sendSubviewToBack: self.backImage];
+//    [self.view sendSubviewToBack: self.backImage];
 
 }
 
@@ -53,6 +54,7 @@
 - (void)styleView
 {
     self.view.layer.cornerRadius = 2;
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 
@@ -148,5 +150,9 @@
 
 -(void)moveLineChart1Down {
     self.viewGraph1.frame = CGRectMake(0, 240, SCREEN_WIDTH, 200);
+}
+- (IBAction)onTouch:(id)sender {
+     [self dismissViewControllerAnimated:YES completion:nil];
+    
 }
 @end

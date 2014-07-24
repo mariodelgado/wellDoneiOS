@@ -9,8 +9,6 @@
                 <outlet property="blurView" destination="1iZ-dR-RRg" id="4h1-Ae-E7A"/>
                 <outlet property="checkMark" destination="eIn-VM-tCL" id="WqV-HA-2et"/>
                 <outlet property="downArrod" destination="pxT-pD-5lg" id="55F-ET-JJW"/>
-                <outlet property="lblPumpName" destination="sTD-sj-yiE" id="aeg-iT-hlm"/>
-                <outlet property="lblTimeTaken" destination="duZ-ir-fAk" id="fyE-Kp-cVH"/>
                 <outlet property="mapIcon" destination="u8i-KL-BDy" id="Tk2-5I-sfU"/>
                 <outlet property="mapView" destination="bwL-Mi-Zxj" id="a6o-U5-2P8"/>
                 <outlet property="nextPumpDistance" destination="duZ-ir-fAk" id="toh-ER-TRN"/>
@@ -41,7 +39,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="968"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Pump 16" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-sj-yiE">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sTD-sj-yiE">
                             <rect key="frame" x="56" y="477" width="70" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
@@ -61,7 +59,7 @@
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="25"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="36 mins Away" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duZ-ir-fAk">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="duZ-ir-fAk">
                             <rect key="frame" x="157" y="477" width="107" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>

@@ -9,24 +9,32 @@
 #import "NextPumpMapViewController.h"
 #import <MapKit/MapKit.h>
 #import <LiveFrost.h>
+#import "AFNetworkReachabilityManager.h"
+#import "CWStatusBarNotification.h"
+#import "Reachability.h"
 
 #define METERS_PER_MILE 1609.344
 #define Y_OFFSET 194
+
+NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
 
 @interface NextPumpMapViewController ()
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 @property (weak, nonatomic) IBOutlet UIView *overLayView;
 @property (weak, nonatomic) IBOutlet UIView *blurView;
-@property (weak, nonatomic) IBOutlet UILabel *lblPumpName;
-@property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
+//@property (weak, nonatomic) IBOutlet UILabel *lblPumpName;
+//@property (weak, nonatomic) IBOutlet UILabel *lblTimeTaken;
 @property (weak, nonatomic) IBOutlet UIImageView *mapIcon;
 @property (weak, nonatomic) IBOutlet UIImageView *checkMark;
 @property (assign, nonatomic) CGPoint overLayCenter;
 @property (assign, nonatomic) CGPoint overLayCenterOriginal;
 - (IBAction)onClose:(id)sender;
 @property (strong, nonatomic) NSMutableArray *locations;
+@property (strong, nonatomic) CWStatusBarNotification *notification;
+@property (assign, nonatomic) BOOL isThereNetwork;
 @property (weak, nonatomic) IBOutlet UILabel *nextPumpName;
 @property (weak, nonatomic) IBOutlet UILabel *nextPumpDistance;
+
 
 @property (weak, nonatomic) IBOutlet UIImageView *downArrod;
 
@@ -39,7 +47,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        self.isThereNetwork = YES;
+//        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityDidChange:) name:kReachabilityChangedNotification object:nil];
     }
     return self;
 }
@@ -62,7 +71,7 @@
     //Get Next close by broken pump.
     [Pump getPumpsCloseToLocation:self.pumpFrom.location withStatus:PumpStatusBroken block:^(NSArray *objects, NSError *error) {
         self.pumpTo = (Pump*)(objects[1]); 
-        self.lblPumpName.text = self.pumpTo.name;
+        self.nextPumpName.text = self.pumpTo.name;
         
         [self getDrivingTimeFromCurrentPump:self.pumpFrom.location ToNextPump:self.pumpTo.location];
         [self loadMapAtRegion];
@@ -81,13 +90,20 @@
                 self.checkMark.transform = CGAffineTransformMakeScale(1, 1);
                 
             } completion:^(BOOL finished) {
-                
+                [UIView animateWithDuration:.4 delay:0 usingSpringWithDamping:0.8 initialSpringVelocity:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+                    self.mapIcon.center = CGPointMake(160, 174);
+                    
+                } completion:^(BOOL finished) {
+                    
+                    
+                }];
                 
             }];
             
         }];
-        
+
     }];
+    
     
     
 }
@@ -112,7 +128,6 @@
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    NSLog(@"I am called!");
     Pump *pump = (Pump *)annotation;
     MKAnnotationView *pinView = nil;
     if(annotation != self.mapView.userLocation)
@@ -222,7 +237,7 @@
     [directions calculateETAWithCompletionHandler:^(MKETAResponse *response, NSError *error) {
         NSLog(@"Response:%@",response);
         NSLog(@"ETA:%f",response.expectedTravelTime);
-        self.lblTimeTaken.text = [NSString stringWithFormat:@"%d mins Away", (int)(response.expectedTravelTime/60) ];
+        self.nextPumpDistance.text = [NSString stringWithFormat:@"%d mins Away", (int)(response.expectedTravelTime/60) ];
         
     }];
     
@@ -288,7 +303,12 @@
 }
 
 - (IBAction)onClose:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self dismissViewControllerAnimated:YES completion:^{
+        if (self.pumpTo) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NextPumpSavedNotification object:self userInfo:@{@"nextPump":self.pumpTo}];
+        }
+        
+    }];
 }
 
 
@@ -327,5 +347,33 @@
     region.span.longitudeDelta = region.span.longitudeDelta *1.8;
     [self.mapView setRegion:region animated:YES];
 }
+
+-(void)notificationWithMessage:(NSString*)message {
+    self.notification = [CWStatusBarNotification new];
+    self.notification.notificationLabelBackgroundColor = [UIColor darkGrayColor];
+    self.notification.notificationAnimationInStyle = CWNotificationAnimationStyleTop;
+    
+    
+    [self.notification displayNotificationWithMessage:message
+                                          forDuration:5.0f];
+}
+
+#pragma mark - See if there is internet
+- (BOOL)connected {
+    return [AFNetworkReachabilityManager sharedManager].reachable;
+}
+
+- (void)reachabilityDidChange:(NSNotification *)notification {
+    Reachability *reachability = (Reachability *)[notification object];
+    self.isThereNetwork = [reachability isReachable];
+    
+    //    if ([reachability isReachable]) {
+    //        [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    //
+    //    } else {
+    //        [self performSegueWithIdentifier:@"noInternet" sender:self];
+    //    }
+}
+
 
 @end
