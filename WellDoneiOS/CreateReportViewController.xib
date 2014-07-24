@@ -12,6 +12,7 @@
                 <outlet property="blurView" destination="6lR-YR-nYl" id="YrY-8K-Cm6"/>
                 <outlet property="btnStatus" destination="VLt-PT-DcQ" id="NzB-uz-8Jf"/>
                 <outlet property="imageCollectionView" destination="DxU-zo-6xq" id="OJ0-9A-YWT"/>
+                <outlet property="infoFieldThing" destination="4pb-nB-B3z" id="RYb-oV-QsO"/>
                 <outlet property="reportName" destination="SYH-0F-5Eg" id="Vua-00-JPG"/>
                 <outlet property="txtReportNotes" destination="NkP-cg-bJd" id="Yip-7G-46P"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

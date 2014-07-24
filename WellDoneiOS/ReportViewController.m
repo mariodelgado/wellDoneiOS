@@ -53,8 +53,7 @@
 
     [self loadDataFromModel];
     
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-    self.navigationController.navigationBar.topItem.title = @"View Report";
+
     
 }
 

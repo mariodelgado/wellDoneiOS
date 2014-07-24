@@ -30,6 +30,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 @property (weak, nonatomic) IBOutlet UIImageView *bigAddPhotoImageView;
 
+@property (weak, nonatomic) IBOutlet UIView *infoFieldThing;
 
 - (IBAction)onStatus:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnStatus;
@@ -104,7 +105,42 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 }
 
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    // Adjust position up
+    NSLog(@"I need to move up");
+    
+    if (textField == self.txtReportNotes)
+    {
+        self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-60);
+        self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-60);
+        self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-60);
+        self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-60);
+        self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-50);
+    }
+    else
+    {
+        
+        
+        [UIView animateWithDuration: .54
+                              delay: 0
+             usingSpringWithDamping: 1
+              initialSpringVelocity: 0
+                            options: 0
+                         animations: ^
+         {
+             self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-60);
+             self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-60);
+             self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-60);
+             self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-60);
+             self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-50);
+         }
+                         completion: nil
+         ];
+        
+    } }
+
 - (void) onSave {
+
     
     PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
     __block Report *newReport;
