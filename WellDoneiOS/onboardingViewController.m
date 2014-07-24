@@ -12,6 +12,7 @@
 @interface onboardingViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *bgImageImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *positionMarkerImageView;
+- (IBAction)onQuitOnboard:(UIButton *)sender;
 
 @end
 
@@ -56,14 +57,14 @@
         } completion:^(BOOL finished) {
             // delay
             [NSTimer scheduledTimerWithTimeInterval:5.0f
-                                             target:self selector:@selector(notif1:) userInfo:nil repeats:NO];
+                                             target:self selector:@selector(notif1) userInfo:nil repeats:NO];
         }];
     }];
 
 }
 
 
--(void) notif1: (NSTimer *) timer {
+-(void) notif1 {
     // Switch VC
     UINavigationController *navigationController = [[UINavigationController alloc] initWithRootViewController:[[LoginViewController alloc] init]];
     [self presentViewController:navigationController animated:YES completion:nil];
@@ -76,4 +77,8 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)onQuitOnboard:(UIButton *)sender {
+    [self notif1];
+    
+}
 @end
