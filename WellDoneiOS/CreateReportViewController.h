@@ -15,7 +15,7 @@
 
 @end
 
-@interface CreateReportViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate>
+@interface CreateReportViewController : UIViewController <UINavigationControllerDelegate,UIImagePickerControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UITextFieldDelegate, UITextViewDelegate>
 @property (strong, nonatomic) Pump *pump;
 @property (weak, nonatomic) id <AddReportDelegate> delegate;
 

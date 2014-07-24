@@ -20,7 +20,7 @@
 NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 @interface CreateReportViewController ()
-@property (weak, nonatomic) IBOutlet UITextView *txtReportNotes;
+@property (weak, nonatomic) IBOutlet UITextField *txtReportNotes;
 @property (weak, nonatomic) IBOutlet UITextField *reportName;
 - (IBAction)onCamera:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
@@ -31,15 +31,15 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 @property (strong, nonatomic)CWStatusBarNotification *notification;
 @property (assign, nonatomic) BOOL isThereNetwork;
 
+@property (weak, nonatomic) IBOutlet UIImageView *bigAddPhotoImageView;
 
+@property (weak, nonatomic) IBOutlet UIView *infoFieldThing;
 
 - (IBAction)onStatus:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *btnStatus;
 - (IBAction)onSubmit:(id)sender;
 
-
-@property (strong, nonatomic) IBOutlet UITapGestureRecognizer *onDismissKeyboard;
-
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
 
 @end
 
@@ -59,6 +59,25 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     
 
 }
+-(void) moveItems {
+    self.infoFieldThing.center = CGPointMake(self.infoFieldThing.center.x, self.infoFieldThing.center.y-120);
+    self.bigAddPhotoImageView.center = CGPointMake(self.bigAddPhotoImageView.center.x, self.bigAddPhotoImageView.center.y-120);
+    self.imageCollectionView.center = CGPointMake(self.imageCollectionView.center.x, self.imageCollectionView.center.y-120);
+    self.submitButton.center = CGPointMake(self.submitButton.center.x, self.submitButton.center.y-120);
+}
+-(void) moveItemsBack {
+    self.infoFieldThing.center = CGPointMake(self.infoFieldThing.center.x, self.infoFieldThing.center.y+120);
+    self.bigAddPhotoImageView.center = CGPointMake(self.bigAddPhotoImageView.center.x, self.bigAddPhotoImageView.center.y+120);
+    self.imageCollectionView.center = CGPointMake(self.imageCollectionView.center.x, self.imageCollectionView.center.y+120);
+    self.submitButton.center = CGPointMake(self.submitButton.center.x, self.submitButton.center.y+120);
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    [self moveItems];
+}
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    [self resignFirstResponder];
+}
 
 - (void)viewDidLoad
 {
@@ -67,6 +86,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     self.reportName.delegate = self;
     self.imageCollectionView.dataSource = self;
     self.imageCollectionView.delegate = self;
+    self.txtReportNotes.delegate = self;
     [self.imageCollectionView registerClass:[ImageCollectionViewCell class] forCellWithReuseIdentifier:@"imageCellectionViewCell"];
     [self.view sendSubviewToBack: self.blurView];
     
@@ -116,21 +136,17 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 
 - (void) onSave {
-    NSLog(@"I am in Save");
-     __block Report *newReport;
+    __block Report *newReport;
     newReport = [Report reportWithName:self.reportName.text note:self.txtReportNotes.text pump:self.pump status:self.btnStatus.titleLabel.text];
     self.isThereNetwork = [[NSUserDefaults standardUserDefaults] boolForKey:@"isReachable"];
     if (self.isThereNetwork) {
         NSLog(@"isConntect:%hhd",[self connected]);
         PFFile *imageFile = [PFFile fileWithName:@"Image.jpg" data:[self.imageDataToSave firstObject]];
-       
         
-       
         [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
             
             if (succeeded) {
                 newReport.reportImage = imageFile;
-                
                 
                 [newReport saveInBackground];
                 self.pump.status = self.btnStatus.titleLabel.text;
@@ -340,11 +356,15 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 //This will make the keyboard dissapear
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
+    [self moveItemsBack];
     return YES;
 }
 
 - (IBAction)onSubmit:(id)sender {
     [self onSave];
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self moveItems];
 }
 
 
