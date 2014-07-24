@@ -405,7 +405,7 @@
     } else {
         
         [UIView animateWithDuration:0.5 animations:^{
-            self.view.superview.transform = CGAffineTransformMakeScale(0.1, 0.1);
+            self.view.superview.transform = CGAffineTransformMakeScale(1.0, 1.0);
             
             fromViewController.view.frame = CGRectMake(fromViewController.view.frame.origin.x, fromViewController.view.frame.origin.y+500, fromViewController.view.frame.size.width, fromViewController.view.frame.size.width);
         } completion:^(BOOL finished) {
