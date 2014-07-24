@@ -33,7 +33,7 @@
     
     self.notificationPayload = launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[onboardingViewController alloc] init]];
+//    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[PumpMapViewController alloc] init]];
   UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:[[onboardingViewController alloc] init]];
     
     
