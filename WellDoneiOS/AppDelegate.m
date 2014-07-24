@@ -38,7 +38,6 @@
     [self.window setTintColor:[UIColor whiteColor]];
     
     
-    
     self.window.rootViewController = nvc;
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
