@@ -14,7 +14,8 @@
                 <outlet property="imageCollectionView" destination="DxU-zo-6xq" id="OJ0-9A-YWT"/>
                 <outlet property="infoFieldThing" destination="4pb-nB-B3z" id="RYb-oV-QsO"/>
                 <outlet property="reportName" destination="SYH-0F-5Eg" id="Vua-00-JPG"/>
-                <outlet property="txtReportNotes" destination="NkP-cg-bJd" id="Yip-7G-46P"/>
+                <outlet property="submitButton" destination="Vek-1z-3Dr" id="w1V-tn-hJS"/>
+                <outlet property="txtReportNotes" destination="CXW-V2-Cdv" id="C77-2c-cRS"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -144,14 +145,13 @@
                             <color key="textColor" white="0.0" alpha="0.56000000000000005" colorSpace="calibratedWhite"/>
                             <color key="highlightedColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Add any other notes here." id="NkP-cg-bJd" userLabel="Text View - Notes">
-                            <rect key="frame" x="12" y="171" width="296" height="98"/>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add any notes here." minimumFontSize="17" id="CXW-V2-Cdv">
+                            <rect key="frame" x="12" y="183" width="296" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <color key="textColor" red="0.2513396143913269" green="0.25138914585113525" blue="0.2513364851474762" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>

@@ -18,7 +18,7 @@
 NSString * const ReportSavedNotification = @"ReportSavedNotification";
 
 @interface CreateReportViewController ()
-@property (weak, nonatomic) IBOutlet UITextView *txtReportNotes;
+@property (weak, nonatomic) IBOutlet UITextField *txtReportNotes;
 @property (weak, nonatomic) IBOutlet UITextField *reportName;
 - (IBAction)onCamera:(id)sender;
 @property (weak, nonatomic) IBOutlet UICollectionView *imageCollectionView;
@@ -36,6 +36,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 @property (weak, nonatomic) IBOutlet UIButton *btnStatus;
 - (IBAction)onSubmit:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *submitButton;
 
 @end
 
@@ -52,6 +53,25 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     
 
 }
+-(void) moveItems {
+    self.infoFieldThing.center = CGPointMake(self.infoFieldThing.center.x, self.infoFieldThing.center.y-120);
+    self.bigAddPhotoImageView.center = CGPointMake(self.bigAddPhotoImageView.center.x, self.bigAddPhotoImageView.center.y-120);
+    self.imageCollectionView.center = CGPointMake(self.imageCollectionView.center.x, self.imageCollectionView.center.y-120);
+    self.submitButton.center = CGPointMake(self.submitButton.center.x, self.submitButton.center.y-120);
+}
+-(void) moveItemsBack {
+    self.infoFieldThing.center = CGPointMake(self.infoFieldThing.center.x, self.infoFieldThing.center.y+120);
+    self.bigAddPhotoImageView.center = CGPointMake(self.bigAddPhotoImageView.center.x, self.bigAddPhotoImageView.center.y+120);
+    self.imageCollectionView.center = CGPointMake(self.imageCollectionView.center.x, self.imageCollectionView.center.y+120);
+    self.submitButton.center = CGPointMake(self.submitButton.center.x, self.submitButton.center.y+120);
+}
+
+- (void)textViewDidBeginEditing:(UITextView *)textView{
+    [self moveItems];
+}
+- (void)textViewDidEndEditing:(UITextView *)textView{
+    [self resignFirstResponder];
+}
 
 - (void)viewDidLoad
 {
@@ -60,6 +80,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     self.reportName.delegate = self;
     self.imageCollectionView.dataSource = self;
     self.imageCollectionView.delegate = self;
+    self.txtReportNotes.delegate = self;
     [self.imageCollectionView registerClass:[ImageCollectionViewCell class] forCellWithReuseIdentifier:@"imageCellectionViewCell"];
     [self.view sendSubviewToBack: self.blurView];
     
@@ -104,40 +125,6 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     // Dispose of any resources that can be recreated.
 }
 
-
-- (void)textFieldDidBeginEditing:(UITextField *)textField {
-    // Adjust position up
-    NSLog(@"I need to move up");
-    
-    if (textField == self.txtReportNotes)
-    {
-        self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-60);
-        self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-60);
-        self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-60);
-        self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-60);
-        self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-50);
-    }
-    else
-    {
-        
-        
-        [UIView animateWithDuration: .54
-                              delay: 0
-             usingSpringWithDamping: 1
-              initialSpringVelocity: 0
-                            options: 0
-                         animations: ^
-         {
-             self.usernameField.center = CGPointMake(self.usernameField.center.x, self.usernameField.center.y-60);
-             self.passwordField.center = CGPointMake(self.passwordField.center.x, self.passwordField.center.y-60);
-             self.fieldBackground.center = CGPointMake(self.fieldBackground.center.x, self.fieldBackground.center.y-60);
-             self.loginButton.center = CGPointMake(self.loginButton.center.x, self.loginButton.center.y-60);
-             self.facebookImage.center = CGPointMake(self.facebookImage.center.x, self.facebookImage.center.y-50);
-         }
-                         completion: nil
-         ];
-        
-    } }
 
 - (void) onSave {
 
@@ -391,11 +378,15 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
 //This will make the keyboard dissapear
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
     [textField resignFirstResponder];
+    [self moveItemsBack];
     return YES;
 }
 
 - (IBAction)onSubmit:(id)sender {
     [self onSave];
+}
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self moveItems];
 }
 
 
