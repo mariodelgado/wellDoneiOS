@@ -238,6 +238,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
     
      NSData *imageData = UIImageJPEGRepresentation(image, 0.05f);
     [self.imageDataToSave addObject:imageData];
+    self.bigAddPhotoImageView.hidden = YES;
     
    
     
@@ -298,6 +299,7 @@ NSString * const ReportSavedNotification = @"ReportSavedNotification";
         UITapGestureRecognizer *tabGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onCamera)];
         cell.superview.backgroundColor = [UIColor clearColor];
         [cell addGestureRecognizer:tabGesture];
+        
         
     }
     

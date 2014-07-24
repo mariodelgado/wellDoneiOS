@@ -46,9 +46,9 @@
 {
     [super viewDidLoad];
     
-    UIImage *img = [UIImage imageNamed:@"pumpPic.png"];
-    self.pumpImage.image = img;
-    self.pumpImage.clipsToBounds = YES;
+//    UIImage *img = [UIImage imageNamed:@"pumpPic.png"];
+//    self.pumpImage.image = img;
+//    self.pumpImage.clipsToBounds = YES;
     self.navigationItem.title = @"Report View";
     self.navigationController.navigationBarHidden = NO;
 
@@ -73,6 +73,7 @@
         UIImage *image = [UIImage imageWithData:data];
         self.pumpImage.image = image;
         self.pumpImage.clipsToBounds = YES;
+         NSLog(@"Error:%@",error.description);
     }];
 
 }
