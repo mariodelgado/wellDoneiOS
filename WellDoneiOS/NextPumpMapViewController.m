@@ -128,7 +128,6 @@ NSString * const NextPumpSavedNotification = @"NextPumpSavedNotification";
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    NSLog(@"I am called!");
     Pump *pump = (Pump *)annotation;
     MKAnnotationView *pinView = nil;
     if(annotation != self.mapView.userLocation)
